@@ -1,0 +1,34 @@
+{
+  "name": "lje",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.14.0",
+    "aos": "^2.3.4",
+    "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.22",
+    "pocketbase": "^0.10.0",
+    "prisma": "^4.14.0",
+    "vue": "^3.2.45",
+    "vue-horizontal-scroll": "^0.2.4",
+    "vue-router": "^4.1.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4",
+    "vite": "^4.0.0"
+  }
+}
