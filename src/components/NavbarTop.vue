@@ -1,3 +1,3 @@
 <template>
-  <h1>Logo Here</h1>
+  <h1>Logo Kat Sini Here</h1>
 </template>
