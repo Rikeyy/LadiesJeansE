@@ -19,6 +19,26 @@ const router = createRouter({
             path: "/main",
             component: () => import ("../views/Dashboard.vue"),
         },
+        {
+            path: "/urus-pekerja",
+            component: () => import ("../views/ManageWorker.vue"),
+        },
+        {
+            path: "/urus-produk",
+            component: () => import ("../views/ManageProduct.vue"),
+        },
+        {
+            path: "/urus-promosi",
+            component: () => import ("../views/ManagePromotion.vue"),
+        },
+        {
+            path: "/daftar-pekerja",
+            component: () => import ("../views/RegisterWorker.vue"),
+        },
+        {
+            path: "/update-pekerja/:id",
+            component: () => import ("../views/UpdateWorkerView.vue"),
+        },
     ],
     linkActiveClass: "routerlink-active-link",
 });
