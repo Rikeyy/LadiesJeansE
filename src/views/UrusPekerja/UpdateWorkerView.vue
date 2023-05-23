@@ -1,5 +1,5 @@
     <script setup>
-        import SidebarManager from '../components/SidebarManager.vue';
+        import SidebarManager from '../../components/SidebarManager.vue';    
     </script>
 
     <template>

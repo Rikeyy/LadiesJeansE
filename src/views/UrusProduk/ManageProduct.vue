@@ -1,5 +1,5 @@
 <script setup>
-    import SidebarManager from '../components/SidebarManager.vue';
+    import SidebarManager from '../../components/SidebarManager.vue';
 </script>
 
 <template>
@@ -20,42 +20,40 @@
 
                     <div data-aos-duration="2000" data-aos="zoom-in" class="h-[70%] bg-white pb-9">
                         <h1 class="p-5 text-lg font-semibold text-left bg-white ">Komposisi Produk Mengikut Kategori :</h1>
-                        <img src="../assets/Screenshot 2023-05-12 025806.png" class="m-auto w-3/5 white">
+                        <img src="../../assets/Screenshot 2023-05-12 025806.png" class="m-auto w-3/5 white">
                     </div>
                 </div>
 
-                <div class="w-[65%]">
+                <div class="w-[55%] mr-[8%]">
                     <div data-aos-duration="2000" data-aos="zoom-in" class="h-full w-full bg-white">
                         <table class="w-[90%]  text-sm text-left jadual mx-auto">
                             <caption class="py-5 text-lg font-semibold text-left bg-white ">
                                 Kategori Produk
                             </caption>
-                                <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white">
+                                <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="py-3">
                                             Nama Kategori
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-4 py-3 w-[50%]">
                                             Deskripsi
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="px-4 py-3">
                                             Aksi
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white border-b border-gray-500" v-for="kategori in kategoriList">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                    <tr class="bg-white border-b border-gray-500 text-center" v-for="kategori in kategoriList">
+                                        <th scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap ">
                                             {{ kategori.Nama_Kategori }}
                                         </th>
-                                        <td class="px-6 py-4">
+                                        <td class="px-4 py-4">
                                             {{ kategori.Deskripsi_Kategori }}
                                         </td>
-                                        <td class="px-6 py-4">
-                                            {{ kategori.hai }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            bdb
+                                        <td class="py-4 flex justify-evenly">
+                                            <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer"></i>
+                                            <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -82,7 +80,7 @@
                         </RouterLink>
                         </div>
                 </caption>
-                    <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white">
+                    <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 ID Produk
@@ -99,30 +97,31 @@
                             <th scope="col" class="px-6 py-3">
                                 Deskripsi
                             </th>
-                            <th scope="col" class="px-6 py-3 text-center">
+                            <th scope="col" class="px-6 py-3 w-[10%]">
                                 Aksi
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white border-b border-gray-500" v-for="produk in produkList">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        <tr class="bg-white border-b border-gray-500 text-center" v-for="produk in produkList">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-[15%]">
                                 {{ produk.Produk_ID }}
                             </th>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 w-[15%]">
                                 {{ produk.Nama_Produk }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4  w-[15%]">
                                 {{ produk.Harga_Produk }}
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4  w-[15%]">
                                 {{ produk.Saiz_Produk }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ produk.Deskripsi_Produk }}
                             </td>
-                            <td class="px-6 py-4">
-                                bdb
+                            <td class="px-6 py-4 flex justify-around">
+                                <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer"></i>
+                                <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
                             </td>
                         </tr>                    
                     </tbody>

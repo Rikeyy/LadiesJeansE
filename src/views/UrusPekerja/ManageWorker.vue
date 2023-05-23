@@ -1,5 +1,5 @@
 <script setup>
-    import SidebarManager from '../components/SidebarManager.vue';
+    import SidebarManager from '../../components/SidebarManager.vue';
 </script>
 
 <template>
@@ -20,7 +20,7 @@
 
                     <div data-aos-duration="2000" data-aos="zoom-in" class="h-[70%] bg-white pb-9">
                         <h1 class="p-5 text-lg font-semibold text-left bg-white ">Komposisi Pekerja</h1>
-                        <img src="../assets/Screenshot 2023-05-12 025806.png" class="m-auto w-3/5 white">
+                        <img src="../../assets/Screenshot 2023-05-12 025806.png" class="m-auto w-3/5 white">
                     </div>
                 </div>
 
