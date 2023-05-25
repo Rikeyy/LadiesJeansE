@@ -70,7 +70,7 @@
                                 Senarai Produk
                             <p class="mt-1 font-normal text-gray-500 dark:text-gray-400">Senarai produk yang ada di dalam Inventori.</p>
                         </div>
-                        <RouterLink to="/daftar-pekerja" class="w-[20%]">
+                        <RouterLink to="/daftar-produk" class="w-[20%]">
                         <div class="hijau">
                             <div class="text-center py-3 flex pt-[6%]">
                                 <i class="fa-solid fa-plus bg-green-300 rounded-full px-[6px] py-[6px] text-green-600 ml-[17%]"></i>
@@ -97,6 +97,9 @@
                             <th scope="col" class="px-6 py-3">
                                 Deskripsi
                             </th>
+                            <th scope="col" class="px-6 py-3">
+                                Kategori
+                            </th>
                             <th scope="col" class="px-6 py-3 w-[10%]">
                                 Aksi
                             </th>
@@ -119,9 +122,14 @@
                             <td class="px-6 py-4">
                                 {{ produk.Deskripsi_Produk }}
                             </td>
+                            <td class="px-6 py-3">
+                                {{ produk.Kategori.Nama_Kategori}}
+                            </td>
                             <td class="px-6 py-4 flex justify-around">
-                                <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer"></i>
-                                <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
+                                <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteProduct(produk.Produk_ID)"></i>
+                                <RouterLink :to="'/update-product/' + produk.id">
+                                    <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
+                                </RouterLink>
                             </td>
                         </tr>                    
                     </tbody>
@@ -141,7 +149,10 @@ export default {
   data() {
     return {
       kategoriList: [],
-      produkList: []
+      produkList: [],
+      data2 : [],
+      selectedProduct: null,
+      updateID: ""
     };
   },
   mounted() {
@@ -163,10 +174,26 @@ export default {
       axios.get('http://localhost:3001/produk')
         .then(response => {
           this.produkList = response.data;
-          // console.log(this.produkList);
+          console.log(this.produkList);
         })
         .catch(error => {
           console.error('Error fetching product data:', error);
+        });
+    },
+    deleteProduct(productId) {
+        this.updateID = productId;
+
+    axios.delete(`http://localhost:3001/produk/${productId}`)
+        .then(response => {
+        // Remove the deleted product from the produkList
+        const index = this.produkList.findIndex(p => p.Produk_ID === productId);
+        if (index !== -1) {
+            this.produkList.splice(index, 1);
+        }
+        console.log('Product deleted successfully.');
+        })
+        .catch(error => {
+        console.error('Error deleting product:', error);
         });
     }
   }

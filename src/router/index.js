@@ -42,6 +42,14 @@ const router = createRouter({
             path: "/urus-produk",
             component: () => import ("../views/UrusProduk/ManageProduct.vue"),
         },
+        {
+            path: "/daftar-produk",
+            component: () => import ("../views/UrusProduk/RegisterProduct.vue"),
+        },
+        {
+            path: "/update-product/:id",
+            component: () => import ("../views/UrusProduk/UpdateProduct.vue"),
+        },
 
         //manage promotion
         {

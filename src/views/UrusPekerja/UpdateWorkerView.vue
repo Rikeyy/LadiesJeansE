@@ -7,14 +7,14 @@
             <SidebarManager/>
             <div class="ml-[22%] mt-[2.7%] w-[75%]">
                 <div data-aos-duration="2000" data-aos="fade-down">
-                    <h1 class="text-2xl font-semibold mt-[2%]">Daftar Pekerja</h1>
+                    <h1 class="text-2xl font-semibold mt-[2%]">Ubahsuai Maklumat Pekerja</h1>
                                     <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
-                    <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - Pendaftaran Pekerja</h2>
+                    <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - Ubahsuai Maklumat Pekerja</h2>
                 </div>
                 
                 <div class="flex justify-between mt-[2%]">
                     <div data-aos="flip-up" data-aos-duration="1500" class="bg-white w-[90%] h-[78%] white pt-[5%] pb-[7%]">
-                        <h3 class="text-center text-xl mb-[3%]">Sila masukkan maklumat pekerja di ruang yang disediakan.</h3>
+                        <h3 class="text-center text-xl mb-[3%]">Sila masukkan maklumat pekerja yang baru di ruang yang disediakan.</h3>
 
                         <form class="w-[80%] m-auto" @submit.prevent="submitForm">
                             <div class="relative z-0 w-full mb-6 group">
