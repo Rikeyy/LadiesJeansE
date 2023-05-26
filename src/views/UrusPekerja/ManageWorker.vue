@@ -15,7 +15,7 @@
                 <div class="flex flex-col justify-between w-[30%] h-full">
                     <div data-aos-duration="2000" data-aos="zoom-in" class="h-[25%] white mb-8 pb-2">
                         <h1 class="font-semibold pl-[4%] mt-[2%] mb-[2%]">Bilangan Pekerja Terdaftar :</h1>
-                        <h2 class="text-6xl font-bold text-center">5</h2>
+                        <h2 class="text-6xl font-bold text-center">{{ workerList.length }}</h2>
                     </div>
 
                     <div data-aos-duration="2000" data-aos="zoom-in" class="h-[70%] bg-white pb-9">
@@ -164,11 +164,18 @@ export default {
         .then(response => {
           this.workerList = response.data;
           // console.log(this.kategoriList);
+          this.sortWorkerList(); // Call the method to sort the workerList
+
         })
         .catch(error => {
           console.error('Error fetching worker data:', error);
         });
     },
+    sortWorkerList() {
+        this.workerList.sort((a, b) => a.Nama_Pekerja.localeCompare(b.Nama_Pekerja)); // Sort the workerList in descending order based on worker's name
+  },
+ 
+  },
     deleteWorker(worker) {
     // Set the updateID when the RouterLink is clicked
     this.updateID = worker;
@@ -187,7 +194,7 @@ export default {
     });
 }
   }
-};
+;
 </script>
 
 <style>

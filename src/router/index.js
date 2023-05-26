@@ -41,6 +41,24 @@ const router = createRouter({
         {
             path: "/urus-produk",
             component: () => import ("../views/UrusProduk/ManageProduct.vue"),
+            children:
+            [
+                {
+                    path: "",
+                    name: "basekategory",
+                    component: () => import("../views/kategory/kategoryBase.vue"),
+                },
+                {
+                    path: "add",
+                    name: "addkategory",
+                    component: () => import("../views/kategory/addKategory.vue"),
+                },
+                {
+                    path: "update/:id",
+                    name: "updatekategory",
+                    component: () => import("../views/kategory/updateKategory.vue"),
+                }
+            ]
         },
         {
             path: "/daftar-produk",

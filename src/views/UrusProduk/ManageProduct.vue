@@ -1,5 +1,6 @@
 <script setup>
     import SidebarManager from '../../components/SidebarManager.vue';
+    import { RouterView } from 'vue-router';
 </script>
 
 <template>
@@ -15,7 +16,7 @@
                 <div class="flex flex-col justify-between w-[30%] h-full">
                     <div data-aos-duration="2000" data-aos="zoom-in" class="h-[25%] white mb-8 pb-2">
                         <h1 class="font-semibold pl-[4%] mt-[2%] mb-[2%]">Bilangan Produk Terdaftar :</h1>
-                        <h2 class="text-6xl font-bold text-center">5</h2>
+                        <h2 class="text-6xl font-bold text-center">{{ produkList ? produkList.length : 0 }}</h2>
                     </div>
 
                     <div data-aos-duration="2000" data-aos="zoom-in" class="h-[70%] bg-white pb-9">
@@ -24,11 +25,27 @@
                     </div>
                 </div>
 
-                <div class="w-[55%] mr-[8%]">
+                <div class="w-[65%]">
                     <div data-aos-duration="2000" data-aos="zoom-in" class="h-full w-full bg-white">
-                        <table class="w-[90%]  text-sm text-left jadual mx-auto">
+                        <RouterView></RouterView>
+                        <!-- <table class="w-[90%]  text-sm text-left jadual mx-auto">
                             <caption class="py-5 text-lg font-semibold text-left bg-white ">
-                                Kategori Produk
+                                <div class="flex justify-between">
+                                <div>
+                                    Kategori Produk
+                                    <p class="mt-1 font-normal text-gray-500 dark:text-gray-400">Senarai kategori yang terdaftar di dalam sistem.</p>
+                                </div>
+                                <div>
+                                    <RouterLink to="/daftar-produk">
+                                    <div class="hijau">
+                                        <div class="text-center py-3 flex pt-[6%] w-[250px]">
+                                            <i class="fa-solid fa-plus bg-green-300 rounded-full px-[5px] py-[3px] text-green-600 ml-[17%]"></i>
+                                            <p class="text-sm font-normal ml-3 mt-[2px]">Tambah Kategori</p>
+                                        </div>
+                                    </div>
+                                    </RouterLink>
+                                </div>
+                                </div>
                             </caption>
                                 <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
                                     <tr>
@@ -57,7 +74,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> -->
                     </div>
                 </div>
             </div>
@@ -148,7 +165,6 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      kategoriList: [],
       produkList: [],
       data2 : [],
       selectedProduct: null,
@@ -156,20 +172,10 @@ export default {
     };
   },
   mounted() {
-    this.fetchKategoriData();
     this.fetchProductData();
   },
   methods: {
-    fetchKategoriData() {
-      axios.get('http://localhost:3001/kategori')
-        .then(response => {
-          this.kategoriList = response.data;
-          // console.log(this.kategoriList);
-        })
-        .catch(error => {
-          console.error('Error fetching kategori data:', error);
-        });
-    },
+
     fetchProductData() {
       axios.get('http://localhost:3001/produk')
         .then(response => {
