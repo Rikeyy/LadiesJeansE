@@ -156,46 +156,40 @@ export default {
   },
   mounted() {
     this.fetchWorkerData();
-    
   },
   methods: {
     fetchWorkerData() {
       axios.get('http://localhost:3001/')
         .then(response => {
           this.workerList = response.data;
-          // console.log(this.kategoriList);
-          this.sortWorkerList(); // Call the method to sort the workerList
-
+          this.sortWorkerList();
         })
         .catch(error => {
           console.error('Error fetching worker data:', error);
         });
     },
     sortWorkerList() {
-        this.workerList.sort((a, b) => a.Nama_Pekerja.localeCompare(b.Nama_Pekerja)); // Sort the workerList in descending order based on worker's name
-  },
- 
-  },
+      this.workerList.sort((a, b) => a.Nama_Pekerja.localeCompare(b.Nama_Pekerja));
+    },
     deleteWorker(worker) {
-    // Set the updateID when the RouterLink is clicked
-    this.updateID = worker;
+      this.updateID = worker;
 
-    axios.delete(`http://localhost:3001/` + worker)
-    .then(response => {
-      // Remove the deleted worker from the workerList
-      const index = this.workerList.findIndex(w => w.id === worker);
-      if (index !== -1) {
-        this.workerList.splice(index, 1);
-      }
-      console.log('Worker deleted successfully.');
-    })
-    .catch(error => {
-      console.error('Error deleting worker:', error);
-    });
-}
+      axios.delete(`http://localhost:3001/` + worker)
+        .then(response => {
+          const index = this.workerList.findIndex(w => w.id === worker);
+          if (index !== -1) {
+            this.workerList.splice(index, 1);
+          }
+          console.log('Worker deleted successfully.');
+        })
+        .catch(error => {
+          console.error('Error deleting worker:', error);
+        });
+    }
   }
-;
+};
 </script>
+
 
 <style>
 .white{

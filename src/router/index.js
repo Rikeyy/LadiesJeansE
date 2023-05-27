@@ -73,6 +73,24 @@ const router = createRouter({
         {
             path: "/urus-promosi",
             component: () => import ("../views/UrusPromosi/ManagePromotion.vue"),
+            children:
+            [
+                {
+                    path: "",
+                    name: "basePromotion",
+                    component: () => import("../views/UrusPromosi/PromotionBase.vue"),
+                },
+                {
+                    path: "add",
+                    name: "addPromotion",
+                    component: () => import("../views/UrusPromosi/addPromotion.vue"),
+                },
+                {
+                    path: "update/:id",
+                    name: "updatePromotion",
+                    component: () => import("../views/UrusPromosi/updatePromotion.vue"),
+                }
+            ]
         },
         
     ],
