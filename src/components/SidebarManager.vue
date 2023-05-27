@@ -25,7 +25,7 @@
             </div>
             <div class="flex mb-6">
                 <i class="fa-solid fa-arrow-right mt-[5px] mr-[7px]" style="color: #000000;"></i>
-                <div class="hover:text-blue-300  cursor-pointer">Paparan Stok</div>
+                <RouterLink to="/paparan-stok"><div class="hover:text-blue-300  cursor-pointer">Paparan Stok</div></RouterLink>
             </div>
             <div class="flex mb-6">
                 <i class="fa-solid fa-arrow-right mt-[5px] mr-[7px]" style="color: #000000;"></i>

@@ -92,6 +92,16 @@ const router = createRouter({
                 }
             ]
         },
+
+        // Display Stock
+        {
+            path: "/paparan-stok",
+            component: () => import ("../views/DisplayInventory.vue"),
+        },
+        {
+            path: "/paparan-stok/:id",
+            component: () => import ("../views/DisplayProduct.vue"),
+        },
         
     ],
     linkActiveClass: "routerlink-active-link",
