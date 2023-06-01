@@ -26,7 +26,7 @@
                             <option  v-for="kategori in kategoriList" :key="kategori.Nama_Kategori" :value="kategori.id" >{{ kategori.Nama_Kategori }}</option>
                         </select>
                     </div>
-                    <button @click="searchProducts" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
+                    <!-- <button @click="searchProducts" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button> -->
 
                 </div>
                 <table class="m-auto jadual">
@@ -58,7 +58,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody  v-if="displayProdukList.length > 0">
                         <tr
                             class="bg-white border-b border-gray-500 text-center"
                             v-for="produk in displayProdukList"
@@ -88,16 +88,27 @@
                             <td class="px-6 py-4 flex justify-around">
                                 <router-link :to="'/paparan-stok/'+ produk.id"><i class="fa-solid fa-eye text-lg text-sky-500 cursor-pointer" ></i></router-link>
                             </td>
-                        </tr>                    
+                        </tr> 
+                                           
                     </tbody>
-                </table>
+                    <tbody v-else>
+                        <tr class="text-center ">
+                            <td colspan="8" class="py-4">
+                                <div class="text-red-500">
+                                    Tiada produk ditemui untuk kriteria carian yang diberikan.
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import axios from 'axios';
 
 const searchId = ref('');
@@ -128,6 +139,10 @@ async function searchProducts() {
     console.error('Error searching products:', error);
   }
 }
+
+watch(searchId, () => {
+  searchProducts();
+});
 
 // Compute the display list based on whether search is performed or not
 const displayProdukList = computed(() => {

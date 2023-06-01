@@ -102,6 +102,20 @@ const router = createRouter({
             path: "/paparan-stok/:id",
             component: () => import ("../views/DisplayProduct.vue"),
         },
+
+        // Pekerja Page
+        {
+            path: "/pekerja/utama",
+            component: () => import ("../views/PekerjaPage/DashboardPekerja.vue"),
+        },
+        {
+            path: "/pekerja/jualan",
+            component: () => import ("../views/PekerjaPage/Sales.vue"),
+        },
+        {
+            path: "/pekerja/bakul",
+            component: () => import ("../views/PekerjaPage/Cart.vue"),
+        },
         
     ],
     linkActiveClass: "routerlink-active-link",
