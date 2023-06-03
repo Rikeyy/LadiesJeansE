@@ -9,7 +9,7 @@
             <div data-aos-duration="2000" data-aos="fade-down">
                 <h1 class="text-2xl font-semibold mt-[2%]">Daftar Pekerja</h1>
                                 <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
-                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - Pendaftaran Pekerja</h2>
+                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-500">Pendaftaran Pekerja</span></h2>
             </div>
             
             <div class="flex justify-between mt-[2%]">
@@ -18,63 +18,69 @@
 
                     <form class="w-[80%] m-auto" @submit.prevent="submitForm">
                         <div class="relative z-0 w-full mb-6 group">
-                            <input type="text" name="floating_nama" v-model="namapenuh" id="floating_nama" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <input type="text" name="floating_nama" v-model="namapenuh" id="floating_nama" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                             <label for="floating_nama" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama Penuh</label>
-                        </div>
+                            <label class="text-red-600 font-medium text-xs" for="errorNama" id="errorNama">{{ errors.namapenuh }}</label>
+
+                          </div>
                         <div class="relative z-0 w-full mb-6 group">
-                            <input type="text" name="floating_kp" id="floating_kp" v-model="nokp" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <input type="text" name="floating_kp" id="floating_kp" v-model="nokp" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                             <label for="floating_kp" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nombor Kad Pengenalan</label>
-                        </div>
+                            <label class="text-red-600 font-medium text-xs" for="errorkad" id="errorkad">{{ errors.nokp }}</label>
+                            <label class="text-red-600 font-medium text-xs" for="errorkad3" id="errorkad3">{{ errors.errorKP }}</label>
+                          </div>
                         <div class="flex justify-between">
                             <div class="relative z-0 w-[45%] mb-6 group">
-                            <input type="text" name="floating_phone" id="floating_phone"  v-model="telefon" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <input type="text" name="floating_phone" id="floating_phone"  v-model="telefon" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                             <label for="floating_phone" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nombor Telefon</label>
-                        </div>
+                            <label class="text-red-600 font-medium text-xs" for="errorphone" id="errorphone">{{ errors.telefon }}</label>
+                            <label class="text-red-600 font-medium text-xs" for="errorphone3" id="errorphone3">{{ errors.errorTel }}</label>
+
+                          </div>
                         <div class="relative z-0 w-[45%] mb-6 group">
-                            <input type="email" name="floating_email" id="floating_email"  v-model="emel" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <input type="text" name="floating_email" id="floating_email"  v-model="emel" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                             <label for="floating_email" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">E-Mel</label>
-                        </div>
+                            <label class="text-red-600 font-medium text-xs" for="erroremail" id="erroremail">{{ errors.emel }}</label>
+                            <label class="text-red-600 font-medium text-xs" for="erroremel" id="erroremel">{{ errors.errorEmel }}</label>
+                          </div>
                         </div>
                         <div class="relative z-0 w-full mb-6 group">
-                            <input type="text" name="floating_address" id="floating_address"  v-model="alamat" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <input type="text" name="floating_address" id="floating_address"  v-model="alamat" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                             <label for="floating_address" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat</label>
-                        </div>
+                            <label class="text-red-600 font-medium text-xs" for="errorAddress" id="errorAddress">{{ errors.alamat }}</label>
+                          </div>
                         <div class="flex justify-between">
                             <div class="relative z-0 w-[45%] mb-6 group">
-                            <input type="text" name="floating_id" id="floating_id"  v-model="idpekerja" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <input type="text" name="floating_id" id="floating_id"  v-model="idpekerja" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                             <label for="floating_id" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">ID Pekerja</label>
-                        </div>
+                            <label class="text-red-600 font-medium text-xs" for="errorID" id="errorID">{{ errors.idpekerja }}</label>
+                            <label class="text-red-600 font-medium text-xs" for="errorid" id="errorid">{{ errors.errorID }}</label>
+                          </div>
                         <div class="relative z-0 w-[45%] mb-6 group">
-                            <select name="floating_role" id="floating_role" v-model="peranan" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
+                            <select name="floating_role" id="floating_role" v-model="peranan" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" >
                                 <option value="Pekerja">Pekerja</option>
                                 <option value="Pengurus">Pengurus</option>
                             </select>
                             <label for="floating_role" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Peranan</label>
-                        </div>
+                            <label class="text-red-600 font-medium text-xs" for="errorrole" id="errorrole">{{ errors.peranan }}</label>
+                          </div>
                         </div>
                         <div class="flex justify-between">
                         <div class="relative z-0 w-[45%] mb-6 group">
-                            <input type="password" name="floating_password"  v-model="password" id="floating_password" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <input type="password" name="floating_password"  v-model="password" id="floating_password" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                             <label for="floating_password" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kata Laluan</label>
-                        </div>
-                        <!-- <div class="relative z-0 w-[45%] mb-6 group">
-                            <input type="password" name="floating_cpassword" id="floating_cpassword" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                            <label for="floating_cpassword" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Sahkan Kata Laluan</label>
-                        </div> -->
+                            <label class="text-red-600 font-medium text-xs" for="errorps" id="errorps">{{ errors.password }}</label>
+                          </div>
                         <div class="relative z-0 w-[45%] mb-6 group">
-                            <input type="gaji" name="floating_gaji" id="floating_gaji"  v-model="gaji" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <input type="number" name="floating_gaji" id="floating_gaji"  v-model="gaji" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                             <label for="floating_gaji" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Gaji Pekerja</label>
+                            <label class="text-red-600 font-medium text-xs" for="errorgaji" id="errorgaji">{{ errors.gaji }}</label>
+                          </div>
                         </div>
-                        </div>
-
-                        <!-- <label class="block mb-2 text-base font-medium" for="user_avatar">Muat Naik Gambar</label>
-                        <input class="block w-[30%] text-md border border-gray-300 rounded-lg cursor-pointer focus:outline-none dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file"> -->
 
                         <div class="flex justify-between">
                             <RouterLink to="/urus-pekerja" class="w-[47%] mt-[2.8%]"><button class="text-white w-full bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(184,_8,_8,_0.67)]">Batal</button></RouterLink>
                             <button type="submit" class="text-white w-[47%] bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] mt-[3%]">Daftar</button>
-                            <!-- <button class="text-white w-[47%] bg-gradient-to-r from-yellow-400 to-yellow-200 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(255,_255,_0,_0.7)] mt-[3%]">Ubahsuai</button> -->
-
                         </div>
                     </form>
                 </div>
@@ -98,10 +104,58 @@ export default {
       peranan: 'Pekerja',
       password: '',
       gaji: '',
+      errors: {
+        namapenuh: '',
+        nokp: '',
+        errorKP: '',
+        telefon: '',
+        errorTel: '',
+        emel: '',
+        errorEmel: '',
+        alamat: '',
+        idpekerja: '',
+        errorID: '',
+        peranan: '',
+        password: '',
+        gaji: '',
+
+        existKP : '',
+        existTel : '',
+        existEmel : '',
+        existID : '',
+    },
     };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
+      await axios.get("http://localhost:3001/noKP")
+        .then(response=>{
+            this.errors.existKP = response.data
+            console.log(this.errors.existKP)
+        })
+        .catch(error=>console.log(error))
+
+        await axios.get("http://localhost:3001/emel")
+        .then(response=>{
+            this.errors.existEmel = response.data
+            console.log(this.errors.existEmel)
+        })
+        .catch(error=>console.log(error))
+
+        await axios.get("http://localhost:3001/telefon")
+        .then(response=>{
+            this.errors.existTel = response.data
+            console.log(this.errors.existTel)
+        })
+        .catch(error=>console.log(error))
+
+        await axios.get("http://localhost:3001/stafID")
+        .then(response=>{
+            this.errors.existID = response.data
+            console.log(this.errors.existID)
+        })
+        .catch(error=>console.log(error))
+
       const formData = {
         Nama_Pekerja: this.namapenuh,
         NoKP_Pekerja: this.nokp,
@@ -111,29 +165,152 @@ export default {
         Staf_ID: this.idpekerja,
         Peranan_Pekerja: this.peranan,
         KataLaluan_Pekerja: this.password,
-        Gaji_Pekerja: this.gaji,
+        Gaji_Pekerja: this.gaji,  
       };
 
-      // Make an HTTP POST request to your server endpoint
-      axios.post('http://localhost:3001/', formData)
-        .then(response => {
-          // Handle the response if needed
-          console.log(response.data);
-          // Reset the form fields
-          this.namapenuh = '';
-          this.nokp = '';
-          this.telefon = '';
-          this.emel = '';
-          this.alamat = '';
-          this.idpekerja = '';
-          this.peranan = '';
-          this.password = '';
-          this.gaji = '';
-        })
-        .catch(error => {
-          // Handle the error if needed
-          console.error(error);
-        });
+      console.log(this.errors.existKP);
+      console.log(this.errors.existEmel);
+      console.log(this.errors.existID);
+      console.log(this.errors.existTel);
+
+      const existingKP = this.errors.existKP.filter(pekerja => pekerja.NoKP_Pekerja === this.nokp)
+      const existingTel = this.errors.existTel.filter(pekerja => pekerja.Telefon_Pekerja === this.telefon)
+      const existingEmel = this.errors.existEmel.filter(pekerja => pekerja.Emel_Pekerja === this.emel)
+      const existingID = this.errors.existID.filter(pekerja => pekerja.Staf_ID === this.idpekerja)
+
+      if(this.namapenuh && this.nokp && this.telefon && this.emel && this.alamat && this.idpekerja && this.peranan && this.password && this.gaji && !existingKP && !existingTel && !existingEmel && !existingID)
+      {
+        this.errors.errorKP = ''
+
+        if(!/(?=.*[A-Z])(?=.*[0-9]).{8,}/.test(this.password)){
+          this.errors.password ='*Kata Laluan Tidak Sah';
+        }
+        else{
+          this.errors.password = ''   
+        }
+                
+        if(!/^[\w.-]+@[a-zA-Z_-]+\.[a-zA-Z]{2,4}$/.test(this.emel)){
+          this.errors.emel = '*Emel Tidak Sah';
+        }
+        else{
+          this.errors.emel = ''
+        }
+
+        if(!this.errors.password && !this.errors.emel)
+        {
+          axios.post('http://localhost:3001/', formData)
+          .then(response => {
+            console.log(response.data);
+            this.namapenuh = '';
+            this.nokp = '';
+            this.telefon = '';
+            this.emel = '';
+            this.alamat = '';
+            this.idpekerja = '';
+            this.peranan = '';
+            this.password = '';
+            this.gaji = '';
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        }
+      }
+      else
+      {
+        if(this.errors.existKP){
+          this.errors.errorKP='*Nombor Kad Pengenalan Sudah Terdaftar'
+        }
+        else{
+          this.errors.errorKP=''
+        }
+
+        if(this.errors.existEmel){
+          this.errors.errorEmel='*Emel Sudah Terdaftar'
+        }
+        else{
+          this.errors.errorEmel=''
+        }
+
+        if(this.errors.existID){
+          this.errors.errorID='*ID Pekerja Sudah Terdaftar'
+        }
+        else{
+          this.errors.errorID=''
+        }
+
+        if(this.errors.existTel){
+          this.errors.errorTel='*Nombor Telefon Sudah Terdaftar'
+        }
+        else{
+          this.errors.errorTel=''
+        }
+
+        if(this.namapenuh === ''){
+          this.errors.namapenuh = "*Sila Masukkan Nama Penuh Pekerja"
+        }
+        else{
+          this.errors.namapenuh = ''
+        }
+
+        if(this.nokp === ''){
+          this.errors.nokp = "*Sila Masukkan Nombor Kad Pengenalan Pekerja"
+        }
+        else{
+          this.errors.nokp = ''
+        }
+
+        if(this.telefon === ''){
+          this.errors.telefon = "*Sila Masukkan Nombor Telefon Pekerja"
+        }
+        else{
+          this.errors.telefon = ''
+        }
+
+        if(this.emel === ''){
+          this.errors.emel = "*Sila Masukkan Emel Pekerja"
+        }
+        else{
+          this.errors.emel = ''
+        }
+
+        if(this.alamat === ''){
+          this.errors.alamat = "*Sila Masukkan Alamat Pekerja"
+        }
+        else{
+          this.errors.alamat = ''
+        }
+
+        if(this.idpekerja === ''){
+          this.errors.idpekerja = "*Sila Masukkan ID Pekerja"
+        }
+        else{
+          this.errors.idpekerja = ''
+        }
+
+        if(this.peranan === ''){
+          this.errors.peranan = "*Sila Masukkan Peranan Pekerja"
+        }
+        else{
+          this.errors.peranan = ''
+        }
+
+        if(this.password === ''){
+          this.errors.password = "*Sila Masukkan Kata Laluan Akaun Pekerja"
+        }
+        else{
+          this.errors.password = ''
+        }
+
+        if(this.gaji === ''){
+          this.errors.gaji = "*Sila Masukkan Gaji Pekerja"
+        }
+        else{
+          this.errors.gaji = ''
+        }
+
+      }
+      
     },
   },
 };

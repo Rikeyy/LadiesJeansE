@@ -3,12 +3,12 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-full w-full flex pb-[3%]">
+    <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] pt-[2.7%] w-[75%] h-[90%]">
             <div data-aos-duration="2000" data-aos="fade-down">
                 <h1 class="text-2xl font-semibold">Pengurusan Pekerja</h1>
-                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja</h2>
+                <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Pengurusan Pekerja</span></h2>
             </div>
 
             <div class="flex justify-between mt-[2%]">
@@ -25,51 +25,81 @@
                 </div>
 
                 <div class="w-[65%]">
-                    <div data-aos-duration="2000" data-aos="zoom-in" class="h-full w-full bg-white">
-                        <table class="w-[90%]  text-sm text-left jadual mx-auto">
-                            <caption class="py-5 text-lg font-semibold text-left bg-white ">
-                                Senarai Gaji Pekerja
-                            </caption>
-                                <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
-                                    <tr>
-                                        <th scope="col" class="px-4 py-3">
-                                            Nama Pekerja
-                                        </th>
-                                        <th scope="col" class="px-4 py-3">
-                                            ID Pekerja
-                                        </th>
-                                        <th scope="col" class="px-4 py-3">
-                                            Peranan
-                                        </th>
-                                        <th scope="col" class="px-4 py-3">
-                                            Gaji (Per Hari)
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="bg-white border-b border-gray-500 text-center" v-for="worker in workerList">
-                                        <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                            {{ worker.Nama_Pekerja }}
-                                        </th>
-                                        <td class="px-4 py-4">
-                                            {{ worker.Staf_ID }}
-                                        </td>
-                                        <td class=" py-4">
-                                            {{ worker.Peranan_Pekerja }}
-                                        </td>
-                                        <td class=" py-4">
-                                            RM {{ worker.Gaji_Pekerja }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div data-aos-duration="2000" data-aos="zoom-in" class="h-full w-full bg-white overflow-y-auto">
+                        <h2 class="py-5 pl-[5%] text-lg font-semibold text-left bg-white ">Senarai Gaji Pekerja</h2>
+                        <div class="h-[75%] ml-[5%] overflow-y-auto relative w-[90%] jadual">
+                        <table class="w-full text-sm text-left mx-auto">
+                            <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center sticky top-0 z-10">
+                            <tr>
+                                <th scope="col" class="px-4 py-3">
+                                Nama Pekerja
+                                </th>
+                                <th scope="col" class="px-4 py-3">
+                                ID Pekerja
+                                </th>
+                                <th scope="col" class="px-4 py-3">
+                                Peranan
+                                </th>
+                                <th scope="col" class="px-4 py-3">
+                                Gaji (Per Hari)
+                                </th>
+                            </tr>
+                            </thead>
+                            
+                            <tbody v-if="workerList.length > 0 && workerList.length < 6">
+                                <tr class="bg-white border-b border-gray-500 text-center" v-for="worker in workerList" :key="worker.Staf_ID">
+                                <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{ worker.Nama_Pekerja }}
+                                </th>
+                                <td class="px-4 py-4">
+                                {{ worker.Staf_ID }}
+                                </td>
+                                <td class="py-4">
+                                {{ worker.Peranan_Pekerja }}
+                                </td>
+                                <td class="py-4">
+                                RM {{ worker.Gaji_Pekerja }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                <p class="text-center py-5 text-gray-500">Daftar lagi pekerja untuk melihat yang lain.</p>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                            <tbody v-else-if="workerList.length > 0 " class="h-3 overflow-y-auto">
+                            <tr class="bg-white border-b border-gray-500 text-center" v-for="worker in workerList" :key="worker.Staf_ID">
+                                <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{ worker.Nama_Pekerja }}
+                                </th>
+                                <td class="px-4 py-4">
+                                {{ worker.Staf_ID }}
+                                </td>
+                                <td class="py-4">
+                                {{ worker.Peranan_Pekerja }}
+                                </td>
+                                <td class="py-4">
+                                RM {{ worker.Gaji_Pekerja }}
+                                </td>
+                            </tr>
+                            </tbody>
+
+                            <tbody v-else>
+                            <tr>
+                                <td colspan="4">
+                                <p class="text-center py-5 text-gray-500">Tiada pekerja terdaftar.</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
                     </div>
                 </div>
             </div>
 
-             <div data-aos-duration="2000" data-aos="fade-up" class="mt-[3%] bg-white w-full h-[51%] px-[2%] pb-7  ">
-                 <table class="w-full text-sm text-left jadual">
-                    <caption class="p-7 text-lg font-semibold text-left bg-white ">
+             <div data-aos-duration="2000" data-aos="fade-up" class="mt-[3%] bg-white w-full h-[40%] px-[2%] pb-[4%]  ">
+                <div class="p-7 text-lg font-semibold text-left bg-white ">
                         <div class="flex justify-between">
                             <div>
                             Senarai Pekerja
@@ -85,8 +115,11 @@
                         </RouterLink>
                         </div>
                         
-                    </caption>
-                    <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
+                    </div> 
+                    <div class=" h-[415px] relative jadual overflow-y-auto">
+                <table class="w-full text-sm text-left ">
+                    
+                    <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center sticky top-0 z-10">
                         <tr>
                             <th scope="col" class="px-4 py-3">
                                 Nama Pekerja
@@ -108,7 +141,37 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody v-if="workerList.length > 0 && workerList.length < 6">
+                        <tr class="bg-white border-b border-gray-500 text-center" v-for="worker in workerList">
+                            <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                {{ worker.Nama_Pekerja }}
+                            </th>
+                            <td class="px-4 py-4">
+                                {{ worker.Staf_ID }}
+                            </td>
+                            <td class="px-4 py-4">
+                                {{ worker.NoKP_Pekerja }}
+                            </td>
+                            <td class="px-4 py-4">
+                                {{ worker.Emel_Pekerja }}
+                            </td>
+                            <td class="px-4 py-4">
+                                {{ worker.Telefon_Pekerja }}
+                            </td>
+                            <td class="px-4 py-4 flex justify-around">
+                                <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteWorker(worker.id)"></i>
+                                <RouterLink :to="'/update-pekerja/' + worker.id">
+                                    <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
+                                </RouterLink>
+                            </td>
+                        </tr>    
+                        <tr>
+                                <td colspan="7">
+                                <p class="text-center py-5 text-gray-500">Daftar lagi pekerja untuk melihat yang lain.</p>
+                                </td>
+                            </tr>                 
+                    </tbody>
+                    <tbody v-else-if="workerList.length > 0">
                         <tr class="bg-white border-b border-gray-500 text-center" v-for="worker in workerList">
                             <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 {{ worker.Nama_Pekerja }}
@@ -133,7 +196,15 @@
                             </td>
                         </tr>                     
                     </tbody>
+                    <tbody v-else>
+                        <tr>
+                            <td colspan="6">
+                                <p class="text-center py-5 text-gray-500">Tiada pekerja terdaftar.</p>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
+            </div>
             </div>
 
             
@@ -217,4 +288,5 @@ export default {
     box-shadow:  8px 8px 23px #666666,
                 -8px -8px 23px #ffffff;
 }
+
 </style>

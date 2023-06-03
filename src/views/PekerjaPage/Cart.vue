@@ -9,7 +9,7 @@
         <h1 class="text-2xl font-semibold">Troli</h1>
         <h2 class="text-lg text-gray-500">Halaman Utama - Rekod Jualan - <span class="text-sky-500">Troli</span></h2>
   <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%] h-[90%]">
-    <table class="jadual">
+    <table class="jadual w-[90%] m-auto">
       <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
         <tr>
           <th scope="col" class="px-6 py-3">No.</th>
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -76,11 +78,22 @@ export default {
       moneyReceived: 0, // Add a new data property for moneyReceived
     };
   },
+  beforeUnmount() {
+  // Clear the cartItems from localStorage
+  localStorage.removeItem('cartItems');
+},
   mounted() {
   // Retrieve the product information, price, and quantity from storage
   const storedProductData = JSON.parse(localStorage.getItem('productData'));
   const storedTotalPrice = localStorage.getItem('totalPrice');
   const storedQuantity = parseInt(localStorage.getItem('quantity'));
+
+  const storedCartItems = localStorage.getItem('cartItems');
+  
+  if (storedCartItems) {
+    // If cartItems exist in localStorage, assign them to the data property
+    this.cartItems = JSON.parse(storedCartItems);
+  }
 
   if (storedProductData && storedTotalPrice && !isNaN(storedQuantity)) {
     // Add the retrieved data to the cartItems array
@@ -121,7 +134,64 @@ computed: {
   
   // Update the localStorage to reflect the changes
   localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+
+  
 },
+async navigateToPayment() {
+      // Send the data to the backend API
+      try {
+        const response = await axios.post("http://localhost:3001/record-sales", {
+          cartItems: this.cartItems,
+          totalCart: this.totalCart,
+          moneyReceived: this.moneyReceived,
+        });
+
+        // Handle the response if needed
+        console.log("Sales recorded:", response.data);
+
+        // Update the quantity in the database for each purchased product
+        await this.updateProductQuantities();
+
+        // Reset the cart and other necessary data
+        this.cartItems = [];
+        this.totalPrice = 0;
+        this.moneyReceived = 0;
+
+        // Close the summary dialog
+        this.closeSummaryDialog();
+        window.alert("Sales recorded successfully!");
+
+        // Redirect to another page
+        this.$router.push("/pekerja/jualan");
+
+        // Optional: Show a success message or redirect to another page
+      } catch (error) {
+        // Handle errors if any
+        console.error("Failed to record sales:", error);
+        // Show an error message or handle the error as needed
+      }
+    },
+
+    async updateProductQuantities() {
+      for (const item of this.cartItems) {
+        const productId = item.productData?.Produk_ID;
+        const purchasedQuantity = item.quantity;
+
+        try {
+          const response = await axios.post("http://localhost:3001/update-product-quantity", {
+            productId,
+            purchasedQuantity,
+          });
+
+          // Handle the response if needed
+          console.log("Quantity updated for product:", productId);
+        } catch (error) {
+          // Handle errors if any
+          console.error("Failed to update quantity for product:", productId);
+          // Show an error message or handle the error as needed
+        }
+      }
+    },
 openSummaryDialog() {
     this.calculateTotalPrice(); // Calculate the total price
     this.showSummaryDialog = true;

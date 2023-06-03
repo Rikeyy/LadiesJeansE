@@ -116,6 +116,15 @@ const router = createRouter({
             path: "/pekerja/bakul",
             component: () => import ("../views/PekerjaPage/Cart.vue"),
         },
+        {
+            path: "/pekerja/tambah-produk",
+            component: () => import ("../views/PekerjaPage/addInventory.vue"),
+        },
+
+        {
+            path: "/pekerja/tambah-produk/:id",
+            component: () => import ("../views/PekerjaPage/editQuantity.vue"),
+        },
         
     ],
     linkActiveClass: "routerlink-active-link",

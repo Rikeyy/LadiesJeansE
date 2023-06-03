@@ -1,12 +1,12 @@
 <script setup>
-    import SidebarManager from '../components/SidebarManager.vue';
+    import SidebarWorker from '../../components/SidebarWorker.vue';
 </script>
 
 <template>
     <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
-        <SidebarManager/>
+        <SidebarWorker/>
         <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
-            <h1 class="text-2xl font-semibold">Paparan Stok</h1>
+            <h1 class="text-2xl font-semibold">Tambah Stok Produk</h1>
             <h2 class="text-lg text-gray-500">Halaman Utama - Paparan Stok</h2>
             <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
                 <h3 class="text-4xl font-semibold pb-[2%]">Maklumat Produk</h3>
@@ -86,15 +86,14 @@
                                 :
                             </td>
                             <td class="text-lg pl-2"> 
-                                {{ product.Kuantiti_Produk }}
+                                <input type="number" v-model="kuantiti" />
                             </td>
                         </tr>
                     </table>
-                    <div class="px-[5%] py-[5%] h-[60%] putih mr-[5%]">
-                            <svg id="barcode" ref="barcode" class="border-2 border-black m-auto"></svg>
-                            <button @click="printBarcode" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] mt-[5%]">Print Barcode</button>
-                    </div>
                 </div>
+                <div class="flex justify-center mt-6">
+                <button class="px-6 py-3 bg-blue-500 text-white rounded-md font-semibold" @click="submitForm">Submit</button>
+            </div>
             </div>
         </div>
     </div>
@@ -102,9 +101,7 @@
 
 <script>
         import axios from 'axios';
-        import router from '../router';
-        import JsBarcode from 'jsbarcode';
-        import printJS from 'print-js';
+        import router from '../../router';
 
         export default {
             data() {
@@ -114,6 +111,7 @@
                     kategoriList: [],
                     selectedItem: null,
                     barcodeURL: '',
+                    kuantiti: null
                 };
             },
             mounted() {
@@ -137,18 +135,19 @@
             },
             methods: {
                 submitForm() {
-                this.product.kategoriProduk = this.selectedItem; // Assign the selected category to the product
-                axios
-                    .put('http://localhost:3001/produk/' + this.produkID, this.product)
-                    .then(response => {
-                    alert('Data updated successfully!');
-                    router.push('/urus-produk');
-                    })
-                    .catch(error => {
-                    alert('Failed to update data.');
-                    console.log(error);
-                    });
-                },
+                    this.product.Kuantiti_Produk += parseInt(this.kuantiti);
+                    axios
+  .put('http://localhost:3001/produk/' + this.produkID, { kuantiti: this.kuantiti })
+  .then(response => {
+    alert('Data updated successfully!');
+    router.push('/urus-produk');
+  })
+  .catch(error => {
+    alert('Failed to update data.');
+    console.log(error);
+  });
+                    },
+                
                 fetchKategoriData() {
                 axios.get('http://localhost:3001/kategori')
                     .then(response => {
@@ -158,64 +157,7 @@
                     .catch(error => {
                     console.error('Error fetching kategori data:', error);
                     });
-                },
-                printBarcode() {
-                // Get the SVG element
-                const barcodeElement = document.getElementById('barcode');
-
-                // Generate a new SVG string with updated XML namespaces
-                const svgXml = new XMLSerializer().serializeToString(barcodeElement);
-                const modifiedSvgXml = svgXml
-                    .replace('xmlns="http://www.w3.org/2000/svg"', '')
-                    .replace('xmlns:serif="http://www.serif.com/"', '');
-
-                // Create a new window for printing
-                const printWindow = window.open('', '_blank');
-
-                // Open a new document in the print window
-                printWindow.document.open();
-
-                // Add the modified SVG to the print document
-                printWindow.document.write(`
-                    <html>
-                        <head>
-                            <style>
-                                @page { size: auto; }
-                            </style>
-                        </head>
-                        <body>
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                            ${modifiedSvgXml}
-                        </body>
-                    </html>
-                `);
-
-                // Close the print document
-                printWindow.document.close();
-
-                // Print the document
-                printWindow.print();
-            }
-                
+                }                
             }
         };
     </script>

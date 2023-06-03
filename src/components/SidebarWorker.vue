@@ -15,7 +15,7 @@
             </div>
             <div class="flex mb-6">
                 <i class="fa-solid fa-arrow-right mt-[5px] mr-[7px]" style="color: #000000;"></i>
-                <RouterLink to="/urus-produk" exact-active-class="active-link">
+                <RouterLink to="/pekerja/tambah-produk" exact-active-class="active-link">
                 <div class="hover:text-blue-300  cursor-pointer">Tambah Stok</div></RouterLink>
             </div>
         </div>

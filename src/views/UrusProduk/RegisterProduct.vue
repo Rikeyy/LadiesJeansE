@@ -76,6 +76,7 @@ export default {
       saiz: '',
       deskripsi: '',
       kategori :''
+      
     };
   },
   mounted() {
