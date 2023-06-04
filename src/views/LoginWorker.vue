@@ -1,23 +1,59 @@
 <template>
-    <div  class="back w-screen h-screen">
-        <div data-aos="flip-up" class="glass left-[20%] top-[10%] absolute w-3/5 h-4/5 text-white">
-            <div class="flex h-full rounded-[50px]">
-                <form @submit.prevent="" class="w-3/5 rounded-l-[50px] text-white text-center m-auto">
-                    <h1 class="text-6xl font-medium pb-6">Hi! <span class="text-6xl font-medium text-sky-500">Selamat Datang</span></h1>
-                    <h2 class="text-3xl font-light pb-10">Log Masuk Sebagai <span class="text-4xl font-medium text-sky-500">Pekerja</span></h2>
-                    <p class="text-xl font-light pb-3" for="">ID<span class="text-xl font-medium text-sky-500"> Pekerja</span></p> 
-                    <input class="shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] rounded-full w-[45%] bg-transparent border-2 border-sky-500 px-3 py-1" type="text" name="" id="" placeholder="ID Pekerja" required>
-                    <p class="text-xl font-light pb-3 pt-6" for="">Kata<span class="text-xl font-medium text-sky-500"> Laluan</span></p> 
-                    <input class="shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] rounded-full w-[45%] bg-transparent border-2 border-sky-500 px-3 py-1" type="password" name="" id="" placeholder="Katalaluan" required> <br><br>
-                    <button type="submit" class="text-white bg-gradient-to-r w-[45%] from-sky-500 to-indigo-500 h-12 px-12 rounded-full my-auto shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">Log Masuk</button>
-                </form>
-                <div class="bg-[#fff] w-2/5 rounded-r-[50px] ">
-                    <img class="w-3/5 h-full m-auto" src="../assets/undraw_ideas_flow_re_bmea.svg">
-                </div>
-            </div>
+    <div class="back w-screen h-screen">
+      <div data-aos="flip-up" class="glass left-[20%] top-[10%] absolute w-3/5 h-4/5 text-white">
+        <div class="flex h-full rounded-[50px]">
+          <form @submit.prevent="submitForm" class="w-3/5 rounded-l-[50px] text-white text-center m-auto">
+            <h1 class="text-6xl font-medium pb-6">Hi! <span class="text-6xl font-medium text-sky-500">Selamat Datang</span></h1>
+            <h2 class="text-3xl font-light pb-10">Log Masuk Sebagai <span class="text-4xl font-medium text-sky-500">Pekerja</span></h2>
+            <p class="text-xl font-light pb-3" for="">ID<span class="text-xl font-medium text-sky-500"> Pekerja</span></p> 
+            <input class="shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] rounded-full w-[45%] bg-transparent border-2 border-sky-500 px-3 py-1" type="text" v-model="idPekerja" placeholder="ID Pekerja" >
+            <p class="text-xl font-light pb-3 pt-6" for="">Kata<span class="text-xl font-medium text-sky-500"> Laluan</span></p> 
+            <input class="shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] rounded-full w-[45%] bg-transparent border-2 border-sky-500 px-3 py-1" type="password" v-model="password" placeholder="Katalaluan"> <br><br>
+            <button type="submit" class="text-white bg-gradient-to-r w-[45%] from-sky-500 to-indigo-500 h-12 px-12 rounded-full my-auto shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">Log Masuk</button>
+          </form>
+          <div class="bg-[#fff] w-2/5 rounded-r-[50px] ">
+            <img class="w-3/5 h-full m-auto" src="../assets/undraw_ideas_flow_re_bmea.svg">
+          </div>
         </div>
+      </div>
     </div>
-</template>
+  </template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      idPekerja: '',
+      password: '',
+    };
+  },
+  methods: {
+    submitForm() {
+      // Perform validation and login logic here
+      const credentials = {
+        idPekerja: this.idPekerja,
+        password: this.password,
+      };
+
+      axios
+        .post('http://localhost:3001/login', credentials)
+        .then(response => {
+          // Successful login, perform desired actions
+          console.log('Login successful');
+          // Redirect to another page, etc.
+          this.$router.push('/main');
+        })
+        .catch(error => {
+          // Invalid credentials or other error occurred
+          console.log('Login failed:', error.message);
+          // Show error message or perform other actions
+        });
+    },
+  },
+};
+</script>
 
 <style>
 .back{
