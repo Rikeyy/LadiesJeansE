@@ -65,7 +65,7 @@
       </tbody>
       <tbody v-else="kategoriList.length > 0 && kategoriList.length < 4">
         <tr>
-          <td colspan="3" ><p class="text-center py-5 text-gray-500">Daftar kategori untuk melihat data.</p></td>
+          <td colspan="3" ><p class="text-center py-5 text-gray-500">Tiada kategori terdaftar.</p></td>
         </tr>
       </tbody>
     </table>

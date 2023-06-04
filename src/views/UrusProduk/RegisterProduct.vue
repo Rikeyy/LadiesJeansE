@@ -3,13 +3,13 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
+    <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-[75%]">
             <div data-aos-duration="2000" data-aos="fade-down">
                 <h1 class="text-2xl font-semibold mt-[2%]">Daftar Produk</h1>
                                 <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
-                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Inventori - Pendaftaran Produk</h2>
+                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Inventori - <span class="text-sky-500">Pendaftaran Produk</span></h2>
             </div>
             
             <div class="flex justify-between mt-[2%]">
@@ -19,30 +19,35 @@
                     <form class="w-[80%] m-auto" @submit.prevent="submitForm">
                         <div class="flex justify-between">
                             <div class="relative z-0 w-[47%] mb-6 group ">
-                                <input type="text" name="floating_idProduk" v-model="idProduk" id="floating_idProduk" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                <input type="text" name="floating_idProduk" v-model="idProduk" id="floating_idProduk" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                                 <label for="floating_idProduk" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">ID Produk</label>
-                            </div>
+                                <span class="text-red-500 text-sm">{{ errors.idProduk }}</span>
+                                <span class="text-red-500 text-sm">{{ errors.errorProduk }}</span>
+                              </div>
 
                             <div class="relative z-0 w-[47%] mb-6 group">
-                                <input type="text" name="floating_namaProduk" id="floating_namaProduk" v-model="namaProduk" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                <input type="text" name="floating_namaProduk" id="floating_namaProduk" v-model="namaProduk" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                                 <label for="floating_namaProduk" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nama Produk</label>
-                            </div>
+                                <span class="text-red-500 text-sm">{{ errors.namaProduk }}</span>
+                              </div>
                         </div>
                         <div class="flex justify-between">
                             <div class="relative z-0 w-[47%] mb-6 group">
-                                <input type="text" name="floating_harga" id="floating_harga"  v-model="harga" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                <input type="text" name="floating_harga" id="floating_harga"  v-model="harga" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                                 <label for="floating_harga" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Harga Produk (RM)</label>
-                            </div>
+                                <span class="text-red-500 text-sm">{{ errors.harga }}</span>
+                              </div>
                             <div class="relative z-0 w-[47%] mb-6 group">
-                                <input type="text" name="floating_saiz" id="floating_saiz"  v-model="saiz" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                <input type="text" name="floating_saiz" id="floating_saiz"  v-model="saiz" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                                 <label for="floating_saiz" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Saiz Produk</label>
-                            </div>
+                                <span class="text-red-500 text-sm">{{ errors.saiz }}</span>
+                              </div>
                         </div>
                         
                         <div class="relative z-0 w-full mb-6 group">
-                            <input type="text" name="floating_deskripsi" id="floating_deskripsi"  v-model="deskripsi" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                            <input type="text" name="floating_deskripsi" id="floating_deskripsi"  v-model="deskripsi" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                             <label for="floating_deskripsi" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Deskripsi Produk</label>
-                        </div>
+                          </div>
                         <div>
                             <label for="items">Pilih Kategori:</label>
                             <select id="items" v-model="selectedItem" placeholder="Select Item" class="block mt-2 appearance-none w-10% bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"> 
@@ -75,8 +80,16 @@ export default {
       harga: '',
       saiz: '',
       deskripsi: '',
-      kategori :''
-      
+      kategori: '',
+      errors: {
+        idProduk: '',
+        namaProduk: '',
+        harga: '',
+        saiz: '',
+        deskripsi: '',
+        existProduk: '',
+        errorProduk: '',
+      },
     };
   },
   mounted() {
@@ -84,43 +97,78 @@ export default {
   },
   methods: {
     fetchKategoriData() {
-      axios.get('http://localhost:3001/kategori')
-        .then(response => {
+      axios
+        .get('http://localhost:3001/kategori')
+        .then((response) => {
           this.kategoriList = response.data;
-        //   console.log(this.kategoriList);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error fetching kategori data:', error);
         });
     },
-    submitForm() {
+    async submitForm() {
+      await axios
+        .get('http://localhost:3001/cekProduk')
+        .then((response) => {
+          this.errors.existProduk = response.data;
+        })
+        .catch((error) => console.log(error));
+
       const formData = {
-        Produk_ID : this.idProduk,
-        Nama_Produk : this.namaProduk,
-        Harga_Produk : this.harga,
-        Deskripsi_Produk : this.deskripsi,
-        kategoriProduk : this.selectedItem,
-        Saiz_Produk : this.saiz
+        Produk_ID: this.idProduk,
+        Nama_Produk: this.namaProduk,
+        Harga_Produk: this.harga,
+        Deskripsi_Produk: this.deskripsi,
+        kategoriProduk: this.selectedItem,
+        Saiz_Produk: this.saiz,
       };
 
-      // Make an HTTP POST request to your server endpoint
-      axios.post('http://localhost:3001/produk', formData)
-        .then(response => {
-          // Handle the response if needed
-          console.log(response.data);
-          // Reset the form fields
-          alert("Data updated successfully!");
-          this.idProduk = '';
-          this.namaProduk = '';
-          this.harga = '';
-          this.deskripsi = '';
-          this.kategori = '';
-          this.saiz = '';
-        })
-        .catch(error => {
-          // Handle the error if needed
-          console.error(error);
-        });
+      const existingProduk = this.errors.existProduk.find(
+        (produk) => produk.Produk_ID === this.idProduk
+      );
+
+      if (
+        this.idProduk &&
+        this.namaProduk &&
+        this.harga &&
+        this.saiz &&
+        this.deskripsi &&
+        !existingProduk
+      ) {
+        this.errors.errorProduk = '';
+
+        axios
+          .post('http://localhost:3001/produk', formData)
+          .then((response) => {
+            console.log(response.data);
+            alert('Data updated successfully!');
+            this.idProduk = '';
+            this.namaProduk = '';
+            this.harga = '';
+            this.deskripsi = '';
+            this.kategori = '';
+            this.saiz = '';
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } else {
+        if (existingProduk) {
+          this.errors.errorProduk = '*ID Produk Sudah Terdaftar';
+        } else {
+          this.errors.errorProduk = '';
+        }
+
+        this.errors.idProduk = this.idProduk ? '' : '*Sila Masukkan ID Produk';
+        this.errors.namaProduk = this.namaProduk
+          ? ''
+          : '*Sila Masukkan Nama Produk';
+        this.errors.harga = this.harga ? '' : '*Sila Masukkan Harga Produk';
+        this.errors.deskripsi = this.deskripsi
+          ? ''
+          : '*Sila Masukkan Deskripsi Produk';
+        this.errors.saiz = this.saiz ? '' : '*Sila Masukkan Saiz Produk';
+      }
     },
   },
 };

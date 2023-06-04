@@ -4,12 +4,12 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-f w-full flex pb-[3%]">
+    <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] pt-[2.7%] w-[75%] h-[90%]">
             <div data-aos-duration="2000" data-aos="fade-down">
                 <h1 class="text-2xl font-semibold">Pengurusan Promosi</h1>
-                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Promosi</h2>
+                <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Pengurusan Promosi</span></h2>
             </div>
 
             <div class="flex justify-between mt-[2%]">

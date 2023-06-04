@@ -92,7 +92,7 @@
                     </table>
                     <div class="px-[5%] py-[5%] h-[60%] putih mr-[5%]">
                             <svg id="barcode" ref="barcode" class="border-2 border-black m-auto"></svg>
-                            <button @click="printBarcode" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] mt-[5%]">Print Barcode</button>
+                            <button @click="printBarcode" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[15%] mt-[5%]">Print Barcode</button>
                     </div>
                 </div>
             </div>

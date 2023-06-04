@@ -3,13 +3,13 @@
     </script>
 
     <template>
-        <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
+        <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
             <SidebarManager/>
             <div class="ml-[22%] mt-[2.7%] w-[75%]">
                 <div data-aos-duration="2000" data-aos="fade-down">
                     <h1 class="text-2xl font-semibold mt-[2%]">Ubahsuai Maklumat Pekerja</h1>
                                     <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
-                    <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - Ubahsuai Maklumat Pekerja</h2>
+                    <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-500">Ubahsuai Maklumat Pekerja</span></h2>
                 </div>
                 
                 <div class="flex justify-between mt-[2%]">

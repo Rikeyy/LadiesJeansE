@@ -9,7 +9,7 @@
         <div class="ml-[22%] mt-[2.7%] w-[75%] h-[90%]">
             <div data-aos-duration="2000" data-aos="fade-down">
                 <h1 class="text-2xl font-semibold">Pengurusan Inventori</h1>
-                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Inventori</h2>
+                <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Pengurusan Inventori</span></h2>
             </div>
 
             <div class="flex justify-between mt-[2%]">
@@ -32,8 +32,8 @@
                 </div>
             </div>
 
-             <div data-aos-duration="2000" data-aos="fade-up" class="mt-[3%] bg-white w-full h-[51%] px-[2%] pb-[4%] ">
-                 <div class="p-5 text-lg font-semibold text-left bg-white  "> 
+             <div data-aos-duration="2000" data-aos="fade-up" class="mt-[3%] bg-white w-full h-[51%] pt-[0.7%] pb-[4%] ">
+                 <div class="p-5 w-[95%] text-lg font-semibold text-left bg-white mx-auto "> 
                      <div class="flex justify-between">
                              <div>
                                  Senarai Produk
@@ -49,7 +49,7 @@
                          </RouterLink>
                          </div>
                     </div>
-                    <div class=" h-[415px] w-[97%] relative overflow-y-auto jadual mx-auto mt-[0.7%]">
+                    <div class=" h-[415px] w-[93%] relative overflow-y-auto jadual mx-auto mt-[1%]">
                         <table class=" w-full text-sm text-left">
                            <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center sticky top-0 z-10 ">
                                <tr>
@@ -137,7 +137,7 @@
                            </tbody>
                            <tbody v-else>
                                 <tr>
-                                    <td colspan="7"><p class="text-center py-5 text-gray-500">Daftar produk untuk melihat data.</p></td>
+                                    <td colspan="7"><p class="text-center py-5 text-gray-500">Tiada produk terdaftar</p></td>
                                 </tr> 
                            </tbody>
                        </table>

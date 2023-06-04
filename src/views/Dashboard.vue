@@ -8,7 +8,7 @@
         <div class="ml-[22%] mt-[4%] w-[75%] h-[90%]">
             <div data-aos-duration="2000" data-aos="fade-down">
                 <h1 class="text-2xl font-semibold">Halaman Utama</h1>
-                <h2 class="text-lg text-gray-500">Halaman Utama - Papan Pemuka</h2>
+                <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Papan Pemuka</span></h2>
             </div>
             
             <div class="flex justify-around mt-[2%] ">

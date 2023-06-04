@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
+    <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-[75%]">
             <div data-aos-duration="2000" data-aos="fade-down">
@@ -181,6 +181,9 @@ export default {
       if(this.namapenuh && this.nokp && this.telefon && this.emel && this.alamat && this.idpekerja && this.peranan && this.password && this.gaji && !existingKP && !existingTel && !existingEmel && !existingID)
       {
         this.errors.errorKP = ''
+        this.errors.errorEmel = ''
+        this.errors.errorID = ''
+        this.errors.errorTel = ''
 
         if(!/(?=.*[A-Z])(?=.*[0-9]).{8,}/.test(this.password)){
           this.errors.password ='*Kata Laluan Tidak Sah';
@@ -218,28 +221,28 @@ export default {
       }
       else
       {
-        if(this.errors.existKP){
+        if(this.errors.existKP && this.nokp !== ''){
           this.errors.errorKP='*Nombor Kad Pengenalan Sudah Terdaftar'
         }
         else{
           this.errors.errorKP=''
         }
 
-        if(this.errors.existEmel){
+        if(this.errors.existEmel && this.emel !== ''){
           this.errors.errorEmel='*Emel Sudah Terdaftar'
         }
         else{
           this.errors.errorEmel=''
         }
 
-        if(this.errors.existID){
+        if(this.errors.existID && this.idpekerja !== ''){
           this.errors.errorID='*ID Pekerja Sudah Terdaftar'
         }
         else{
           this.errors.errorID=''
         }
 
-        if(this.errors.existTel){
+        if(this.errors.existTel && this.telefon !== ''){
           this.errors.errorTel='*Nombor Telefon Sudah Terdaftar'
         }
         else{

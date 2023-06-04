@@ -5,11 +5,11 @@
 <template>
     <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
         <SidebarManager/>
-        <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
+        <div class="ml-[22%] mt-[3%] w-full h-[90%]">
             <h1 class="text-2xl font-semibold">Paparan Stok</h1>
-            <h2 class="text-lg text-gray-500">Halaman Utama - Paparan Stok</h2>
-            <div class="bg-white w-[90%] mt-[2%] m-auto pb-[3%]">
-                <h3 class="text-center text-xl py-[2%]">Masukkan ID Produk untuk mencari produk.</h3>
+            <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Paparan Stok Produk</span></h2>
+            <div class="bg-white w-[90%] mt-[2%] pb-[3%]">
+                <h3 class="text-center text-xl py-[2%]">Masukkan <span class="text-sky-500">ID Produk</span> untuk mencari produk.</h3>
                 <div class="flex justify-center pb-[2%]">
                     <div class="pr-[2%]">
                         <label class="">ID Produk : </label>
@@ -28,79 +28,81 @@
                     </div>
                     <!-- <button @click="searchProducts" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button> -->
 
+                </div >
+                <div class="w-[92%] relative overflow-y-auto jadual min-h-[600px] mx-auto">
+                    <table class=" m-auto w-full">
+                        <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    ID Produk
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Nama Produk
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Deskripsi
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Kategori
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Harga (RM)
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Saiz
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Kuantiti
+                                </th>
+                                <th scope="col" class="px-6 py-3 w-[10%]">
+                                    Aksi
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody  v-if="displayProdukList.length > 0">
+                            <tr
+                                class="bg-white border-b border-gray-500 text-center w-full"
+                                v-for="produk in displayProdukList"
+                                :key="produk.Produk_ID"
+                            >
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-[15%]">
+                                    {{ produk.Produk_ID }}
+                                </th>
+                                <td class="px-6 py-4 w-[15%]">
+                                    {{ produk.Nama_Produk }}
+                                </td>
+                                <td class="px-6 py-4 w-[30%]">
+                                    {{ produk.Deskripsi_Produk }}
+                                </td>
+                                <td class="px-6 py-3 w-[20%]">
+                                    {{ produk.Kategori.Nama_Kategori }}
+                                </td>
+                                <td class="px-6 py-4  w-[15%]">
+                                    {{ produk.Harga_Produk }}
+                                </td>
+                                <td class="px-6 py-4  w-[15%]">
+                                    {{ produk.Saiz_Produk }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ produk.Kuantiti_Produk }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <router-link :to="'/paparan-stok/'+ produk.id"><i class="fa-solid fa-eye text-lg text-sky-500 cursor-pointer" ></i></router-link>
+                                </td>
+                            </tr> 
+                                               
+                        </tbody>
+                        <tbody v-else>
+                            <tr class="text-center">
+                                <td colspan="8" class="py-4">
+                                    <div class="text-red-500 w-full">
+                                        Tiada produk ditemui untuk kriteria carian yang diberikan.
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
                 </div>
-                <table class="m-auto jadual">
-                    <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                ID Produk
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Nama Produk
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Harga (RM)
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Saiz
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Deskripsi
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Kategori
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Kuantiti
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-[10%]">
-                                Aksi
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody  v-if="displayProdukList.length > 0">
-                        <tr
-                            class="bg-white border-b border-gray-500 text-center"
-                            v-for="produk in displayProdukList"
-                            :key="produk.Produk_ID"
-                        >
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-[15%]">
-                                {{ produk.Produk_ID }}
-                            </th>
-                            <td class="px-6 py-4 w-[15%]">
-                                {{ produk.Nama_Produk }}
-                            </td>
-                            <td class="px-6 py-4  w-[15%]">
-                                {{ produk.Harga_Produk }}
-                            </td>
-                            <td class="px-6 py-4  w-[15%]">
-                                {{ produk.Saiz_Produk }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ produk.Deskripsi_Produk }}
-                            </td>
-                            <td class="px-6 py-3">
-                                {{ produk.Kategori.Nama_Kategori }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ produk.Kuantiti_Produk }}
-                            </td>
-                            <td class="px-6 py-4 flex justify-around">
-                                <router-link :to="'/paparan-stok/'+ produk.id"><i class="fa-solid fa-eye text-lg text-sky-500 cursor-pointer" ></i></router-link>
-                            </td>
-                        </tr> 
-                                           
-                    </tbody>
-                    <tbody v-else>
-                        <tr class="text-center ">
-                            <td colspan="8" class="py-4">
-                                <div class="text-red-500">
-                                    Tiada produk ditemui untuk kriteria carian yang diberikan.
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                    </table>
                 
             </div>
         </div>
