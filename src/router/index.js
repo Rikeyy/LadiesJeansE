@@ -102,6 +102,10 @@ const router = createRouter({
             path: "/paparan-stok/:id",
             component: () => import ("../views/DisplayProduct.vue"),
         },
+        {
+            path: "/laporan",
+            component: () => import ("../views/SalesReport.vue"),
+        },
 
         // Pekerja Page
         {

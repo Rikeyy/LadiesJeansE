@@ -77,7 +77,6 @@
                 </td>
             </tr>
           </table>
-          <div class="absolute left-1/2 -ml-0.5 w-0.5 h-[22%] bg-gray-600"></div>
           <table class="w-[45%]">
             <tr>
                 <td class="text-lg font-semibold py-3 px-6">Pilih Promosi</td>

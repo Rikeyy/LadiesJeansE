@@ -173,25 +173,27 @@ async navigateToPayment() {
     },
 
     async updateProductQuantities() {
-      for (const item of this.cartItems) {
-        const productId = item.productData?.Produk_ID;
-        const purchasedQuantity = item.quantity;
+  for (const item of this.cartItems) {
+    const productId = item.productData?.Produk_ID;
+    const purchasedQuantity = item.quantity;
 
-        try {
-          const response = await axios.post("http://localhost:3001/update-product-quantity", {
-            productId,
-            purchasedQuantity,
-          });
+    try {
+      const response = await axios.post("http://localhost:3001/update-product-quantity", {
+        productId,
+        purchasedQuantity,
+      });
 
-          // Handle the response if needed
-          console.log("Quantity updated for product:", productId);
-        } catch (error) {
-          // Handle errors if any
-          console.error("Failed to update quantity for product:", productId);
-          // Show an error message or handle the error as needed
-        }
-      }
-    },
+      const remainingQuantity = response.data.remainingQuantity;
+
+      // Handle the remaining quantity as needed
+      console.log("Remaining quantity for product:", productId, "is", remainingQuantity);
+    } catch (error) {
+      // Handle errors if any
+      console.error("Failed to update quantity for product:", productId);
+      // Show an error message or handle the error as needed
+    }
+  }
+},
 openSummaryDialog() {
     this.calculateTotalPrice(); // Calculate the total price
     this.showSummaryDialog = true;
