@@ -1,5 +1,5 @@
 <template>
-  <div class="py-5 text-lg font-semibold text-left bg-white w-[90%] mx-auto">
+  <div class="py-5 text-lg font-semibold text-left bg-white w-[90%] shadow-sm mx-auto">
     <div class="flex justify-between mt-[1%]">
       <div>
         Kategori Produk
@@ -7,7 +7,7 @@
       </div>
       <div>
         <router-link to="/urus-produk/add">
-          <div class="hijau">
+          <div class="bg-[#d3f9d6] rounded-3xl shadow-lg hover:scale-105 duration-200">
             <div class="text-center py-3 flex pt-[6%] w-[250px]">
               <i class="fa-solid fa-plus bg-green-300 rounded-full px-[5px] py-[3px] text-green-600 ml-[17%]"></i>
               <p class="text-sm font-normal ml-3 mt-[2px]">Tambah Kategori</p>
@@ -17,9 +17,9 @@
       </div>
     </div>
   </div>
-  <div class="h-[67%] relative overflow-y-auto jadual w-[90%] mx-auto  ">
+  <div class="h-[67%] relative overflow-y-auto shadow-xl w-[90%] mx-auto  ">
     <table class=" w-full text-sm text-left mx-auto">
-      <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center sticky top-0 z-10">
+      <thead class="text-gray-700 uppercase bg-sky-400 dark:text-white text-center sticky top-0 z-10">
         <tr>
           <th scope="col" class="py-3">
             Nama Kategori
@@ -49,7 +49,7 @@
           <td colspan="3" ><p class="text-center py-5 text-gray-500">Daftar lagi kategori untuk melihat data yang lain.</p></td>
         </tr>
       </tbody>
-      <tbody v-else-if="kategoriList.length > 0 && kategoriList.length < 4">
+      <tbody v-else-if="kategoriList.length > 0">
         <tr class="bg-white border-b border-gray-500 text-center" v-for="kategori in kategoriList" :key="kategori.id">
           <th scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
             {{ kategori.Nama_Kategori }}

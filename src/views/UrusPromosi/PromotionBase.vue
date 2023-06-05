@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5 text-lg font-semibold text-left bg-white w-[95%] mx-auto">
+  <div class="p-5 text-lg font-semibold text-left bg-white shadow-sm w-[95%] mx-auto">
     <div class="flex justify-between">
       <div>
         Senarai Promosi
@@ -7,7 +7,7 @@
       </div>
       <div>
         <router-link to="/urus-promosi/add">
-          <div class="hijau">
+          <div class="bg-[#d3f9d6] rounded-3xl shadow-lg hover:scale-105 duration-200">
             <div class="text-center py-3 flex pt-[6%] w-[250px]">
               <i class="fa-solid fa-plus bg-green-300 rounded-full px-[5px] py-[3px] text-green-600 ml-[17%]"></i>
               <p class="text-sm font-normal ml-3 mt-[2px]">Tambah Kategori</p>
@@ -18,10 +18,10 @@
     </div>
   </div>
   
-  <div class="relative overflow-y-auto jadual min-h-[415px] w-[95%] m-auto ">
+  <div class="relative overflow-y-auto shadow-xl min-h-[415px] w-[95%] m-auto ">
     <table class="w-full text-sm text-left">
   
-      <thead class="uppercase bg-sky-300 text-white text-center sticky top-0 z-10">
+      <thead class="uppercase bg-sky-400 text-white text-center sticky top-0 z-10">
         <tr>
           <th scope="col" class="py-3">
             Nama Promosi

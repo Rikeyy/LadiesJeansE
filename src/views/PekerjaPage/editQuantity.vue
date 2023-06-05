@@ -10,7 +10,7 @@
             <h2 class="text-lg text-gray-500">Halaman Utama - Paparan Stok</h2>
             <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
                 <h3 class="text-4xl font-semibold pb-[2%]">Maklumat Produk</h3>
-                <div class="flex justify-between">
+                <div class="flex justify-between ">
                     <table>
                         <tr>
                             <td class="text-lg font-semibold py-3 px-6">
@@ -86,13 +86,13 @@
                                 :
                             </td>
                             <td class="text-lg pl-2"> 
-                                <input type="number" v-model="kuantiti" />
+                                <input type="number" class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" v-model="kuantiti" />
                             </td>
                         </tr>
                     </table>
                 </div>
                 <div class="flex justify-center mt-6">
-                <button class="px-6 py-3 bg-blue-500 text-white rounded-md font-semibold" @click="submitForm">Submit</button>
+                <button class="text-white bg-gradient-to-r w-[20%] from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[2%] mt-[2%]" @click="submitForm">Tambah</button>
             </div>
             </div>
         </div>

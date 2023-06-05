@@ -1,34 +1,28 @@
 <template>
-    <div data-aos="fade-right" data-aos-duration="2000" class="fixed h-[90vh] bg-gray-100 w-[17%] left-[2%] top-[5%] tepi">
+    <div class="fixed h-[90vh] bg-gray-100 w-[17%] left-[2%] top-[5%] tepi">
         <img src="../assets/lJE__3_-removebg-preview.png" class="mx-auto w-[60%]" alt="">
         
         <div class="font-normal text-lg ml-[18%] mt-[50%]">
             <div class="flex mb-6">
-                <i class="fa-solid fa-arrow-right mt-[5px] mr-[7px]" style="color: #000000;"></i>
                 <RouterLink to="/main" exact-active-class="active-link">
                 <div class="hover:text-blue-300 cursor-pointer">Halaman Utama</div></RouterLink>
             </div>
             <div class="flex mb-6">
-                <i class="fa-solid fa-arrow-right mt-[5px] mr-[7px]" style="color: #000000;"></i>
                 <RouterLink to="/urus-pekerja" exact-active-class="active-link">
                 <div class="hover:text-blue-300  cursor-pointer">Pengurusan Pekerja</div></RouterLink>
             </div>
             <div class="flex mb-6">
-                <i class="fa-solid fa-arrow-right mt-[5px] mr-[7px]" style="color: #000000;"></i>
                 <RouterLink to="/urus-produk" exact-active-class="active-link">
                 <div class="hover:text-blue-300  cursor-pointer">Pengurusan Inventori</div></RouterLink>
             </div>
             <div class="flex mb-6">
-                <i class="fa-solid fa-arrow-right mt-[5px] mr-[7px]" style="color: #000000;"></i>
                 <RouterLink to="/urus-promosi" exact-active-class="active-link">
                 <div class="hover:text-blue-300  cursor-pointer">Pengurusan Promosi</div></RouterLink>
             </div>
             <div class="flex mb-6">
-                <i class="fa-solid fa-arrow-right mt-[5px] mr-[7px]" style="color: #000000;"></i>
                 <RouterLink to="/paparan-stok"><div class="hover:text-blue-300  cursor-pointer">Paparan Stok</div></RouterLink>
             </div>
             <div class="flex mb-6">
-                <i class="fa-solid fa-arrow-right mt-[5px] mr-[7px]" style="color: #000000;"></i>
                 <RouterLink to="/laporan"><div class="hover:text-blue-300  cursor-pointer">Laporan Jualan</div></RouterLink>
             </div>
         </div>
@@ -47,9 +41,10 @@
 <style>
 .tepi{
     border-radius: 30px;
-background: linear-gradient(145deg, #ffffff, #dbdcdd);
-box-shadow:  8px 8px 23px #616262,
-             -8px -8px 23px #ffffff;
+background:  rgb(243 244 246);
+box-shadow: 2px 6px 20px -9px rgba(0,0,0,0.75);
+-webkit-box-shadow: 2px 6px 20px -9px rgba(0,0,0,0.75);
+-moz-box-shadow: 2px 6px 20px -9px rgba(0,0,0,0.75);
 }
 
 .active-link {

@@ -6,14 +6,13 @@
         <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
             <SidebarManager/>
             <div class="ml-[22%] mt-[2.7%] w-[75%]">
-                <div data-aos-duration="2000" data-aos="fade-down">
+                <div>
                     <h1 class="text-2xl font-semibold mt-[2%]">Ubahsuai Maklumat Pekerja</h1>
-                                    <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
-                    <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-500">Ubahsuai Maklumat Pekerja</span></h2>
+                    <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-400">Ubahsuai Maklumat Pekerja</span></h2>
                 </div>
                 
                 <div class="flex justify-between mt-[2%]">
-                    <div data-aos="flip-up" data-aos-duration="1500" class="bg-white w-[90%] h-[78%] white pt-[5%] pb-[7%]">
+                    <div class="bg-white w-[95%] h-[78%] rounded-xl shadow-2xl pt-[5%] pb-[7%]">
                         <h3 class="text-center text-xl mb-[3%]">Sila masukkan maklumat pekerja yang baru di ruang yang disediakan.</h3>
 
                         <form class="w-[80%] m-auto" @submit.prevent="submitForm">
@@ -57,22 +56,14 @@
                                 <input type="password" name="floating_password"  v-model="worker.KataLaluan_Pekerja" id="floating_password" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                                 <label for="floating_password" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kata Laluan</label>
                             </div>
-                            <!-- <div class="relative z-0 w-[45%] mb-6 group">
-                                <input type="password" name="floating_cpassword" id="floating_cpassword" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                <label for="floating_cpassword" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Sahkan Kata Laluan</label>
-                            </div> -->
                             <div class="relative z-0 w-[45%] mb-6 group">
                                 <input type="text" name="floating_gaji" id="floating_gaji"  v-model="worker.Gaji_Pekerja" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                                 <label for="floating_gaji" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Gaji Pekerja</label>
                             </div>
                             </div>
-
-                            <!-- <label class="block mb-2 text-base font-medium" for="user_avatar">Muat Naik Gambar</label>
-                            <input class="block w-[30%] text-md border border-gray-300 rounded-lg cursor-pointer focus:outline-none dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file"> -->
-
                             <div class="flex justify-between">
-                                <RouterLink to="/urus-pekerja" class="w-[47%] mt-[2.8%]"><button class="text-white w-full bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(184,_8,_8,_0.67)]">Batal</button></RouterLink>
-                                <button class="text-white w-[47%] bg-gradient-to-r from-yellow-400 to-yellow-200 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(255,_255,_0,_0.7)] mt-[3%]">Ubahsuai</button>
+                                <RouterLink to="/urus-pekerja" class="w-[47%] mt-[2.8%]"><button class="text-white w-full bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200">Batal</button></RouterLink>
+                                <button class="text-white w-[47%] bg-gradient-to-r from-yellow-400 to-yellow-200 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200 mt-[3%]">Ubahsuai</button>
 
                             </div>
                         </form>
@@ -115,36 +106,3 @@
             }
         };
     </script>
-
-    <!-- <script>
-        import axios from 'axios';
-        import router from '../router';
-
-        export default {
-        data() {
-            return {
-            workerId:router.currentRoute.value.params.id,
-            worker:[]
-            };
-        },
-        mounted(){
-            console.log(this.workerId);
-
-                axios.get('http://localhost:3001/'+this.workerId)
-                .then(response=> {
-                    this.worker = response.data
-                    console.log(this.worker)
-                })
-                .catch(error=> console.log(error))
-            },
-        };
-    </script> -->
-
-    <style>
-    .white{
-        border-radius: 20px;
-        background: #ffffff;
-        box-shadow:  8px 8px 23px #666666,
-                    -8px -8px 23px #ffffff;
-    }
-    </style>

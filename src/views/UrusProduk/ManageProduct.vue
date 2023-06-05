@@ -7,32 +7,34 @@
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-[75%] h-[90%]">
-            <div data-aos-duration="2000" data-aos="fade-down">
+            <div>
                 <h1 class="text-2xl font-semibold">Pengurusan Inventori</h1>
-                <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Pengurusan Inventori</span></h2>
+                <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-400">Pengurusan Inventori</span></h2>
             </div>
 
             <div class="flex justify-between mt-[2%]">
                 <div class="flex flex-col justify-between w-[30%] h-full">
-                    <div data-aos-duration="2000" data-aos="zoom-in" class="h-[25%] white mb-8 pb-2">
+                    <div class="h-[25%] bg-white rounded-lg shadow-sm mb-8 pb-2">
                         <h1 class="font-semibold pl-[4%] mt-[2%] mb-[2%]">Bilangan Produk Terdaftar :</h1>
                         <h2 class="text-6xl font-bold text-center">{{ produkList ? produkList.length : 0 }}</h2>
                     </div>
 
-                    <div data-aos-duration="2000" data-aos="zoom-in" class="h-[70%] bg-white pb-9">
-                        <h1 class="p-5 text-lg font-semibold text-left bg-white ">Komposisi Produk Mengikut Kategori :</h1>
-                        <img src="../../assets/Screenshot 2023-05-12 025806.png" class="m-auto w-3/5 white">
+                    <div class="h-[70%] bg-white pb-9 shadow-sm rounded-xl">
+                        <h1 class="p-5 text-lg font-semibold text-left bg-white ">Komposisi Produk Mengikut Kategori</h1>
+                        <div class="h-[250px]">
+                            <canvas id="workerChart"></canvas>
+                        </div>                    
                     </div>
                 </div>
 
                 <div class="w-[65%]">
-                    <div data-aos-duration="2000" data-aos="zoom-in" class="h-full w-full bg-white">
+                    <div class="h-full w-full bg-white">
                         <RouterView></RouterView>
                     </div>
                 </div>
             </div>
 
-             <div data-aos-duration="2000" data-aos="fade-up" class="mt-[3%] bg-white w-full h-[51%] pt-[0.7%] pb-[4%] ">
+             <div class="mt-[3%] bg-white w-full shadow-sm h-[51%] pt-[0.7%] pb-[4%] ">
                  <div class="p-5 w-[95%] text-lg font-semibold text-left bg-white mx-auto "> 
                      <div class="flex justify-between">
                              <div>
@@ -40,7 +42,7 @@
                              <p class="mt-1 font-normal text-gray-500 dark:text-gray-400">Senarai produk yang ada di dalam Inventori.</p>
                          </div>
                          <RouterLink to="/daftar-produk" class="w-[20%]">
-                         <div class="hijau">
+                         <div class="bg-[#d3f9d6] rounded-3xl shadow-lg hover:scale-105 duration-200">
                              <div class="text-center py-3 flex pt-[6%]">
                                  <i class="fa-solid fa-plus bg-green-300 rounded-full px-[6px] py-[6px] text-green-600 ml-[17%]"></i>
                                  <p class="text-sm font-normal ml-3 mt-[2px]">Daftar Produk Baru</p>
@@ -49,9 +51,9 @@
                          </RouterLink>
                          </div>
                     </div>
-                    <div class=" h-[415px] w-[93%] relative overflow-y-auto jadual mx-auto mt-[1%]">
+                    <div class=" h-[415px] w-[93%] relative overflow-y-auto shadow-xl mx-auto mt-[1%]">
                         <table class=" w-full text-sm text-left">
-                           <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center sticky top-0 z-10 ">
+                           <thead class=" text-gray-700 uppercase bg-sky-400 dark:text-white text-center sticky top-0 z-10 ">
                                <tr>
                                    <th scope="col" class="px-6 py-3">
                                        ID Produk
@@ -152,21 +154,23 @@
 
 <script>
 import axios from 'axios';
+import { Chart } from 'chart.js/auto';
 
 export default {
   data() {
     return {
       produkList: [],
-      data2 : [],
+      data2: [],
       selectedProduct: null,
-      updateID: ""
+      updateID: "",
+      chart: null,
     };
   },
   mounted() {
     this.fetchProductData();
+    this.fetchKategori();
   },
   methods: {
-
     fetchProductData() {
       axios.get('http://localhost:3001/produk')
         .then(response => {
@@ -178,49 +182,90 @@ export default {
         });
     },
     deleteProduct(productId) {
-        this.updateID = productId;
+      this.updateID = productId;
 
-    axios.delete(`http://localhost:3001/produk/${productId}`)
+      axios.delete(`http://localhost:3001/produk/${productId}`)
         .then(response => {
-        // Remove the deleted product from the produkList
-        const index = this.produkList.findIndex(p => p.Produk_ID === productId);
-        if (index !== -1) {
+          const index = this.produkList.findIndex(p => p.Produk_ID === productId);
+          if (index !== -1) {
             this.produkList.splice(index, 1);
-        }
-        console.log('Product deleted successfully.');
+          }
+          console.log('Product deleted successfully.');
         })
         .catch(error => {
-        console.error('Error deleting product:', error);
+          console.error('Error deleting product:', error);
         });
-    }
+    },
+    fetchKategori() {
+  axios
+    .get('http://localhost:3001/chart')
+    .then(response => {
+      const kategoriData = response.data.map(item => ({
+        kategori: item.Kategori.Nama_Kategori,
+        totalKuantiti: item.Total_Kuantiti,
+      }));
+      this.createPieChart(kategoriData);
+    })
+    .catch(error => {
+      console.error('Error fetching Kategori data:', error);
+    });
+},
+calculateKategoriRolePercentage(kategoriData) {
+  const totalKuantiti = kategoriData.reduce((total, kategori) => total + kategori.totalKuantiti, 0);
+
+  const percentages = kategoriData.map(kategori =>
+    ((kategori.totalKuantiti / totalKuantiti) * 100).toFixed(2)
+  );
+
+  return {
+    labels: kategoriData.map(kategori => kategori.kategori),
+    percentages: percentages,
+  };
+},
+createPieChart(kategoriData) {
+  const percentages = this.calculateKategoriRolePercentage(kategoriData).percentages;
+  const numKategori = kategoriData.length;
+
+  const labels = kategoriData.map(kategori => kategori.kategori); // Extract the 'kategori' property
+
+  const colorPalette = [
+    '#FF6384',
+    '#36A2EB',
+    '#FFCE56',
+    '#4BC0C0',
+    '#9966FF',
+    '#FF9F40',
+    '#FF6384',
+    '#36A2EB',
+    '#FFCE56',
+    '#4BC0C0',
+    '#9966FF',
+    '#FF9F40',
+    // Add more colors as needed
+  ];
+
+  if (this.chart) {
+    this.chart.destroy();
   }
+
+  this.chart = new Chart('workerChart', {
+    type: 'pie',
+    data: {
+      labels: labels, // Use the extracted labels
+      datasets: [
+        {
+          data: percentages,
+          backgroundColor: colorPalette.slice(0, numKategori),
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+},
+  },
 };
+
 </script>
-
-<style>
-.white{
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-
-.putih{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff; 
-}
-
-.hijau{
-    border-radius: 20px;
-    background: #d3f9d6;
-    box-shadow:  8px 8px 23px #1e3b25,
-                -8px -8px 23px #ffffff;
-}
-
-.jadual{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-</style>

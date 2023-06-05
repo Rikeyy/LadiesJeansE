@@ -6,30 +6,32 @@
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] pt-[2.7%] w-[75%] h-[90%]">
-            <div data-aos-duration="2000" data-aos="fade-down">
+            <div >
                 <h1 class="text-2xl font-semibold">Pengurusan Pekerja</h1>
-                <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Pengurusan Pekerja</span></h2>
+                <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-400">Pengurusan Pekerja</span></h2>
             </div>
 
             <div class="flex justify-between mt-[2%]">
                 <div class="flex flex-col justify-between w-[30%] h-full">
-                    <div data-aos-duration="2000" data-aos="zoom-in" class="h-[25%] white mb-8 pb-2">
+                    <div  class="h-[25%] bg-white rounded-lg shadow-sm mb-8 pb-2">
                         <h1 class="font-semibold pl-[4%] mt-[2%] mb-[2%]">Bilangan Pekerja Terdaftar :</h1>
                         <h2 class="text-6xl font-bold text-center">{{ workerList.length }}</h2>
                     </div>
 
-                    <div data-aos-duration="2000" data-aos="zoom-in" class="h-[70%] bg-white pb-9">
+                    <div  class="h-[70%] bg-white pb-9 shadow-sm rounded-xl">
                         <h1 class="p-5 text-lg font-semibold text-left bg-white ">Komposisi Pekerja</h1>
-                        <img src="../../assets/Screenshot 2023-05-12 025806.png" class="m-auto w-3/5 white">
+                        <div class="h-[250px]">
+                            <canvas id="workerChart"></canvas>
+                        </div>
                     </div>
                 </div>
 
                 <div class="w-[65%]">
-                    <div data-aos-duration="2000" data-aos="zoom-in" class="h-full w-full bg-white overflow-y-auto">
+                    <div class="h-full w-full bg-white shadow-sm overflow-y-auto">
                         <h2 class="py-5 pl-[5%] text-lg font-semibold text-left bg-white ">Senarai Gaji Pekerja</h2>
-                        <div class="h-[75%] ml-[5%] overflow-y-auto relative w-[90%] jadual">
+                        <div class="h-[75%] ml-[5%] overflow-y-auto relative w-[90%] shadow-xl">
                         <table class="w-full text-sm text-left mx-auto">
-                            <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center sticky top-0 z-10">
+                            <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-sky-400 dark:text-white text-center sticky top-0 z-10">
                             <tr>
                                 <th scope="col" class="px-4 py-3">
                                 Nama Pekerja
@@ -98,15 +100,15 @@
                 </div>
             </div>
 
-             <div data-aos-duration="2000" data-aos="fade-up" class="mt-[3%] bg-white w-full h-[40%] px-[2%] pb-[4%]  ">
-                <div class="p-7 text-lg font-semibold text-left bg-white ">
+             <div  class="mt-[3%] bg-white w-full h-[40%] px-[2%] pb-[4%]  ">
+                <div class="p-7 text-lg font-semibold text-left bg-white shadow-sm">
                         <div class="flex justify-between">
                             <div>
                             Senarai Pekerja
                             <p class="mt-1 font-normal text-gray-500 dark:text-gray-400">Senarai maklumat pekerja.</p>
                         </div>
                         <RouterLink to="/daftar-pekerja" class="w-[20%]">
-                        <div class="hijau">
+                        <div class="bg-[#d3f9d6] rounded-3xl shadow-lg hover:scale-105 duration-200">
                             <div class="text-center py-3 flex pt-[6%]">
                                 <i class="fa-solid fa-plus bg-green-300 rounded-full px-[6px] py-[6px] text-green-600 ml-[17%]"></i>
                                 <p class="text-sm font-normal ml-3 mt-[2px]">Daftar Pekerja Baru</p>
@@ -116,10 +118,10 @@
                         </div>
                         
                     </div> 
-                    <div class=" h-[415px] relative jadual overflow-y-auto">
+                    <div class=" h-[415px] relative shadow-xl overflow-y-auto">
                 <table class="w-full text-sm text-left ">
                     
-                    <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center sticky top-0 z-10">
+                    <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-400 dark:text-white text-center sticky top-0 z-10">
                         <tr>
                             <th scope="col" class="px-4 py-3">
                                 Nama Pekerja
@@ -213,8 +215,10 @@
     </div>
 </template>
 
+
 <script>
 import axios from 'axios';
+import { Chart } from 'chart.js/auto';
 
 export default {
   data() {
@@ -222,11 +226,14 @@ export default {
       workerList: [],
       pekerja: [],
       selectedWorker: null,
-      updateID: ""
+      updateID: "",
+      chart: null
     };
   },
   mounted() {
     this.fetchWorkerData();
+    this.fetchrole();
+
   },
   methods: {
     fetchWorkerData() {
@@ -256,37 +263,58 @@ export default {
         .catch(error => {
           console.error('Error deleting worker:', error);
         });
-    }
-  }
+    },
+    fetchrole() {
+      axios
+        .get('http://localhost:3001/role')
+        .then(response => {
+          const workerData = this.calculateWorkerRolePercentage(response.data);
+          this.createPieChart(workerData);
+        })
+        .catch(error => {
+          console.error('Error fetching worker data:', error);
+        });
+    },
+    calculateWorkerRolePercentage(workerData) {
+      const roles = ['Pengurus', 'Pekerja'];
+      const totalWorkers = workerData.length;
+
+      const roleCounts = roles.map(role =>
+        workerData.filter(worker => worker.Peranan_Pekerja === role).length
+      );
+
+      const percentages = roleCounts.map(count =>
+        ((count / totalWorkers) * 100).toFixed(2)
+      );
+
+      return {
+        labels: roles,
+        percentages: percentages,
+      };
+    },
+    createPieChart(workerData) {
+      new Chart('workerChart', {
+        type: 'pie',
+        data: {
+          labels: workerData.labels,
+          datasets: [
+            {
+              data: workerData.percentages,
+              backgroundColor: [
+                '#FF6384', // Color for role 1
+                '#36A2EB', // Color for role 2
+                '#FFCE56', // Color for role 3
+              ],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      });
+    },
+  },
 };
 </script>
 
-
-<style>
-.white{
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-
-.putih{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff; 
-}
-
-.hijau{
-    border-radius: 20px;
-    background: #d3f9d6;
-    box-shadow:  8px 8px 23px #1e3b25,
-                -8px -8px 23px #ffffff;
-}
-
-.jadual{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-
-</style>

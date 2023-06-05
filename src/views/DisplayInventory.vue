@@ -7,9 +7,9 @@
         <SidebarManager/>
         <div class="ml-[22%] mt-[3%] w-full h-[90%]">
             <h1 class="text-2xl font-semibold">Paparan Stok</h1>
-            <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Paparan Stok Produk</span></h2>
+            <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-400">Paparan Stok Produk</span></h2>
             <div class="bg-white w-[90%] mt-[2%] pb-[3%]">
-                <h3 class="text-center text-xl py-[2%]">Masukkan <span class="text-sky-500">ID Produk</span> untuk mencari produk.</h3>
+                <h3 class="text-center text-xl py-[2%]">Masukkan <span class="text-sky-400">ID Produk</span> untuk mencari produk.</h3>
                 <div class="flex justify-center pb-[2%]">
                     <div class="pr-[2%]">
                         <label class="">ID Produk : </label>
@@ -31,7 +31,7 @@
                 </div >
                 <div class="w-[92%] relative overflow-y-auto jadual min-h-[600px] mx-auto">
                     <table class=" m-auto w-full">
-                        <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
+                        <thead class=" text-gray-700 uppercase bg-sky-400 dark:text-white text-center">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     ID Produk

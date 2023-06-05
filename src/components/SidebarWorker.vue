@@ -1,5 +1,5 @@
 <template>
-    <div data-aos="fade-right" data-aos-duration="2000" class="fixed h-[90vh] bg-gray-100 w-[17%] left-[2%] top-[5%] tepi">
+    <div class="fixed h-[90vh] bg-gray-100 w-[17%] left-[2%] top-[5%] tepi">
         <img src="../assets/lJE__3_-removebg-preview.png" class="mx-auto w-[60%]" alt="">
         
         <div class="font-normal text-lg ml-[18%] mt-[70%]">
@@ -34,9 +34,10 @@
 <style>
 .tepi{
     border-radius: 30px;
-background: linear-gradient(145deg, #ffffff, #dbdcdd);
-box-shadow:  8px 8px 23px #616262,
-             -8px -8px 23px #ffffff;
+background:  rgb(243 244 246);
+box-shadow: 2px 6px 20px -9px rgba(0,0,0,0.75);
+-webkit-box-shadow: 2px 6px 20px -9px rgba(0,0,0,0.75);
+-moz-box-shadow: 2px 6px 20px -9px rgba(0,0,0,0.75);
 }
 
 .active-link {

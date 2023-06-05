@@ -8,34 +8,41 @@
       <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
         <h1 class="text-2xl font-semibold">Troli</h1>
         <h2 class="text-lg text-gray-500">Halaman Utama - Rekod Jualan - <span class="text-sky-500">Troli</span></h2>
-  <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%] h-[90%]">
-    <table class="jadual w-[90%] m-auto">
-      <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
-        <tr>
-          <th scope="col" class="px-6 py-3">No.</th>
-          <th scope="col" class="px-6 py-3">ID Produk</th>
-          <th scope="col" class="px-6 py-3">Nama Produk</th>
-          <th scope="col" class="px-6 py-3">Harga Produk</th>
-          <th scope="col" class="px-6 py-3">Quantity</th>
-          <th scope="col" class="px-6 py-3">Total Price</th>
-          <th scope="col" class="px-6 py-3">Action</th>
-        </tr>
-      </thead>
-      <!-- Table body -->
-      <tbody>
-        <tr v-for="(item, index) in cartItems" :key="item.productData?.Produk_ID"  class="bg-white border-b border-gray-500 text-center">
-          <td class="px-6 py-4 w-[5%]">{{ index + 1 }}</td>
-          <td class="px-6 py-4 w-[15%]">{{ item.productData?.Produk_ID }}</td>
-          <td class="px-6 py-4 w-[15%]">{{ item.productData?.Nama_Produk }}</td>
-          <td class="px-6 py-4 w-[15%]">{{ item.productData?.Harga_Produk }}</td>
-          <td class="px-6 py-4 w-[15%]">{{ item.quantity }}</td>
-          <td class="px-6 py-4 w-[15%]">{{ item.totalPrice }}</td>
-          <td class="px-6 py-4 w-[15%]">
-            <button @click="removeCartItem(index)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="bg-white shadow-sm  w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%] h-[90%]">
+    <div class="h-[500px] shadow-xl  w-[95%] m-auto my-[2%] ">
+      <table class=" m-auto">
+        <thead  class=" uppercase bg-sky-400 text-white text-center w-[500px]">
+          <tr>
+            <th scope="col" class="px-6 py-3  w-[5%]">No.</th>
+            <th scope="col" class="px-6 py-3 w-[15%]">ID Produk</th>
+            <th scope="col" class="px-6 py-3 w-[15%]">Nama Produk</th>
+            <th scope="col" class="px-6 py-3 w-[15%]">Harga Produk</th>
+            <th scope="col" class="px-6 py-3 w-[15%] ">Quantity</th>
+            <th scope="col" class="px-6 py-3 w-[15%]">Total Price</th>
+            <th scope="col" class="px-6 py-3 w-[15%]">Action</th>
+          </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody v-if="cartItems.length > 0">
+          <tr v-for="(item, index) in cartItems" :key="item.productData?.Produk_ID"  class="bg-white border-b border-gray-500 text-center">
+            <td class="px-6 py-4 w-[5%]">{{ index + 1 }}</td>
+            <td class="px-6 py-4 w-[15%]">{{ item.productData?.Produk_ID }}</td>
+            <td class="px-6 py-4 w-[15%]">{{ item.productData?.Nama_Produk }}</td>
+            <td class="px-6 py-4 w-[15%]">{{ item.productData?.Harga_Produk }}</td>
+            <td class="px-6 py-4 w-[15%]">{{ item.quantity }}</td>
+            <td class="px-6 py-4 w-[15%]">{{ item.totalPrice }}</td>
+            <td class="px-6 py-4 w-[15%]">
+              <button @click="removeCartItem(index)">Padam</button>
+            </td>
+          </tr>
+        </tbody>
+        <tbody v-else>
+          <tr >
+            <td colspan="7" class="text-center text-gray-600"> Tiada produk di dalam troli.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="flex justify-center">
       <button @click="clearCart" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[2%] mt-[2%]">Kosongkan Troli</button>
@@ -76,6 +83,7 @@ export default {
       totalPrice: 0,
       showSummaryDialog: false,
       moneyReceived: 0, // Add a new data property for moneyReceived
+      isTableEmpty: false, // Add a new data property
     };
   },
   beforeUnmount() {
@@ -118,6 +126,7 @@ export default {
 },
 computed: {
     totalCart() {
+      this.isTableEmpty = this.cartItems.length === 0; 
       return this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
     },
     calculateBalance() {

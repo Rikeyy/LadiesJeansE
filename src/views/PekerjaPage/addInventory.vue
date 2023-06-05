@@ -8,7 +8,7 @@
         <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
             <h1 class="text-2xl font-semibold">Tambah Stok Produk</h1>
             <h2 class="text-lg text-gray-500">Halaman Utama - Paparan Stok</h2>
-            <div class="bg-white w-[90%] mt-[2%] pb-[3%]">
+            <div class="bg-white shadow-sm w-[90%] mt-[2%] pb-[3%]">
                 <h3 class="text-center text-xl py-[2%]">Masukkan ID Produk untuk mencari produk.</h3>
                 <div class="flex justify-center pb-[2%]">
                     <div class="pr-[2%]">
@@ -29,7 +29,7 @@
                     <!-- <button @click="searchProducts" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button> -->
 
                 </div>
-                <table class="m-auto jadual">
+                <table class="m-auto shadow-xl w-[95%]">
                     <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center">
                         <tr>
                             <th scope="col" class="px-6 py-3">

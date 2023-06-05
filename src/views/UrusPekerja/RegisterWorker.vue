@@ -6,14 +6,14 @@
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-[75%]">
-            <div data-aos-duration="2000" data-aos="fade-down">
+            <div>
                 <h1 class="text-2xl font-semibold mt-[2%]">Daftar Pekerja</h1>
                                 <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
-                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-500">Pendaftaran Pekerja</span></h2>
+                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-400">Pendaftaran Pekerja</span></h2>
             </div>
             
             <div class="flex justify-between mt-[2%]">
-                <div data-aos="flip-up" data-aos-duration="1500" class="bg-white w-[90%] h-[78%] white pt-[5%] pb-[7%]">
+                <div  class="bg-white w-[95%] h-[78%] shadow-2xl rounded-xl pt-[5%] pb-[7%]">
                     <h3 class="text-center text-xl mb-[3%]">Sila masukkan maklumat pekerja di ruang yang disediakan.</h3>
 
                     <form class="w-[80%] m-auto" @submit.prevent="submitForm">
@@ -79,8 +79,8 @@
                         </div>
 
                         <div class="flex justify-between">
-                            <RouterLink to="/urus-pekerja" class="w-[47%] mt-[2.8%]"><button class="text-white w-full bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(184,_8,_8,_0.67)]">Batal</button></RouterLink>
-                            <button type="submit" class="text-white w-[47%] bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] mt-[3%]">Daftar</button>
+                            <RouterLink to="/urus-pekerja" class="w-[47%] mt-[2.8%]"><button class="text-white w-full bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200">Batal</button></RouterLink>
+                            <button type="submit" class="text-white w-[47%] bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-xl mt-[2.80%] hover:scale-105 duration-200">Daftar</button>
                         </div>
                     </form>
                 </div>
@@ -302,13 +302,3 @@ export default {
   },
 };
 </script>
-
-
-<style>
-.white{
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-</style>

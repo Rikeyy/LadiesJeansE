@@ -3,11 +3,11 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
+    <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] mt-[3%] w-full h-[90%]">
             <h1 class="text-2xl font-semibold">Laporan Jualan</h1>
-            <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Laporan Jualan</span></h2>
+            <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-400">Laporan Jualan</span></h2>
             <div class="bg-white w-[90%] mt-[2%] py-[3%]">
                 <div class="flex justify-between mb-4 mr-8">
                     <div class="w-1/2">
@@ -34,7 +34,7 @@
                 </div>
                 <div class=" h-[550px] w-[93%] relative overflow-y-auto jadual mx-auto mt-[2%]">
                         <table class=" w-full text-sm text-left">
-                           <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-300 dark:text-white text-center sticky top-0 z-10 ">
+                           <thead class=" uppercase bg-sky-400 text-white text-center sticky top-0 z-10 ">
                                <tr>
                                    <th scope="col" class="px-6 py-3 w-[5%]">
                                        Bilangan

@@ -9,7 +9,7 @@
             <h1 class="text-2xl font-semibold">Paparan Stok</h1>
             <h2 class="text-lg text-gray-500">Halaman Utama - Paparan Stok</h2>
             <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
-                <h3 class="text-4xl font-semibold pb-[2%]">Maklumat Produk</h3>
+                <h3 class="text-4xl font-semibold pb-[2%]">Maklumat <span class="text-sky-400">Produk</span></h3>
                 <div class="flex justify-between">
                     <table>
                         <tr>

@@ -8,7 +8,7 @@
       <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
         <h1 class="text-2xl font-semibold">Rekod Jualan</h1>
         <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Rekod Jualan</span></h2>
-        <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
+        <div class="bg-white  w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
           <h3 class="text-center text-xl py-[2%]">Masukkan ID Produk untuk mencari produk.</h3>
           <div class="flex justify-center pb-[2%]">
             <div>
@@ -25,7 +25,7 @@
             
           </div>
 
-          <div class="flex ml-[10%] w-[80%] putih py-5 px-5 mt-[2%]">
+          <div class="flex ml-[10%] w-[80%] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] py-5 px-5 mt-[2%]">
 
           <table class="w-[45%]">
             <tr>
@@ -263,31 +263,3 @@ const searchId = ref('');
   // ...
 }
 </script>
-
-<style>
-.white{
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-
-.putih{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff; 
-}
-
-.hijau{
-    border-radius: 20px;
-    background: #d3f9d6;
-    box-shadow:  8px 8px 23px #1e3b25,
-                -8px -8px 23px #ffffff;
-}
-
-.jadual{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-</style>
