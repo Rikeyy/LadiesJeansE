@@ -89,8 +89,8 @@ export default {
         existID: '',
         existNama: '',
         errorIDPromosi: '',
-        errorNamaPromosi:'',
-      }
+        errorNamaPromosi: '',
+      },
     };
   },
   mounted() {
@@ -98,126 +98,125 @@ export default {
   },
   methods: {
     fetchKategoriData() {
-      axios.get('http://localhost:3001/kategori')
-        .then(response => {
+      axios
+        .get('http://localhost:3001/kategori')
+        .then((response) => {
           this.kategoriList = response.data;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error fetching kategori data:', error);
         });
     },
     async submitForm() {
-
-      await axios.get("http://localhost:3001/cekIDPromosi")
-        .then(response=>{
-            this.errors.existID = response.data
-            console.log(this.errors.existID);
+      await axios
+        .get('http://localhost:3001/cekIDPromosi')
+        .then((response) => {
+          this.errors.existID = response.data;
+          console.log(this.errors.existID);
         })
-        .catch(error=>console.log(error))
+        .catch((error) => console.log(error));
 
-      await axios.get("http://localhost:3001/cekNamaPromosi")
-        .then(response=>{
-            this.errors.existNama = response.data
-            console.log(this.errors.existNama);
+      await axios
+        .get('http://localhost:3001/cekNamaPromosi')
+        .then((response) => {
+          this.errors.existNama = response.data;
+          console.log(this.errors.existNama);
         })
-        .catch(error=>console.log(error))
+        .catch((error) => console.log(error));
 
       const formData = {
-        ID_Promosi : this.IDPromosi,
-        Nama_Promosi : this.NamaPromosi,
-        Deskripsi_Promosi : this.DeskripsiPromosi,
+        ID_Promosi: this.IDPromosi,
+        Nama_Promosi: this.NamaPromosi,
+        Deskripsi_Promosi: this.DeskripsiPromosi,
         Harga_Promosi: parseInt(this.HargaPromosi),
-        kategoriTerlibat : this.selectedItem,
-        Status_Promosi : this.selectedStatus
+        kategoriTerlibat: this.selectedItem,
+        Status_Promosi: this.selectedStatus,
       };
 
-      const existingIDPromosi = this.errors.existID.filter(promosi => promosi.ID_Promosi === this.IDPromosi)
-      const existingNamaPromosi = this.errors.existNama.filter(promosi => promosi.Nama_Promosi === this.NamaPromosi)
+      const existingIDPromosi = this.errors.existID.some(
+        (promosi) => promosi.ID_Promosi === this.IDPromosi
+      );
+      const existingNamaPromosi = this.errors.existNama.some(
+        (promosi) => promosi.Nama_Promosi === this.NamaPromosi
+      );
 
-      if(this.IDPromosi && this.NamaPromosi && this.DeskripsiPromosi && this.HargaPromosi && this.selectedItem && this.selectedStatus && !existingIDPromosi && !existingNamaPromosi)
-      {
-        this.errors.errorIDPromosi = ''
-        this.errors.errorNamaPromosi = ''
+      if (
+        this.IDPromosi &&
+        this.NamaPromosi &&
+        this.DeskripsiPromosi &&
+        this.HargaPromosi &&
+        this.selectedItem &&
+        this.selectedStatus &&
+        !existingIDPromosi &&
+        !existingNamaPromosi
+      ) {
+        this.errors.errorIDPromosi = '';
+        this.errors.errorNamaPromosi = '';
 
-        axios.post('http://localhost:3001/promosi', formData)
-        .then(response => {
-          console.log(response.data);
-          alert("Data updated successfully!");
-          this.IDPromosi = '';
-          this.NamaPromosi = '';
-          this.DeskripsiPromosi = '';
-          this.HargaPromosi = '';
-          this.selectedItem = '';
-          this.selectedStatus = '';
-        })
-        .catch(error => {
-          console.error(error);
-        });
+        axios
+          .post('http://localhost:3001/promosi', formData)
+          .then((response) => {
+            console.log(response.data);
+            alert('Data updated successfully!');
+            this.IDPromosi = '';
+            this.NamaPromosi = '';
+            this.DeskripsiPromosi = '';
+            this.HargaPromosi = '';
+            this.selectedItem = null;
+            this.selectedStatus = null;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } else {
+        if (existingIDPromosi && this.IDPromosi !== '') {
+          this.errors.errorIDPromosi = '*ID Promosi Sudah Terdaftar';
+        } else {
+          this.errors.errorIDPromosi = '';
+        }
+
+        if (existingNamaPromosi && this.NamaPromosi !== '') {
+          this.errors.errorNamaPromosi = '*Promosi Sudah Terdaftar';
+        } else {
+          this.errors.errorNamaPromosi = '';
+        }
+
+        if (this.IDPromosi === '') {
+          this.errors.IDPromosi = '*Sila Masukkan ID Promosi';
+        } else {
+          this.errors.IDPromosi = '';
+        }
+
+        if (this.NamaPromosi === '') {
+          this.errors.NamaPromosi = '*Sila Masukkan Nama Promosi';
+        } else {
+          this.errors.NamaPromosi = '';
+        }
+
+        if (this.DeskripsiPromosi === '') {
+          this.errors.DeskripsiPromosi = '*Sila Masukkan Deskripsi Promosi';
+        } else {
+          this.errors.DeskripsiPromosi = '';
+        }
+
+        if (this.HargaPromosi === '') {
+          this.errors.HargaPromosi = '*Sila Masukkan Harga Promosi';
+        } else {
+          this.errors.HargaPromosi = '';
+        }
+
+        if (this.selectedItem === null) {
+          this.errors.selectedItem = '*Sila Pilih Kategori Promosi';
+        } else {
+          this.errors.selectedItem = '';
+        }
+
+        if (this.selectedStatus === null) {
+          this.errors.selectedStatus = '*Sila Pilih Status Promosi';
+        } else {
+          this.errors.selectedStatus = '';
+        }
       }
-
-      else
-      {
-        if(this.errors.existID && this.IDPromosi !== '')
-        {
-          this.errors.errorIDPromosi = '*ID Promosi Sudah Terdaftar'
-        }
-        else{
-          this.errors.errorIDPromosi = ''
-        }
-
-        if(this.errors.existNama && this.NamaPromosi !== '')
-        {
-          this.errors.errorNamaPromosi = '*Promosi Sudah Terdaftar'
-        }
-        else
-        {
-          this.errors.errorNamaPromosi = ''
-        }
-
-        if(this.IDPromosi === ''){
-          this.errors.IDPromosi = "*Sila Masukkan ID Promosi"
-        }
-        else{
-          this.errors.IDPromosi = ''
-        }
-
-        if(this.NamaPromosi === ''){
-          this.errors.NamaPromosi = "*Sila Masukkan Nama Promosi"
-        }
-        else{
-          this.errors.NamaPromosi = ''
-        }
-
-        if(this.DeskripsiPromosi === ''){
-          this.errors.DeskripsiPromosi = "*Sila Masukkan Deskripsi Promosi"
-        }
-        else{
-          this.errors.DeskripsiPromosi = ''
-        }
-
-        if(this.HargaPromosi === ''){
-          this.errors.HargaPromosi = "*Sila Masukkan Harga Promosi"
-        }
-        else{
-          this.errors.HargaPromosi = ''
-        }
-
-        if(this.selectedItem === null){
-          this.errors.selectedItem = "*Sila Pilih Kategori Promosi"
-        }
-        else{
-          this.errors.selectedItem = ''
-        }
-
-        if(this.selectedStatus === null){
-          this.errors.selectedStatus = "*Sila Pilih Status Promosi"
-        }
-        else{
-          this.errors.selectedStatus = ''
-        }
-      }
-
-     
     },
   },
 };

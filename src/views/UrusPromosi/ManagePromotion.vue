@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-             <div  class="mt-[3%] bg-white w-full px-[2%] pb-[3%]">
+             <div  class="mt-[3%] bg-white w-[full] pt-[0.7%] pb-[3%]">
                  <RouterView></RouterView>
             </div>
 

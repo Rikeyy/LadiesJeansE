@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5 text-lg font-semibold text-left bg-white">
+  <div class="p-5 text-lg font-semibold text-left bg-white w-[95%] mx-auto">
     <div class="flex justify-between">
       <div>
         Senarai Promosi
@@ -18,7 +18,7 @@
     </div>
   </div>
   
-  <div class="relative overflow-y-auto jadual max-h-[415px] min-h-[150px] w-[97%] m-auto">
+  <div class="relative overflow-y-auto jadual min-h-[415px] w-[95%] m-auto ">
     <table class="w-full text-sm text-left">
   
       <thead class="uppercase bg-sky-300 text-white text-center sticky top-0 z-10">

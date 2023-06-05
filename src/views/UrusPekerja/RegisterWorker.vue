@@ -118,206 +118,191 @@ export default {
         peranan: '',
         password: '',
         gaji: '',
-
-        existKP : '',
-        existTel : '',
-        existEmel : '',
-        existID : '',
-    },
+        existKP: false,
+        existTel: false,
+        existEmel: false,
+        existID: false,
+      },
     };
   },
   methods: {
+    async checkExistingData() {
+      try {
+        const responseKP = await axios.get(`http://localhost:3001/noKP/${this.nokp}`);
+        this.errors.existKP = responseKP.data;
+
+        const responseEmel = await axios.get(`http://localhost:3001/emel/${this.emel}`);
+        this.errors.existEmel = responseEmel.data;
+
+        const responseTel = await axios.get(`http://localhost:3001/telefon/${this.telefon}`);
+        this.errors.existTel = responseTel.data;
+
+        const responseID = await axios.get(`http://localhost:3001/stafID/${this.idpekerja}`);
+        this.errors.existID = responseID.data;
+
+        console.log(this.errors.existKP);
+        console.log(this.errors.existEmel);
+        console.log(this.errors.existID);
+        console.log(this.errors.existTel);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async submitForm() {
-      await axios.get("http://localhost:3001/noKP")
-        .then(response=>{
-            this.errors.existKP = response.data
-            console.log(this.errors.existKP)
-        })
-        .catch(error=>console.log(error))
+      await this.checkExistingData();
 
-        await axios.get("http://localhost:3001/emel")
-        .then(response=>{
-            this.errors.existEmel = response.data
-            console.log(this.errors.existEmel)
-        })
-        .catch(error=>console.log(error))
+      const existingKP = this.errors.existKP;
+      const existingTel = this.errors.existTel;
+      const existingEmel = this.errors.existEmel;
+      const existingID = this.errors.existID;
 
-        await axios.get("http://localhost:3001/telefon")
-        .then(response=>{
-            this.errors.existTel = response.data
-            console.log(this.errors.existTel)
-        })
-        .catch(error=>console.log(error))
+      if (
+        this.namapenuh &&
+        this.nokp &&
+        this.telefon &&
+        this.emel &&
+        this.alamat &&
+        this.idpekerja &&
+        this.peranan &&
+        this.password &&
+        this.gaji &&
+        !existingKP &&
+        !existingTel &&
+        !existingEmel &&
+        !existingID
+      ) {
+        this.errors.errorKP = '';
+        this.errors.errorEmel = '';
+        this.errors.errorID = '';
+        this.errors.errorTel = '';
 
-        await axios.get("http://localhost:3001/stafID")
-        .then(response=>{
-            this.errors.existID = response.data
-            console.log(this.errors.existID)
-        })
-        .catch(error=>console.log(error))
-
-      const formData = {
-        Nama_Pekerja: this.namapenuh,
-        NoKP_Pekerja: this.nokp,
-        Telefon_Pekerja: this.telefon,
-        Emel_Pekerja: this.emel,
-        Alamat_Pekerja: this.alamat,
-        Staf_ID: this.idpekerja,
-        Peranan_Pekerja: this.peranan,
-        KataLaluan_Pekerja: this.password,
-        Gaji_Pekerja: this.gaji,  
-      };
-
-      console.log(this.errors.existKP);
-      console.log(this.errors.existEmel);
-      console.log(this.errors.existID);
-      console.log(this.errors.existTel);
-
-      const existingKP = this.errors.existKP.filter(pekerja => pekerja.NoKP_Pekerja === this.nokp)
-      const existingTel = this.errors.existTel.filter(pekerja => pekerja.Telefon_Pekerja === this.telefon)
-      const existingEmel = this.errors.existEmel.filter(pekerja => pekerja.Emel_Pekerja === this.emel)
-      const existingID = this.errors.existID.filter(pekerja => pekerja.Staf_ID === this.idpekerja)
-
-      if(this.namapenuh && this.nokp && this.telefon && this.emel && this.alamat && this.idpekerja && this.peranan && this.password && this.gaji && !existingKP && !existingTel && !existingEmel && !existingID)
-      {
-        this.errors.errorKP = ''
-        this.errors.errorEmel = ''
-        this.errors.errorID = ''
-        this.errors.errorTel = ''
-
-        if(!/(?=.*[A-Z])(?=.*[0-9]).{8,}/.test(this.password)){
-          this.errors.password ='*Kata Laluan Tidak Sah';
+        if (!/(?=.*[A-Z])(?=.*[0-9]).{8,}/.test(this.password)) {
+          this.errors.password = '*Kata Laluan Tidak Sah';
+        } else {
+          this.errors.password = '';
         }
-        else{
-          this.errors.password = ''   
-        }
-                
-        if(!/^[\w.-]+@[a-zA-Z_-]+\.[a-zA-Z]{2,4}$/.test(this.emel)){
+
+        if (!/^[\w.-]+@[a-zA-Z_-]+\.[a-zA-Z]{2,4}$/.test(this.emel)) {
           this.errors.emel = '*Emel Tidak Sah';
-        }
-        else{
-          this.errors.emel = ''
+        } else {
+          this.errors.emel = '';
         }
 
-        if(!this.errors.password && !this.errors.emel)
-        {
-          axios.post('http://localhost:3001/', formData)
-          .then(response => {
-            console.log(response.data);
-            this.namapenuh = '';
-            this.nokp = '';
-            this.telefon = '';
-            this.emel = '';
-            this.alamat = '';
-            this.idpekerja = '';
-            this.peranan = '';
-            this.password = '';
-            this.gaji = '';
-          })
-          .catch(error => {
-            console.error(error);
-          });
+        if (!this.errors.password && !this.errors.emel) {
+          const formData = {
+            Nama_Pekerja: this.namapenuh,
+            NoKP_Pekerja: this.nokp,
+            Telefon_Pekerja: this.telefon,
+            Emel_Pekerja: this.emel,
+            Alamat_Pekerja: this.alamat,
+            Staf_ID: this.idpekerja,
+            Peranan_Pekerja: this.peranan,
+            KataLaluan_Pekerja: this.password,
+            Gaji_Pekerja: this.gaji,
+          };
+
+          axios
+            .post('http://localhost:3001/', formData)
+            .then((response) => {
+              console.log(response.data);
+              this.namapenuh = '';
+              this.nokp = '';
+              this.telefon = '';
+              this.emel = '';
+              this.alamat = '';
+              this.idpekerja = '';
+              this.peranan = '';
+              this.password = '';
+              this.gaji = '';
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      } else {
+        if (existingKP && this.nokp !== '') {
+          this.errors.errorKP = '*Nombor Kad Pengenalan Sudah Terdaftar';
+        } else {
+          this.errors.errorKP = '';
+        }
+
+        if (existingEmel && this.emel !== '') {
+          this.errors.errorEmel = '*Emel Sudah Terdaftar';
+        } else {
+          this.errors.errorEmel = '';
+        }
+
+        if (existingID && this.idpekerja !== '') {
+          this.errors.errorID = '*ID Pekerja Sudah Terdaftar';
+        } else {
+          this.errors.errorID = '';
+        }
+
+        if (existingTel && this.telefon !== '') {
+          this.errors.errorTel = '*Nombor Telefon Sudah Terdaftar';
+        } else {
+          this.errors.errorTel = '';
+        }
+
+        if (this.namapenuh === '') {
+          this.errors.namapenuh = '*Sila Masukkan Nama Penuh Pekerja';
+        } else {
+          this.errors.namapenuh = '';
+        }
+
+        if (this.nokp === '') {
+          this.errors.nokp = '*Sila Masukkan Nombor Kad Pengenalan Pekerja';
+        } else {
+          this.errors.nokp = '';
+        }
+
+        if (this.telefon === '') {
+          this.errors.telefon = '*Sila Masukkan Nombor Telefon Pekerja';
+        } else {
+          this.errors.telefon = '';
+        }
+
+        if (this.emel === '') {
+          this.errors.emel = '*Sila Masukkan Emel Pekerja';
+        } else {
+          this.errors.emel = '';
+        }
+
+        if (this.alamat === '') {
+          this.errors.alamat = '*Sila Masukkan Alamat Pekerja';
+        } else {
+          this.errors.alamat = '';
+        }
+
+        if (this.idpekerja === '') {
+          this.errors.idpekerja = '*Sila Masukkan ID Pekerja';
+        } else {
+          this.errors.idpekerja = '';
+        }
+
+        if (this.peranan === '') {
+          this.errors.peranan = '*Sila Masukkan Peranan Pekerja';
+        } else {
+          this.errors.peranan = '';
+        }
+
+        if (this.password === '') {
+          this.errors.password = '*Sila Masukkan Kata Laluan Akaun Pekerja';
+        } else {
+          this.errors.password = '';
+        }
+
+        if (this.gaji === '') {
+          this.errors.gaji = '*Sila Masukkan Gaji Pekerja';
+        } else {
+          this.errors.gaji = '';
         }
       }
-      else
-      {
-        if(this.errors.existKP && this.nokp !== ''){
-          this.errors.errorKP='*Nombor Kad Pengenalan Sudah Terdaftar'
-        }
-        else{
-          this.errors.errorKP=''
-        }
-
-        if(this.errors.existEmel && this.emel !== ''){
-          this.errors.errorEmel='*Emel Sudah Terdaftar'
-        }
-        else{
-          this.errors.errorEmel=''
-        }
-
-        if(this.errors.existID && this.idpekerja !== ''){
-          this.errors.errorID='*ID Pekerja Sudah Terdaftar'
-        }
-        else{
-          this.errors.errorID=''
-        }
-
-        if(this.errors.existTel && this.telefon !== ''){
-          this.errors.errorTel='*Nombor Telefon Sudah Terdaftar'
-        }
-        else{
-          this.errors.errorTel=''
-        }
-
-        if(this.namapenuh === ''){
-          this.errors.namapenuh = "*Sila Masukkan Nama Penuh Pekerja"
-        }
-        else{
-          this.errors.namapenuh = ''
-        }
-
-        if(this.nokp === ''){
-          this.errors.nokp = "*Sila Masukkan Nombor Kad Pengenalan Pekerja"
-        }
-        else{
-          this.errors.nokp = ''
-        }
-
-        if(this.telefon === ''){
-          this.errors.telefon = "*Sila Masukkan Nombor Telefon Pekerja"
-        }
-        else{
-          this.errors.telefon = ''
-        }
-
-        if(this.emel === ''){
-          this.errors.emel = "*Sila Masukkan Emel Pekerja"
-        }
-        else{
-          this.errors.emel = ''
-        }
-
-        if(this.alamat === ''){
-          this.errors.alamat = "*Sila Masukkan Alamat Pekerja"
-        }
-        else{
-          this.errors.alamat = ''
-        }
-
-        if(this.idpekerja === ''){
-          this.errors.idpekerja = "*Sila Masukkan ID Pekerja"
-        }
-        else{
-          this.errors.idpekerja = ''
-        }
-
-        if(this.peranan === ''){
-          this.errors.peranan = "*Sila Masukkan Peranan Pekerja"
-        }
-        else{
-          this.errors.peranan = ''
-        }
-
-        if(this.password === ''){
-          this.errors.password = "*Sila Masukkan Kata Laluan Akaun Pekerja"
-        }
-        else{
-          this.errors.password = ''
-        }
-
-        if(this.gaji === ''){
-          this.errors.gaji = "*Sila Masukkan Gaji Pekerja"
-        }
-        else{
-          this.errors.gaji = ''
-        }
-
-      }
-      
     },
   },
 };
 </script>
+
 
 <style>
 .white{
