@@ -1,24 +1,33 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+const scrollToLogMasuk = () => {
+  const logMasukSection = document.getElementById('logmasuk');
+  logMasukSection.scrollIntoView({ behavior: 'smooth' });
+};
+
+const scrollToFeatures = () => {
+  const logMasukSection = document.getElementById('features');
+  logMasukSection.scrollIntoView({ behavior: 'smooth' });
+};
 </script>
   
 <template>
     <div class="w-screen h-full backkk ">
         <div class="flex justify-between px-20">
             <img src="../assets/lJE__3_-removebg-preview.png" class="w-36 float-left" alt="">
-            <button class="text-white bg-gradient-to-r from-sky-500 to-indigo-500 h-12 px-12 rounded-full my-auto shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">Log Masuk</button>
+            <button class="text-white bg-gradient-to-r from-sky-500 to-indigo-500 h-12 px-12 rounded-full my-auto shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]" @click="scrollToLogMasuk">Log Masuk</button>
         </div>
         <div class="flex w-10/12 mx-auto h-[80vh] ">
             <div class="w-4/5 m-auto ">
                 <h1 class="text-white text-6xl font-bold w-3/5 mb-10 ">Cara yang lebih baik untuk mengurus <span class="text-sky-500 text-8xl font-bold ">Bisnes</span> anda.</h1>
                 <h2 class="text-white text-2xl w-3/5 mb-12">Urus. Jejak. Susun. <span class="text-sky-500 text-3xl">Sistem Pengurusan Ladies Jeans Enterprise</span> ialah penyelesaian semua-dalam-satu baharu anda. </h2>
-                <button class="text-white bg-gradient-to-r from-sky-500 to-indigo-500 h-12 px-12 rounded-full my-auto shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">See Features</button>
+                <button class="text-white bg-gradient-to-r from-sky-500 to-indigo-500 h-12 px-12 rounded-full my-auto shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]"  @click="scrollToFeatures">Lihat Modul Fungsi</button>
             </div>
             <div class="w-1/5 m-auto max-md:hidden">
                 <img data-aos="fade-left" src="../assets/undraw_predictive_analytics_re_wxt8.svg" alt="">
             </div>
         </div>
-        <div class="text-white w-4/5 m-auto h-screen">
+        <div id="features" class="text-white w-4/5 m-auto h-screen">
             <h2 class="text-center text-6xl font-bold pt-40">Ciri-Ciri</h2>
             <div class="flex justify-between pt-24 w-full h-3/5">
                 <div data-aos="zoom-in" class="glass h-4/5 w-1/6"></div>
@@ -33,11 +42,11 @@ import { RouterLink } from 'vue-router';
             <div class="flex justify-center pt-24 w-full h-3/5">
                 <div data-aos="zoom-in-right" class="h-full w-[23%] bg-white rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-gray-100 mr-10">
                     <img class="w-3/5 h-[73%] m-auto py-12" src="../assets/undraw_ideas_flow_re_bmea.svg">
-                    <RouterLink to="/logmasuk-pekerja"><button  class="text-white bg-gradient-to-r from-sky-500 to-indigo-500 h-12 px-12 rounded-full shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] ml-[103px]">Pekerja</button></RouterLink>
+                    <RouterLink to="/logmasuk-pekerja"><button  class="text-white bg-gradient-to-r from-sky-500 to-indigo-500 h-12 px-12 rounded-full shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] ml-[30%]">Pekerja</button></RouterLink>
                     </div>
                 <div data-aos="zoom-in-left" class="h-full w-[23%] bg-white rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 border border-gray-100 mr-10">
                     <img class="w-4/5 h-[73%] m-auto py-12" src="../assets/undraw_co-working_re_w93t.svg">
-                    <RouterLink to="/logmasuk-pengurus"><button class="text-white bg-gradient-to-r from-sky-500 to-indigo-500 h-12 px-12 rounded-full shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] ml-[98px]">Pengurus</button></RouterLink>
+                    <RouterLink to="/logmasuk-pengurus"><button class="text-white bg-gradient-to-r from-sky-500 to-indigo-500 h-12 px-12 rounded-full shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] ml-[30%]">Pengurus</button></RouterLink>
                 </div>
             </div>
         </div>

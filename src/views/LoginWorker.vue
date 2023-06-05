@@ -31,26 +31,26 @@ export default {
   },
   methods: {
     submitForm() {
-      // Perform validation and login logic here
-      const credentials = {
-        idPekerja: this.idPekerja,
-        password: this.password,
-      };
+    const credentials = {
+      idPekerja: this.idPekerja,
+      password: this.password,
+    };
 
-      axios
-        .post('http://localhost:3001/login', credentials)
-        .then(response => {
-          // Successful login, perform desired actions
-          console.log('Login successful');
-          // Redirect to another page, etc.
-          this.$router.push('/main');
-        })
-        .catch(error => {
-          // Invalid credentials or other error occurred
-          console.log('Login failed:', error.message);
-          // Show error message or perform other actions
-        });
-    },
+    axios
+      .post('http://localhost:3001/login', credentials)
+      .then(response => {
+        console.log('Login successful');
+        this.$router.push('/pekerja/utama');
+      })
+      .catch(error => {
+        console.log('Login failed:', error.message);
+        if (error.response && error.response.status === 403) {
+          alert('Access denied. Only workers are allowed.');
+        } else {
+          alert('Login failed. Please check your credentials.');
+        }
+      });
+  },
   },
 };
 </script>
