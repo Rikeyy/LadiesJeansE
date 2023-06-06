@@ -6,93 +6,93 @@
     <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
-            <h1 class="text-2xl font-semibold">Paparan Stok</h1>
-            <h2 class="text-lg text-gray-500">Halaman Utama - Paparan Stok</h2>
-            <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
+            <h1 class="text-xl font-semibold">Paparan Stok</h1>
+            <h2 class="text-md text-gray-500">Halaman Utama - Paparan Stok</h2>
+            <div class="bg-white shadow-sm w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
                 <h3 class="text-4xl font-semibold pb-[2%]">Maklumat <span class="text-sky-400">Produk</span></h3>
                 <div class="flex justify-between">
                     <table>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Nama Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2">
+                            <td class="text-md pl-2">
                                 {{ product.Nama_Produk }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 ID Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2">
+                            <td class="text-md pl-2">
                                 {{ product.Produk_ID }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Deskripsi Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2">
+                            <td class="text-md pl-2">
                                 {{ product.Deskripsi_Produk }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Harga Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2">
+                            <td class="text-md pl-2">
                                 {{ product.Harga_Produk }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Kategori Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2" v-if="product.Kategori">
+                            <td class="text-md pl-2" v-if="product.Kategori">
                             {{ product.Kategori.Nama_Kategori}}
                         </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Saiz Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2">
+                            <td class="text-md pl-2">
                                 {{ product.Saiz_Produk }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Kuantiti Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2"> 
+                            <td class="text-md pl-2"> 
                                 {{ product.Kuantiti_Produk }}
                             </td>
                         </tr>
                     </table>
                     <div class="px-[5%] py-[5%] h-[60%] putih mr-[5%]">
-                            <svg id="barcode" ref="barcode" class="border-2 border-black m-auto"></svg>
-                            <button @click="printBarcode" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[15%] mt-[5%]">Print Barcode</button>
+                            <svg id="barcode" ref="barcode" class="border-2 border-black m-auto mb-[2%]"></svg>
+                            <button @click="printBarcode" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200 ml-[15%] mt-[5%]">Print Barcode</button>
                     </div>
                 </div>
             </div>

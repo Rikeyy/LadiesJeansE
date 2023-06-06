@@ -7,14 +7,14 @@
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-[75%]">
             <div >
-                <h1 class="text-2xl font-semibold mt-[2%]">Ubahsuai Maklumat Produk</h1>
+                <h1 class="text-xl font-semibold ">Ubahsuai Maklumat Produk</h1>
                                 <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
                 <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Inventori -<span class="text-sky-500">Ubahsuai Maklumat Produk</span></h2>
             </div>
             
             <div class="flex justify-between mt-[2%]">
-                <div class="bg-white w-[95%] h-[78%] shadow-2xl rounded-xl pt-[5%] pb-[7%]">
-                    <h3 class="text-center text-xl mb-[3%]">Sila masukkan maklumat produk yang baru di ruang yang disediakan.</h3>
+                <div class="bg-white w-[95%] h-[78%] shadow-2xl rounded-xl pt-[3%] pb-[5%]">
+                    <h3 class="text-center text-lg mb-[3%]">Sila masukkan maklumat produk yang baru di ruang yang disediakan.</h3>
 
                     <form class="w-[80%] m-auto" @submit.prevent="submitForm">
                         <div class="flex justify-between">
@@ -45,7 +45,7 @@
                         </div>
                         <div>
                             <label for="items">Pilih Kategori:</label>
-                            <select id="items" v-model="selectedItem" class="block mt-2 appearance-none w-10% bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"> 
+                            <select id="items" v-model="product.kategoriProduk" class="block mt-2 appearance-none w-10% bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"> 
                                 <option disabled>-Select Item-</option>
                                 <option v-for="kategori in kategoriList" :key="kategori.id" :value="kategori.id">{{ kategori.Nama_Kategori }}</option>
                             </select>
@@ -59,14 +59,20 @@
                 </div>
             </div>
         </div>
+        <ToastMessage ref="toast"/>
     </div>
 </template>
 
 <script>
         import axios from 'axios';
         import router from '../../router';
+        import ToastMessage from '../../components/ToastMessage.vue';
+
 
         export default {
+            components:{
+                ToastMessage,
+            },
             data() {
                 return {
                     produkID: router.currentRoute.value.params.id,
@@ -86,34 +92,32 @@
             },
             methods: {
                 submitForm() {
-                this.product.kategoriProduk = this.selectedItem; // Assign the selected category to the product
+                this.product.kategoriProduk = this.product.kategoriProduk;
                 axios
                     .put('http://localhost:3001/produk/' + this.produkID, this.product)
                     .then(response => {
-                    alert('Data updated successfully!');
-                    router.push('/urus-produk');
+                        console.log(this.product);
+
+                        const message ='Ubahsuai Maklumat Produk Berjaya'
+                        const status = 'Berjaya'
+                        
+                        this.$refs.toast.toast(message,status,'success')
                     })
                     .catch(error => {
-                    alert('Failed to update data.');
                     console.log(error);
+
+                    const message ='Gagal Ubahsuai Maklumat Produk'
+                    const status = 'Gagal'
+                    
+                    this.$refs.toast.toast(message,status,'error')
                     });
+
+                    
                 },
-                // submitForm() {
-                //     axios.put('http://localhost:3001/produk/' + this.produkID, this.product)
-                //         .then(response => {
-                //             alert("Data updated successfully!");
-                //             router.push('/urus-produk');
-                //         })
-                //         .catch(error => {
-                //             alert("Failed to update data.");
-                //             console.log(error);
-                //         });
-                // },
                 fetchKategoriData() {
                 axios.get('http://localhost:3001/kategori')
                     .then(response => {
                     this.kategoriList = response.data;
-                    //   console.log(this.kategoriList);
                     })
                     .catch(error => {
                     console.error('Error fetching kategori data:', error);

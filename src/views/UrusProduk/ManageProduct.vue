@@ -8,20 +8,20 @@
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-[75%] h-[90%]">
             <div>
-                <h1 class="text-2xl font-semibold">Pengurusan Inventori</h1>
-                <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-400">Pengurusan Inventori</span></h2>
+                <h1 class="text-xl font-semibold">Pengurusan Inventori</h1>
+                <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-400">Pengurusan Inventori</span></h2>
             </div>
 
             <div class="flex justify-between mt-[2%]">
                 <div class="flex flex-col justify-between w-[30%] h-full">
                     <div class="h-[25%] bg-white rounded-lg shadow-sm mb-8 pb-2">
-                        <h1 class="font-semibold pl-[4%] mt-[2%] mb-[2%]">Bilangan Produk Terdaftar :</h1>
+                        <h1 class="font-semibold text-md pl-[4%] mt-[2%] mb-[2%]">Bilangan Produk Terdaftar :</h1>
                         <h2 class="text-6xl font-bold text-center">{{ produkList ? produkList.length : 0 }}</h2>
                     </div>
 
                     <div class="h-[70%] bg-white pb-9 shadow-sm rounded-xl">
-                        <h1 class="p-5 text-lg font-semibold text-left bg-white ">Komposisi Produk Mengikut Kategori</h1>
-                        <div class="h-[250px]">
+                        <h1 class="p-5 text-md font-semibold text-left bg-white ">Komposisi Produk Mengikut Kategori</h1>
+                        <div class="h-[230px]">
                             <canvas id="workerChart"></canvas>
                         </div>                    
                     </div>
@@ -35,9 +35,9 @@
             </div>
 
              <div class="mt-[3%] bg-white w-full shadow-sm h-[51%] pt-[0.7%] pb-[4%] ">
-                 <div class="p-5 w-[95%] text-lg font-semibold text-left bg-white mx-auto "> 
+                 <div class="p-5 w-[95%] text-md font-semibold text-left bg-white mx-auto "> 
                      <div class="flex justify-between">
-                             <div>
+                             <div class="text-md">
                                  Senarai Produk
                              <p class="mt-1 font-normal text-gray-500 dark:text-gray-400">Senarai produk yang ada di dalam Inventori.</p>
                          </div>
@@ -52,7 +52,7 @@
                          </div>
                     </div>
                     <div class=" h-[415px] w-[93%] relative overflow-y-auto shadow-xl mx-auto mt-[1%]">
-                        <table class=" w-full text-sm text-left">
+                        <table class=" w-full text-[13px] text-left">
                            <thead class=" text-gray-700 uppercase bg-sky-400 dark:text-white text-center sticky top-0 z-10 ">
                                <tr>
                                    <th scope="col" class="px-6 py-3">
@@ -62,20 +62,20 @@
                                        Nama Produk
                                    </th>
                                    <th scope="col" class="px-6 py-3">
-                                       Harga (RM)
-                                   </th>
+                                        Deskripsi
+                                    </th>
                                    <th scope="col" class="px-6 py-3">
-                                       Saiz
-                                   </th>
-                                   <th scope="col" class="px-6 py-3">
-                                       Deskripsi
-                                   </th>
-                                   <th scope="col" class="px-6 py-3">
-                                       Kategori
-                                   </th>
-                                   <th scope="col" class="px-6 py-3 w-[10%]">
-                                       Aksi
-                                   </th>
+                                     Kategori
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 w-[10%]">
+                                        Harga (RM)
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Saiz
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 w-[10%]">
+                                      Aksi
+                                    </th>
                                </tr>
                            </thead>
                            <tbody v-if="produkList.length > 0 && produkList.length < 6">
@@ -86,18 +86,18 @@
                                    <td class="px-6 py-4 w-[15%]">
                                        {{ produk.Nama_Produk }}
                                    </td>
-                                   <td class="px-6 py-4  w-[15%]">
-                                       {{ produk.Harga_Produk }}
-                                   </td>
-                                   <td class="px-6 py-4  w-[15%]">
-                                       {{ produk.Saiz_Produk }}
-                                   </td>
-                                   <td class="px-6 py-4">
-                                       {{ produk.Deskripsi_Produk }}
-                                   </td>
-                                   <td class="px-6 py-3">
-                                       {{ produk.Kategori.Nama_Kategori}}
-                                   </td>
+                                   <td class="px-6 py-4 w-[25%]">
+                                     {{ produk.Deskripsi_Produk }}
+                                    </td>
+                                    <td class="px-6 py-3">
+                                      {{ produk.Kategori.Nama_Kategori}}
+                                    </td>
+                                    <td class="px-6 py-4  w-[5%]">
+                                        {{ produk.Harga_Produk }}
+                                    </td>
+                                    <td class="px-6 py-4  w-[5%]">
+                                        {{ produk.Saiz_Produk }}
+                                    </td>
                                    <td class="px-6 py-4 flex justify-around">
                                        <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteProduct(produk.Produk_ID)"></i>
                                        <RouterLink :to="'/update-product/' + produk.id">
@@ -117,18 +117,18 @@
                                    <td class="px-6 py-4 w-[15%]">
                                        {{ produk.Nama_Produk }}
                                    </td>
-                                   <td class="px-6 py-4  w-[15%]">
-                                       {{ produk.Harga_Produk }}
-                                   </td>
-                                   <td class="px-6 py-4  w-[15%]">
-                                       {{ produk.Saiz_Produk }}
-                                   </td>
                                    <td class="px-6 py-4">
-                                       {{ produk.Deskripsi_Produk }}
-                                   </td>
-                                   <td class="px-6 py-3">
-                                       {{ produk.Kategori.Nama_Kategori}}
-                                   </td>
+                                     {{ produk.Deskripsi_Produk }}
+                                    </td>
+                                    <td class="px-6 py-3">
+                                      {{ produk.Kategori.Nama_Kategori}}
+                                    </td>
+                                    <td class="px-6 py-4  w-[15%]">
+                                        {{ produk.Harga_Produk }}
+                                    </td>
+                                    <td class="px-6 py-4  w-[15%]">
+                                        {{ produk.Saiz_Produk }}
+                                    </td>
                                    <td class="px-6 py-4 flex justify-around">
                                        <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteProduct(produk.Produk_ID)"></i>
                                        <RouterLink :to="'/update-product/' + produk.id">
@@ -147,6 +147,7 @@
             </div>
 
             
+            <ToastMessage ref="toast"/>
 
         </div>
     </div>
@@ -155,8 +156,12 @@
 <script>
 import axios from 'axios';
 import { Chart } from 'chart.js/auto';
+import ToastMessage from '../../components/ToastMessage.vue';
 
 export default {
+  components:{
+    ToastMessage,
+  },
   data() {
     return {
       produkList: [],
@@ -190,7 +195,10 @@ export default {
           if (index !== -1) {
             this.produkList.splice(index, 1);
           }
-          console.log('Product deleted successfully.');
+          const message ='Maklumat Produk Berjaya Di Padam'
+            const status = 'Berjaya'
+            
+            this.$refs.toast.toast(message,status,'success')
         })
         .catch(error => {
           console.error('Error deleting product:', error);

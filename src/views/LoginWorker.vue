@@ -17,12 +17,17 @@
         </div>
       </div>
     </div>
+    <ToastMessage ref="toast"/>
   </template>
 
 <script>
 import axios from 'axios';
+import ToastMessage from '../components/ToastMessage.vue';
 
 export default {
+  components:{
+                ToastMessage,
+            },
   data() {
     return {
       idPekerja: '',
@@ -39,16 +44,26 @@ export default {
     axios
       .post('http://localhost:3001/login', credentials)
       .then(response => {
-        console.log('Login successful');
-        this.$router.push('/pekerja/utama');
+        setTimeout(() => {
+      this.$router.push('/pekerja/utama');
+    }, 2000);
+        const message ='Log Masuk Berjaya'
+        const status = 'Berjaya'
+                        
+        this.$refs.toast.toast(message,status,'success')
       })
       .catch(error => {
         console.log('Login failed:', error.message);
         if (error.response && error.response.status === 403) {
-          alert('Access denied. Only workers are allowed.');
+          const message ='Maaf Hanya Pekerja Yang Boleh Log Masuk'
+          const status = 'Gagal'
+                    
+          this.$refs.toast.toast(message,status,'error')        
         } else {
-          alert('Login failed. Please check your credentials.');
-        }
+          const message ='ID Pekerja atau Kata Laluan Salah'
+          const status = 'Gagal'
+                    
+          this.$refs.toast.toast(message,status,'error')        }
       });
   },
   },

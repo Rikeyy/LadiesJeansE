@@ -6,10 +6,10 @@
     <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
         <SidebarWorker/>
       <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
-        <h1 class="text-2xl font-semibold">Troli</h1>
-        <h2 class="text-lg text-gray-500">Halaman Utama - Rekod Jualan - <span class="text-sky-500">Troli</span></h2>
+        <h1 class="text-xl font-semibold">Troli</h1>
+        <h2 class="text-md text-gray-500">Halaman Utama - Rekod Jualan - <span class="text-sky-500">Troli</span></h2>
   <div class="bg-white shadow-sm  w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%] h-[90%]">
-    <div class="h-[500px] shadow-xl  w-[95%] m-auto my-[2%] ">
+    <div class="h-[500px] shadow-xl text-[13px] w-[95%] m-auto my-[2%] ">
       <table class=" m-auto">
         <thead  class=" uppercase bg-sky-400 text-white text-center w-[500px]">
           <tr>
@@ -29,10 +29,10 @@
             <td class="px-6 py-4 w-[15%]">{{ item.productData?.Produk_ID }}</td>
             <td class="px-6 py-4 w-[15%]">{{ item.productData?.Nama_Produk }}</td>
             <td class="px-6 py-4 w-[15%]">{{ item.productData?.Harga_Produk }}</td>
-            <td class="px-6 py-4 w-[15%]">{{ item.quantity }}</td>
+            <td class="px-6 py-4 w-[15%]">{{ item.kuantiti }}</td>
             <td class="px-6 py-4 w-[15%]">{{ item.totalPrice }}</td>
             <td class="px-6 py-4 w-[15%]">
-              <button @click="removeCartItem(index)">Padam</button>
+              <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="removeCartItem(index)"></i>
             </td>
           </tr>
         </tbody>
@@ -45,12 +45,14 @@
     </div>
 
     <div class="flex justify-center">
-      <button @click="clearCart" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[2%] mt-[2%]">Kosongkan Troli</button>
-      <button @click="openSummaryDialog" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[2%] mt-[2%]">Pembayaran</button>
+      <button @click="clearCart" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200  ml-[2%] mt-[2%]">Kosongkan Troli</button>
+      <button @click="openSummaryDialog" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200  ml-[2%] mt-[2%]" :class="{ 'disabled': cartItems.length === 0 }">Pembayaran</button>
     </div>
 
+    <div v-if="showSummaryDialog" class="overlay"></div>
+
     <!-- Summary dialog -->
-    <dialog v-if="showSummaryDialog" open @close="closeSummaryDialog" class="top-[30%] m-auto text-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-[5%] py-[5%]">
+    <dialog v-if="showSummaryDialog" open @close="closeSummaryDialog" class="dialog-container text-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-[5%] py-[5%]">
   <h2 class="text-2xl font-semibold pb-[5%]">Rekod Jualan</h2>
   <h2 class="text-lg  pb-[5%]">Senarai produk yang dibeli</h2>
   <ul>
@@ -66,58 +68,60 @@
   
   <p class="pb-[10%]">Wang Baki: {{ calculateBalance }}</p>
   
-  <button @click="navigateToPayment" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[2%] mt-[2%]">Selesai</button>
+  <button @click="navigateToPayment" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200  ml-[2%] mt-[2%]">Selesai</button>
+  <button @click="closeSummaryDialog" class="text-white bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200  ml-[2%] mt-[2%]">Batal</button>
+
 </dialog>
   </div>
   </div>
   </div>
+
+  <ToastMessage ref="toast"/>
+
 </template>
 
 <script>
 import axios from 'axios';
+import ToastMessage from '../../components/ToastMessage.vue';
 
 export default {
+  components:{
+    ToastMessage,
+  },
   data() {
     return {
       cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
       totalPrice: 0,
       showSummaryDialog: false,
-      moneyReceived: 0, // Add a new data property for moneyReceived
-      isTableEmpty: false, // Add a new data property
+      moneyReceived: 0, 
+      isTableEmpty: false, 
     };
   },
-  beforeUnmount() {
-  // Clear the cartItems from localStorage
+  beforeUnmounted() {
   localStorage.removeItem('cartItems');
 },
   mounted() {
-  // Retrieve the product information, price, and quantity from storage
   const storedProductData = JSON.parse(localStorage.getItem('productData'));
   const storedTotalPrice = localStorage.getItem('totalPrice');
-  const storedQuantity = parseInt(localStorage.getItem('quantity'));
+  const storedQuantity = parseInt(localStorage.getItem('kuantiti'));
 
   const storedCartItems = localStorage.getItem('cartItems');
   
   if (storedCartItems) {
-    // If cartItems exist in localStorage, assign them to the data property
     this.cartItems = JSON.parse(storedCartItems);
   }
 
   if (storedProductData && storedTotalPrice && !isNaN(storedQuantity)) {
-    // Add the retrieved data to the cartItems array
     this.cartItems.push({
       productData: storedProductData,
       quantity: storedQuantity,
       totalPrice: storedTotalPrice,
     });
 
-    // Clear the stored data from storage (optional)
     localStorage.removeItem('productData');
     localStorage.removeItem('totalPrice');
     localStorage.removeItem('quantity');
 
-    // Calculate the total price
-    this.calculateTotalPrice();
 
     this.$watch('moneyReceived', () => {
       this.calculateBalance();
@@ -138,16 +142,18 @@ computed: {
   },
   methods: {
     removeCartItem(index) {
-  this.cartItems.splice(index, 1);
-  this.calculateTotalPrice();
-  
-  // Update the localStorage to reflect the changes
-  localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
-
-  
+    this.cartItems.splice(index, 1);    
+    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
 },
 async navigateToPayment() {
-      // Send the data to the backend API
+  if (this.moneyReceived < this.totalCart) {
+    const message = "Duit Diterima tidak mencukupi!";
+    const status = "Gagal";
+
+    this.$refs.toast.toast(message, status, "error");
+    return; // Stop the execution of the method
+  }
+  
       try {
         const response = await axios.post("http://localhost:3001/record-sales", {
           cartItems: this.cartItems,
@@ -155,37 +161,31 @@ async navigateToPayment() {
           moneyReceived: this.moneyReceived,
         });
 
-        // Handle the response if needed
         console.log("Sales recorded:", response.data);
 
-        // Update the quantity in the database for each purchased product
         await this.updateProductQuantities();
 
-        // Reset the cart and other necessary data
         this.cartItems = [];
         this.totalPrice = 0;
         this.moneyReceived = 0;
 
-        // Close the summary dialog
         this.closeSummaryDialog();
         window.alert("Sales recorded successfully!");
 
-        // Redirect to another page
         this.$router.push("/pekerja/jualan");
 
-        // Optional: Show a success message or redirect to another page
       } catch (error) {
-        // Handle errors if any
         console.error("Failed to record sales:", error);
-        // Show an error message or handle the error as needed
       }
+
+      localStorage.removeItem('cartItems');
+
     },
 
     async updateProductQuantities() {
   for (const item of this.cartItems) {
     const productId = item.productData?.Produk_ID;
-    const purchasedQuantity = item.quantity;
-
+    const purchasedQuantity = item.kuantiti;
     try {
       const response = await axios.post("http://localhost:3001/update-product-quantity", {
         productId,
@@ -194,26 +194,26 @@ async navigateToPayment() {
 
       const remainingQuantity = response.data.remainingQuantity;
 
-      // Handle the remaining quantity as needed
       console.log("Remaining quantity for product:", productId, "is", remainingQuantity);
     } catch (error) {
-      // Handle errors if any
       console.error("Failed to update quantity for product:", productId);
-      // Show an error message or handle the error as needed
     }
   }
 },
 openSummaryDialog() {
-    this.calculateTotalPrice(); // Calculate the total price
+  if (this.cartItems.length === 0) {
+    const message ='Troli Kosong. Sila Tambah Produk Ke Dalam Troli'
+            const status = 'Gagal'
+            
+            this.$refs.toast.toast(message,status,'error');
+  } else {
     this.showSummaryDialog = true;
-  },
+  }
+},
     clearCart() {
       this.cartItems = [];
       this.totalPrice = 0;
       localStorage.removeItem('cartItems');
-    },
-    openSummaryDialog() {
-      this.showSummaryDialog = true;
     },
     closeSummaryDialog() {
       this.showSummaryDialog = false;
@@ -223,29 +223,34 @@ openSummaryDialog() {
 </script>
 
 <style>
-.white{
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: white; 
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
 }
 
-.putih{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff; 
-}
+  .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
-.hijau{
-    border-radius: 20px;
-    background: #d3f9d6;
-    box-shadow:  8px 8px 23px #1e3b25,
-                -8px -8px 23px #ffffff;
-}
-
-.jadual{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
+  .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998; /* Adjust the z-index as needed */
 }
 </style>

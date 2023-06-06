@@ -30,7 +30,7 @@
         <div class="flex justify-center">
             <div class="relative z-0 w-[45%] group m-auto flex">
                 <label for="items" class="pt-3 pr-3">Pilih Kategori:</label>
-                    <select id="items" v-model="selectedItem" placeholder="Select Item" class="block mt-2 appearance-none w-[50%] bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"> 
+                    <select id="items" v-model="promosi.kategoriTerlibat" placeholder="Select Item" class="block mt-2 appearance-none w-[50%] bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"> 
                         <option disabled>-Select Item-</option>
                         <option  v-for="kategori in kategoriList" :key="kategori.Nama_Kategori" :value="kategori.id" >{{ kategori.Nama_Kategori }}</option>
                     </select>
@@ -51,13 +51,20 @@
             <button class="text-white w-[47%] bg-gradient-to-r from-yellow-400 to-yellow-200 h-12 px-12 rounded-full  shadow-xl hover:scale-105 duration-200 mt-[2.8%]">Ubahsuai</button>
         </div>
     </form>
+
+    <ToastMessage ref="toast"/>
+
 </template>
   
   <script>
   import axios from 'axios';
   import router from '../../router';
-  
+  import ToastMessage from '../../components/ToastMessage.vue';
+
   export default {
+    components:{
+    ToastMessage,
+  },
     data() {
       return {
         promosiID: router.currentRoute.value.params.id,
@@ -86,17 +93,22 @@
   submitForm() {
     // Convert Harga_Promosi to an integer using parseInt
     this.promosi.Harga_Promosi = parseInt(this.promosi.Harga_Promosi);
-    this.promosi.kategoriTerlibat = this.selectedItem; // Assign the selected kategori value
+    this.promosi.kategoriTerlibat = this.promosi.kategoriTerlibat; // Assign the selected kategori value
     
     axios
       .put('http://localhost:3001/promosi/' + this.promosiID, this.promosi)
       .then(response => {
-        alert('Data updated successfully!');
-        router.push('/urus-promosi');
+        const message ='Ubahsuai Maklumat Promosi Berjaya'
+                        const status = 'Berjaya'
+                        
+                        this.$refs.toast.toast(message,status,'success')
       })
       .catch(error => {
-        alert('Failed to update data.');
         console.log(error);
+        const message ='Gagal Ubahsuai Maklumat Promosi'
+                    const status = 'Gagal'
+                    
+                    this.$refs.toast.toast(message,status,'error')
       });
   },
       fetchKategoriData() {

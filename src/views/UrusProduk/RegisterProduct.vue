@@ -7,14 +7,14 @@
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-[75%]">
             <div>
-                <h1 class="text-2xl font-semibold mt-[2%]">Daftar Produk</h1>
+                <h1 class="text-xl font-semibold">Daftar Produk</h1>
                                 <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
                 <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Inventori - <span class="text-sky-500">Pendaftaran Produk</span></h2>
             </div>
             
             <div class="flex justify-between mt-[2%]">
-                <div class="bg-white w-[95%] h-[78%] shadow-2xl rounded-xl pt-[5%] pb-[7%]">
-                    <h3 class="text-center text-xl mb-[3%]">Sila masukkan maklumat produk di ruang yang disediakan.</h3>
+                <div class="bg-white w-[95%] h-[78%] shadow-2xl rounded-xl pt-[3%] pb-[5%]">
+                    <h3 class="text-center text-lg mb-[3%]">Sila masukkan maklumat produk di ruang yang disediakan.</h3>
 
                     <form class="w-[80%] m-auto" @submit.prevent="submitForm">
                         <div class="flex justify-between">
@@ -47,6 +47,8 @@
                         <div class="relative z-0 w-full mb-6 group">
                             <input type="text" name="floating_deskripsi" id="floating_deskripsi"  v-model="deskripsi" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                             <label for="floating_deskripsi" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Deskripsi Produk</label>
+                            <span class="text-red-500 text-sm">{{ errors.deskripsi }}</span>
+
                           </div>
                         <div>
                             <label for="items">Pilih Kategori:</label>
@@ -63,13 +65,18 @@
                 </div>
             </div>
         </div>
+        <ToastMessage ref="toast"/>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import ToastMessage from '../../components/ToastMessage.vue';
 
 export default {
+  components:{
+    ToastMessage,
+  },
   data() {
     return {
       kategoriList: [],
@@ -140,7 +147,6 @@ export default {
           .post('http://localhost:3001/produk', formData)
           .then((response) => {
             console.log(response.data);
-            alert('Data updated successfully!');
             this.idProduk = '';
             this.namaProduk = '';
             this.harga = '';
@@ -151,6 +157,12 @@ export default {
           .catch((error) => {
             console.error(error);
           });
+
+          const message ='Pendaftaran Produk Berjaya'
+            const status = 'Berjaya'
+            
+            this.$refs.toast.toast(message,status,'success')
+
       } else {
         if (existingProduk) {
           this.errors.errorProduk = '*ID Produk Sudah Terdaftar';

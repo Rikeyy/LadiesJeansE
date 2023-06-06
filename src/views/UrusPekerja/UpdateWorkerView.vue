@@ -7,13 +7,13 @@
             <SidebarManager/>
             <div class="ml-[22%] mt-[2.7%] w-[75%]">
                 <div>
-                    <h1 class="text-2xl font-semibold mt-[2%]">Ubahsuai Maklumat Pekerja</h1>
-                    <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-400">Ubahsuai Maklumat Pekerja</span></h2>
+                    <h1 class="text-xl font-semibold ">Ubahsuai Maklumat Pekerja</h1>
+                    <h2 class="text-md text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-400">Ubahsuai Maklumat Pekerja</span></h2>
                 </div>
                 
                 <div class="flex justify-between mt-[2%]">
-                    <div class="bg-white w-[95%] h-[78%] rounded-xl shadow-2xl pt-[5%] pb-[7%]">
-                        <h3 class="text-center text-xl mb-[3%]">Sila masukkan maklumat pekerja yang baru di ruang yang disediakan.</h3>
+                    <div class="bg-white w-[95%] h-[78%] rounded-xl shadow-2xl pt-[3%] pb-[5%]">
+                        <h3 class="text-center text-lg mb-[3%]">Sila masukkan maklumat pekerja yang baru di ruang yang disediakan.</h3>
 
                         <form class="w-[80%] m-auto" @submit.prevent="submitForm">
                             <div class="relative z-0 w-full mb-6 group">
@@ -57,7 +57,7 @@
                                 <label for="floating_password" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kata Laluan</label>
                             </div>
                             <div class="relative z-0 w-[45%] mb-6 group">
-                                <input type="text" name="floating_gaji" id="floating_gaji"  v-model="worker.Gaji_Pekerja" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                <input type="number" name="floating_gaji" id="floating_gaji"  v-model="worker.Gaji_Pekerja" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                                 <label for="floating_gaji" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Gaji Pekerja</label>
                             </div>
                             </div>
@@ -70,14 +70,19 @@
                     </div>
                 </div>
             </div>
+            <ToastMessage ref="toast"/>
         </div>
     </template>
 
     <script>
         import axios from 'axios';
         import router from '../../router';
+        import ToastMessage from '../../components/ToastMessage.vue';
 
         export default {
+            components:{
+                ToastMessage,
+            },
             data() {
                 return {
                     workerId: router.currentRoute.value.params.id,
@@ -95,14 +100,23 @@
                 submitForm() {
                     axios.put('http://localhost:3001/' + this.workerId, this.worker)
                         .then(response => {
-                            alert("Data updated successfully!");
-                            router.push('/urus-pekerja');
+                            const message ='Ubahsuai Maklumat Pekerja Berjaya'
+                            const status = 'Berjaya'
+                            
+                            this.$refs.toast.toast(message,status,'success')
+
                         })
                         .catch(error => {
-                            alert("Failed to update data.");
                             console.log(error);
+
+                            const message ='Gagal Ubahsuai Maklumat Pekerja'
+                            const status = 'Gagal'
+                            
+                            this.$refs.toast.toast(message,status,'error')
                         });
-                }
+
+
+                            }
             }
         };
     </script>

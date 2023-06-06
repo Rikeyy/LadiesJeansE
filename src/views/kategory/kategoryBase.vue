@@ -1,6 +1,6 @@
 <template>
-  <div class="py-5 text-lg font-semibold text-left bg-white w-[90%] shadow-sm mx-auto">
-    <div class="flex justify-between mt-[1%]">
+  <div class="py-5 text-md font-semibold text-left bg-white w-[90%] shadow-sm mx-auto">
+    <div class="flex text-md justify-between mt-[1%]">
       <div>
         Kategori Produk
         <p class="mt-1 font-normal text-gray-500 dark:text-gray-400">Senarai kategori yang terdaftar di dalam sistem.</p>
@@ -18,7 +18,7 @@
     </div>
   </div>
   <div class="h-[67%] relative overflow-y-auto shadow-xl w-[90%] mx-auto  ">
-    <table class=" w-full text-sm text-left mx-auto">
+    <table class=" w-full text-[13px] text-left mx-auto">
       <thead class="text-gray-700 uppercase bg-sky-400 dark:text-white text-center sticky top-0 z-10">
         <tr>
           <th scope="col" class="py-3">
@@ -69,13 +69,18 @@
         </tr>
       </tbody>
     </table>
+    <ToastMessage ref="toast"/>
   </div>
   </template>
   
   <script>
   import axios from 'axios';
-  
+  import ToastMessage from '../../components/ToastMessage.vue';
+
   export default {
+    components:{
+    ToastMessage,
+  },
     data() {
       return {
         kategoriList: [],
@@ -109,11 +114,20 @@
             if (index !== -1) {
               this.kategoriList.splice(index, 1);
             }
-            console.log('Kategori deleted successfully.');
+            const message ='Maklumat Kategori Berjaya Di Padam'
+            const status = 'Berjaya'
+            
+            this.$refs.toast.toast(message,status,'success')
           })
           .catch(error => {
             console.error('Error deleting kategori:', error);
+            const message ='Gagal PadamMaklumat Kategori'
+            const status = 'Gagal'
+            
+            this.$refs.toast.toast(message,status,'error')
           });
+
+          
       },
     },
   };

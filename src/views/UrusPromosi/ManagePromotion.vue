@@ -8,25 +8,25 @@
     <SidebarManager/>
     <div class="ml-[22%] pt-[2.7%] w-[75%] h-[90%]">
       <div>
-        <h1 class="text-2xl font-semibold">Pengurusan Promosi</h1>
-        <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-400">Pengurusan Promosi</span></h2>
+        <h1 class="text-xl font-semibold">Pengurusan Promosi</h1>
+        <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-400">Pengurusan Promosi</span></h2>
       </div>
 
       <div class="flex justify-between mt-[2%]">
         <div class="flex justify-center w-full h-full text-center">
           <div class="flex-col pr-[4%] w-[25%]">
             <div class="rounded-lg shadow-sm h-[43%] bg-white mb-[13.5%] pt-[]">
-              <h1 class="font-semibold text-lg pb-3 pt-4">Bilangan Promosi Terdaftar:</h1>
+              <h1 class="font-semibold text-md pb-3 pt-4">Bilangan Promosi Terdaftar:</h1>
               <h2 class="font-semibold text-6xl">{{ promosiList.length }}</h2>
             </div>
             <div class="rounded-lg shadow-sm h-[43%] bg-white mb-[12%] pt-[]">
-              <h1 class="font-semibold text-lg pb-3 pt-4">Bilangan Promosi Aktif:</h1>
+              <h1 class="font-semibold text-md pb-3 pt-4">Bilangan Promosi Aktif:</h1>
               <h2 class="font-semibold text-6xl">{{ activepromoList.length }}</h2>
             </div>
           </div>
 
           <div class="w-[30%] bg-white shadow-sm rounded-lg h-[320px] pt-[1%] pb-[5%]">
-            <h1 class="font-semibold text-lg pb-[3%]">Komposisi Status Promosi</h1>
+            <h1 class="font-semibold text-md pb-[3%]">Komposisi Status Promosi</h1>
             <canvas id="promotionStatusChart" class="chart-canvas"></canvas>
           </div>
         </div>

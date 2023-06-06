@@ -7,14 +7,14 @@
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-[75%]">
             <div>
-                <h1 class="text-2xl font-semibold mt-[2%]">Daftar Pekerja</h1>
+                <h1 class="text-xl font-semibold ]">Daftar Pekerja</h1>
                                 <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
-                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-400">Pendaftaran Pekerja</span></h2>
+                <h2 class="text-md text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-400">Pendaftaran Pekerja</span></h2>
             </div>
             
             <div class="flex justify-between mt-[2%]">
-                <div  class="bg-white w-[95%] h-[78%] shadow-2xl rounded-xl pt-[5%] pb-[7%]">
-                    <h3 class="text-center text-xl mb-[3%]">Sila masukkan maklumat pekerja di ruang yang disediakan.</h3>
+                <div  class="bg-white w-[95%] h-[78%] shadow-2xl rounded-xl pt-[3%] pb-[5%]">
+                    <h3 class="text-center text-lg mb-[3%]">Sila masukkan maklumat pekerja di ruang yang disediakan.</h3>
 
                     <form class="w-[80%] m-auto" @submit.prevent="submitForm">
                         <div class="relative z-0 w-full mb-6 group">
@@ -79,20 +79,25 @@
                         </div>
 
                         <div class="flex justify-between">
-                            <RouterLink to="/urus-pekerja" class="w-[47%] mt-[2.8%]"><button class="text-white w-full bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200">Batal</button></RouterLink>
+                            <RouterLink to="/urus-pekerja" class="w-[47%] mt-[2.8%]"><button class="text-white w-full text-md bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200">Batal</button></RouterLink>
                             <button type="submit" class="text-white w-[47%] bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-xl mt-[2.80%] hover:scale-105 duration-200">Daftar</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <ToastMessage ref="toast"/>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import ToastMessage from '../../components/ToastMessage.vue';
 
 export default {
+  components:{
+    ToastMessage,
+  },
   data() {
     return {
       namapenuh: '',
@@ -214,10 +219,17 @@ export default {
               this.peranan = '';
               this.password = '';
               this.gaji = '';
+
+              const message ='Pendaftaran Pekerja Berjaya'
+              const status = 'Berjaya'
+              
+              this.$refs.toast.toast(message,status,'success')
             })
             .catch((error) => {
               console.error(error);
             });
+
+            
         }
       } else {
         if (existingKP && this.nokp !== '') {

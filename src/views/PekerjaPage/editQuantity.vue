@@ -6,86 +6,86 @@
     <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
         <SidebarWorker/>
         <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
-            <h1 class="text-2xl font-semibold">Tambah Stok Produk</h1>
-            <h2 class="text-lg text-gray-500">Halaman Utama - Paparan Stok</h2>
+            <h1 class="text-xl font-semibold">Tambah Stok Produk</h1>
+            <h2 class="text-md text-gray-500">Halaman Utama - Paparan Stok</h2>
             <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
                 <h3 class="text-4xl font-semibold pb-[2%]">Maklumat Produk</h3>
                 <div class="flex justify-between ">
                     <table>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Nama Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2">
+                            <td class="text-md pl-2">
                                 {{ product.Nama_Produk }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 ID Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2">
+                            <td class="text-md pl-2">
                                 {{ product.Produk_ID }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Deskripsi Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2">
+                            <td class="text-md pl-2">
                                 {{ product.Deskripsi_Produk }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Harga Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2">
+                            <td class="text-md pl-2">
                                 {{ product.Harga_Produk }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Kategori Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2" v-if="product.Kategori">
+                            <td class="text-md pl-2" v-if="product.Kategori">
                             {{ product.Kategori.Nama_Kategori}}
                         </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Saiz Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2">
+                            <td class="text-md pl-2">
                                 {{ product.Saiz_Produk }}
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-lg font-semibold py-3 px-6">
+                            <td class="text-md font-semibold py-3 px-6">
                                 Kuantiti Produk
                             </td>
-                            <td class="text-lg font-bold px-3">
+                            <td class="text-md font-bold px-3">
                                 :
                             </td>
-                            <td class="text-lg pl-2"> 
+                            <td class="text-md pl-2"> 
                                 <input type="number" class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" v-model="kuantiti" />
                             </td>
                         </tr>
@@ -97,13 +97,19 @@
             </div>
         </div>
     </div>
+    <ToastMessage ref="toast"/>
 </template>
 
 <script>
         import axios from 'axios';
         import router from '../../router';
+        import ToastMessage from '../../components/ToastMessage.vue';
+
 
         export default {
+            components:{
+                ToastMessage,
+            },
             data() {
                 return {
                     produkID: router.currentRoute.value.params.id,
@@ -122,14 +128,6 @@
                 this.product = response.data;
                 console.log(this.product);
 
-                // Generate the barcode using the Produk_ID
-                const barcodeValue = this.product.Produk_ID;
-
-                // Generate barcode with JsBarcode
-                const barcodeElement = document.getElementById('barcode');
-                JsBarcode(barcodeElement, barcodeValue, {
-                    format: 'CODE128',
-                });
                 })
                 .catch(error => console.log(error));
             },
@@ -137,22 +135,26 @@
                 submitForm() {
                     this.product.Kuantiti_Produk += parseInt(this.kuantiti);
                     axios
-  .put('http://localhost:3001/produk/' + this.produkID, { kuantiti: this.kuantiti })
-  .then(response => {
-    alert('Data updated successfully!');
-    router.push('/urus-produk');
-  })
-  .catch(error => {
-    alert('Failed to update data.');
-    console.log(error);
-  });
+                    .put('http://localhost:3001/kuantiti/' + this.produkID, { kuantiti: this.kuantiti })
+                    .then(response => {
+                        const message = "tambah Produk Berjaya";
+                        const status = "Berjaya";
+
+                        this.$refs.toast.toast(message, status, "success");
+                        
+                        setTimeout(() => {
+                        this.$router.push('/pekerja/tambah-produk');
+                        }, 2000);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
                     },
                 
                 fetchKategoriData() {
                 axios.get('http://localhost:3001/kategori')
                     .then(response => {
                     this.kategoriList = response.data;
-                    //   console.log(this.kategoriList);
                     })
                     .catch(error => {
                     console.error('Error fetching kategori data:', error);

@@ -6,72 +6,81 @@
     <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
         <SidebarWorker/>
       <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
-        <h1 class="text-2xl font-semibold">Rekod Jualan</h1>
-        <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-500">Rekod Jualan</span></h2>
-        <div class="bg-white  w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
-          <h3 class="text-center text-xl py-[2%]">Masukkan ID Produk untuk mencari produk.</h3>
+        <h1 class="text-xl font-semibold">Rekod Jualan</h1>
+        <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-500">Rekod Jualan</span></h2>
+        <div class="bg-white  w-[90%] mt-[2%] pb-[5%] pt-[3%] ">
+          <h3 class="text-center text-lg pb-[2%]">Masukkan ID Produk untuk mencari produk.</h3>
           <div class="flex justify-center pb-[2%]">
             <div>
-              <label class="">ID Produk : </label>
+              <label class="text-[15px]">ID Produk : </label>
               <input
                 v-model="searchId"
                 type="search"
-                class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class="mt-2 appearance-none text-[15px] bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 placeholder="ID Produk"
               >
             </div>
-            
-            
-            
           </div>
 
           <div class="flex ml-[10%] w-[80%] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] py-5 px-5 mt-[2%]">
 
           <table class="w-[45%]">
             <tr>
-                <td class="text-lg font-semibold py-3 px-6 w-[40%]">
-                    Nama Produk
+                <td class="text-md font-semibold py-3 px-6 w-[40%]">
+                    ID Produk
                 </td>
-                <td class="text-lg font-bold ">
+                <td class="text-md font-bold ">
                     :
                 </td>
-                <td class="text-lg ">
+                <td class="text-md " >
+                    <p v-if="isSearchEmpty">-----</p>
+                    <p v-else >{{ productData?.Produk_ID }}</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-md font-semibold py-3 px-6 w-[40%]">
+                    Nama Produk
+                </td>
+                <td class="text-md font-bold ">
+                    :
+                </td>
+                <td class="text-md ">
                     <p v-if="isSearchEmpty">-----</p>
                     <p v-else>{{ productData?.Nama_Produk }}</p>
                 </td>
             </tr>
             <tr>
-                <td class="text-lg font-semibold py-3 px-6">
+                <td class="text-md font-semibold py-3 px-6">
                     Harga Produk
                 </td>
-                <td class="text-lg font-bold ">
+                <td class="text-md font-bold ">
                     :
                 </td>
-                <td class="text-lg pl-2">
+                <td class="text-md pl-2">
                     <p v-if="isSearchEmpty">RM 0.00</p>
                     <p v-else>RM {{ productData?.Harga_Produk }}.00</p>
                 </td>
             </tr>
             <tr>
-                <td class="text-lg font-semibold py-3 px-6">
+                <td class="text-md font-semibold py-3 px-6">
                     Deskripsi
                 </td>
-                <td class="text-lg font-bold">
+                <td class="text-md font-bold">
                     :
                 </td>
-                <td class="text-lg pl-2">
+                <td class="text-md pl-2">
                     <p v-if="isSearchEmpty">-----</p>
                     <p v-else>{{ productData?.Deskripsi_Produk }}</p>
                 </td>
             </tr>
             <tr>
-                <td class="text-lg font-semibold py-3 px-6">
+                <td class="text-md font-semibold py-3 px-6">
                     Kategori
                 </td>
-                <td class="text-lg font-bold ">
+                <td class="text-md font-bold ">
                     :
                 </td>
-                <td class="text-lg pl-2">
+                <td class="text-md pl-2">
                     <p v-if="isSearchEmpty">-----</p>
                     <p v-else>{{ productData?.Kategori.Nama_Kategori }}</p>
                 </td>
@@ -79,8 +88,8 @@
           </table>
           <table class="w-[45%]">
             <tr>
-                <td class="text-lg font-semibold py-3 px-6">Pilih Promosi</td>
-                <td class="text-lg font-bold px-3">:</td>
+                <td class="text-md font-semibold py-3 px-6">Pilih Promosi</td>
+                <td class="text-md font-bold px-3">:</td>
                 <td >
                     <select v-model="selectedPromo" class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[100%]">
                         <option disabled>-- Select Promotion --</option>
@@ -89,34 +98,35 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-lg font-semibold py-3 px-6">Quantiti</td>
-                <td class="text-lg font-bold px-3">:</td>
+                <td class="text-md font-semibold py-3 px-6">Quantiti</td>
+                <td class="text-md font-bold px-3">:</td>
                 <td>
                     <input
                         v-model="quantity"
                         type="number"
                         class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         placeholder="Quantity"
+                        required
                     >
                 </td>
             </tr>
             <tr>
-                <td class="text-lg font-semibold py-3 px-6">Jumlah Harga</td>
-                <td class="text-lg font-bold px-3">:</td>
-                <td class="text-lg pl-2">RM {{ totalPrice }}.00</td>
+                <td class="text-md font-semibold py-3 px-6">Jumlah Harga</td>
+                <td class="text-md font-bold px-3">:</td>
+                <td class="text-md pl-2">RM {{ totalPrice }}.00</td>
             </tr>
             <tr>
-                <td class="text-lg font-semibold py-3 px-6">Jumlah Harga Selepas Promosi</td>
-                <td class="text-lg font-bold px-3">:</td>
-                <td class="text-lg pl-2">RM {{ totalPricePromo }}.00</td>
+                <td class="text-md font-semibold py-3 px-6">Jumlah Harga Selepas Promosi</td>
+                <td class="text-md font-bold px-3">:</td>
+                <td class="text-md pl-2">RM {{ totalPricePromo }}.00</td>
             </tr>
           </table>
 
         </div>
         
         <div class="flex justify-center pt-[2%]">
-            <button class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[2%] mt-[2%]" @click="addToCartAndContinue(quantity)">Continue</button>
-            <button class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[2%] mt-[2%]" @click="navigateToCart">View Cart</button>
+            <button class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200 ml-[2%] mt-[2%]" @click="addToCartAndContinue(quantity)">Tambah Ke Troli</button>
+            <button class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200 ml-[2%] mt-[2%]" @click="navigateToCart">Lihat Troli</button>
         </div>
 
         </div>
@@ -124,6 +134,7 @@
 
       </div>
     </div>
+    <ToastMessage ref="toast"/>
   </template>
   
 
@@ -132,6 +143,8 @@
 import { ref, computed, watch } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import ToastMessage from '../../components/ToastMessage.vue';
+
 
 const searchId = ref('');
   const productData = ref(null);
@@ -140,6 +153,7 @@ const searchId = ref('');
   });
   const quantity = ref(0);
   const selectedPromo = ref('');
+
 
   const filteredPromoList = computed(() => {
     if (!productData.value || !productData.value.Kategori) {
@@ -156,7 +170,7 @@ const searchId = ref('');
           Produk_ID: searchId.value,
         },
       });
-      productData.value = response.data[0]; // Assuming only one product is returned
+      productData.value = response.data[0]; 
       console.log(response.data);
     } catch (error) {
       console.error('Error searching products:', error);
@@ -182,7 +196,7 @@ const searchId = ref('');
       if (selectedPromoData) {
         const promoPrice = parseInt(selectedPromoData.Harga_Promosi);
         if (!isNaN(promoPrice)) {
-          totalPricePromo.value = totalPrice.value - promoPrice;
+          totalPricePromo.value = totalPrice.value - (promoPrice*quantity.value);
         } else {
           totalPricePromo.value = totalPrice.value;
         }
@@ -212,54 +226,74 @@ const searchId = ref('');
   fetchActivePromo();
 
   function addToCart(quantity) {
-    // Retrieve existing cart items from localStorage
     const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-    // Add the current product details, quantity, and total price to the cartItems array
     storedCartItems.push({
       productData: productData.value,
       quantity,
       totalPrice: totalPricePromo.value,
     });
 
-    // Save the updated cartItems array to localStorage
     localStorage.setItem('cartItems', JSON.stringify(storedCartItems));
-
-    // Redirect to the "cart" page
-    // Replace '/pekerja/bakul' with the actual route to your cart page
-    // this.$router.push('/pekerja/bakul');
   }
-  function addToCartAndContinue(quantity) {
-    if (!productData.value) {
-    // No product data available, return early
-    return;
-  }
-
-  // Retrieve existing cart items from localStorage
-  const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-  // Add the current product details, quantity, and total price to the cartItems array
-  storedCartItems.push({
-    productData: productData.value,
-    quantity,
-    totalPrice: totalPricePromo.value,
-  });
-
-  // Save the updated cartItems array to localStorage
-  localStorage.setItem('cartItems', JSON.stringify(storedCartItems));
-
-  // Redirect to the "cart" page
-  // Replace '/pekerja/bakul' with the actual route to your cart page
-  // this.$router.push('/pekerja/bakul');
-}
   export default {
-  // ...
+    components:{
+    ToastMessage,
+  },
   methods: {
     navigateToCart() {
-      this.$router.push('/pekerja/bakul'); // Use this.$router instead of importing useRouter()
+      this.$router.push('/pekerja/bakul');
     },
-    // ...
+    async addToCartAndContinue(quantity) {
+          if (!productData.value) {
+        return;
+      }
+
+      const productQuantity = await this.fetchProductQuantity(productData.value.Produk_ID);
+      if (isNaN(productQuantity)) {
+        return;
+      }
+
+      if (quantity > productQuantity) {
+        const message = 'Bilangan Produk Melebihi Bilangan Stok';
+        const status = 'Gagal';
+        this.$refs.toast.toast(message, status, 'error');
+       return;
+      }
+
+      const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+      storedCartItems.push({
+        productData: productData.value,
+        kuantiti: quantity,
+        totalPrice: totalPricePromo.value,
+      });
+
+      localStorage.setItem('cartItems', JSON.stringify(storedCartItems));
+
+      const message = 'Tambah Produk Ke Troli Berjaya';
+      const status = 'Berjaya';
+      this.$refs.toast.toast(message, status, 'success');
+    },
+
+    async fetchProductQuantity(productID) {
+      try {
+        const response = await axios.get('http://localhost:3001/bilangan');
+        const productQuantities = response.data;
+
+        const product = productQuantities.find((produk) => produk.Produk_ID === productID);
+        if (!product) {
+          console.error(`Product with ID ${productID} not found.`);
+          return NaN;
+        }
+
+        return product.Kuantiti_Produk;
+      } catch (error) {
+        console.error('Error fetching product quantity:', error);
+        return NaN;
+      }
+    }
   },
-  // ...
+  
 }
 </script>

@@ -2,7 +2,7 @@
     <div class="fixed h-[90vh] bg-gray-100 w-[17%] left-[2%] top-[5%] tepi">
         <img src="../assets/lJE__3_-removebg-preview.png" class="mx-auto w-[60%]" alt="">
         
-        <div class="font-normal text-lg ml-[18%] mt-[50%]">
+        <div class="font-normal text-md ml-[18%] mt-[50%]">
             <div class="flex mb-6">
                 <RouterLink to="/main" exact-active-class="active-link">
                 <div class="hover:text-blue-300 cursor-pointer">Halaman Utama</div></RouterLink>
@@ -28,12 +28,13 @@
         </div>
 
         <div class="flex mt-[60%] justify-around">
-            <i class="fa-sharp fa-solid fa-circle-user scale-[2.5] mt-[6.4%]" style="color: #000000;"></i>
+            <!-- <i class="fa-sharp fa-solid fa-circle-user scale-[2.5] mt-[6.4%]" style="color: #000000;"></i>
             <div class="">
                 <p>Rikey Kurniawan </p>
                 <p>AI200214</p>
-            </div>
-            <i class="fa-solid fa-right-from-bracket scale-[2] mt-[5.6%]" style="color: #000000;"></i>
+            </div> -->
+            <i class="fa-solid fa-right-from-bracket scale-[2] text-center mt-[5.6%] bg-gradient-to-r from-sky-400 to-indigo-300 w-[45%] py-[1%] rounded-lg shadow-md hover:scale-[2.1] duration-200" style="color: #fff;"></i>
+            
         </div>
     </div>
 </template>

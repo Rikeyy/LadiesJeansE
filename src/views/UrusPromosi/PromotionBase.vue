@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5 text-lg font-semibold text-left bg-white shadow-sm w-[95%] mx-auto">
+  <div class="p-5 text-md font-semibold text-left bg-white shadow-sm w-[95%] mx-auto">
     <div class="flex justify-between">
       <div>
         Senarai Promosi
@@ -19,7 +19,7 @@
   </div>
   
   <div class="relative overflow-y-auto shadow-xl min-h-[415px] w-[95%] m-auto ">
-    <table class="w-full text-sm text-left">
+    <table class="w-full text-[13px] text-left">
   
       <thead class="uppercase bg-sky-400 text-white text-center sticky top-0 z-10">
         <tr>
@@ -98,13 +98,19 @@
         </tr>
       </tbody>
     </table>
+    <ToastMessage ref="toast"/>
+
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import ToastMessage from '../../components/ToastMessage.vue';
 
 export default {
+  components:{
+    ToastMessage,
+  },
   data() {
     return {
       promosiList: [],
@@ -139,8 +145,10 @@ export default {
           if (index !== -1) {
             this.promosiList.splice(index, 1);
           }
-          console.log('Promotion deleted successfully.');
-        })
+          const message ='Maklumat Promosi Berjaya Di Padam'
+            const status = 'Berjaya'
+            
+            this.$refs.toast.toast(message,status,'success')        })
         .catch(error => {
           console.error('Error deleting promotion:', error);
         });

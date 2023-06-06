@@ -63,12 +63,18 @@
             <button type="submit" class="text-white w-[47%] bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full  shadow-xl hover:scale-105 duration-200 mt-[2.8%]">Daftar</button>
         </div>
     </form>
+    <ToastMessage ref="toast"/>
 </template>
 
 <script>
 import axios from 'axios';
+import ToastMessage from '../../components/ToastMessage.vue';
+
 
 export default {
+  components:{
+    ToastMessage,
+  },
   data() {
     return {
       kategoriList: [],
@@ -157,13 +163,17 @@ export default {
           .post('http://localhost:3001/promosi', formData)
           .then((response) => {
             console.log(response.data);
-            alert('Data updated successfully!');
             this.IDPromosi = '';
             this.NamaPromosi = '';
             this.DeskripsiPromosi = '';
             this.HargaPromosi = '';
             this.selectedItem = null;
             this.selectedStatus = null;
+
+            const message ='Pendaftaran Promosi Berjaya'
+            const status = 'Berjaya'
+            
+            this.$refs.toast.toast(message,status,'success')
             
           })
           .catch((error) => {

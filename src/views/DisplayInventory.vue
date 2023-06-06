@@ -5,12 +5,12 @@
 <template>
     <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
         <SidebarManager/>
-        <div class="ml-[22%] mt-[3%] w-full h-[90%]">
-            <h1 class="text-2xl font-semibold">Paparan Stok</h1>
-            <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-400">Paparan Stok Produk</span></h2>
-            <div class="bg-white w-[90%] mt-[2%] pb-[3%]">
-                <h3 class="text-center text-xl py-[2%]">Masukkan <span class="text-sky-400">ID Produk</span> untuk mencari produk.</h3>
-                <div class="flex justify-center pb-[2%]">
+        <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
+            <h1 class="text-xl font-semibold">Paparan Stok</h1>
+            <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-400">Paparan Stok Produk</span></h2>
+            <div class="bg-white shadow-sm w-[90%] mt-[2%] pb-[3%]">
+                <h3 class="text-center text-lg py-[2%]">Masukkan <span class="text-sky-400">ID Produk</span> untuk mencari produk.</h3>
+                <div class="flex text-[15px] justify-center pb-[2%]">
                     <div class="pr-[2%]">
                         <label class="">ID Produk : </label>
                         <input
@@ -29,8 +29,8 @@
                     <!-- <button @click="searchProducts" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button> -->
 
                 </div >
-                <div class="w-[92%] relative overflow-y-auto jadual min-h-[600px] mx-auto">
-                    <table class=" m-auto w-full">
+                <div class="w-[92%] relative overflow-y-auto jadual min-h-[550px] mx-auto">
+                    <table class=" m-auto text-[13px] w-full">
                         <thead class=" text-gray-700 uppercase bg-sky-400 dark:text-white text-center">
                             <tr>
                                 <th scope="col" class="px-6 py-3">

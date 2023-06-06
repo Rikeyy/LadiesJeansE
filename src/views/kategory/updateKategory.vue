@@ -21,13 +21,20 @@
         <button type="submit" class="text-white w-[47%] bg-gradient-to-r from-yellow-400 to-yellow-200 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200 mt-[3%]">Ubahsuai</button>
       </div>
     </form>
+    <ToastMessage ref="toast"/>
+
   </template>
   
   <script>
   import axios from 'axios';
   import router from '../../router';
+  import ToastMessage from '../../components/ToastMessage.vue';
+
 
   export default {
+    components:{
+    ToastMessage,
+  },
       data() {
           return {
               kategoriID: router.currentRoute.value.params.id,
@@ -45,13 +52,21 @@
           submitForm() {
               axios.put('http://localhost:3001/kategori/' + this.kategoriID, this.kategori)
                   .then(response => {
-                      alert("Data updated successfully!");
-                      router.push('/urus-produk');
+                    const message ='Ubahsuai Maklumat Kategori Berjaya'
+                    const status = 'Berjaya'
+                    
+                    this.$refs.toast.toast(message,status,'success')
                   })
                   .catch(error => {
-                      alert("Failed to update data.");
                       console.log(error);
+
+                      const message ='Gagal Ubahsuai Maklumat Kategori'
+                    const status = 'Gagal'
+                    
+                    this.$refs.toast.toast(message,status,'error')
                   });
+
+                  
           }
       }
   };

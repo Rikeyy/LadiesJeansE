@@ -5,10 +5,10 @@
 <template>
     <div class="bg-[#f0f0f0] h-screen w-full flex">
         <SidebarWorker/>
-        <div class="ml-[22%] mt-[4%] w-[75%] h-[90%]">
+        <div class="ml-[22%] mt-[2.7%] w-[75%] h-[90%]">
             <div >
-                <h1 class="text-2xl font-semibold">Halaman Utama</h1>
-                <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-400">Papan Pemuka</span></h2>
+                <h1 class="text-xl font-semibold">Halaman Utama</h1>
+                <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-400">Papan Pemuka</span></h2>
             </div>
             
             <div class="flex justify-around mt-[2%] ">
@@ -26,10 +26,10 @@
             </div>
 
             <div  class="mt-[3%] bg-white w-full h-[51%] px-[2%] pb-[3%] ">
-                 <table class="w-full text-sm text-left shadow-2xl">
-                <caption class="p-5 text-lg font-semibold text-left bg-white ">
+                 <table class="w-full text-[13px] text-left shadow-2xl">
+                <caption class="p-5 text-[17px] font-semibold text-left bg-white ">
                     Jualan Terakhir
-                    <p class="mt-1 font-normal text-gray-500 dark:text-gray-400">Senarai jualan terakhir yang direkod hari ini.</p>
+                    <p class="mt-1 font-normal text-sm text-gray-400">Senarai jualan terakhir yang direkod hari ini.</p>
                 </caption>
                     <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-400 dark:text-white">
                         <tr>

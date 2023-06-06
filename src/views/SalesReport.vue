@@ -5,10 +5,10 @@
 <template>
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
-        <div class="ml-[22%] mt-[3%] w-full h-[90%]">
-            <h1 class="text-2xl font-semibold">Laporan Jualan</h1>
-            <h2 class="text-lg text-gray-500">Halaman Utama - <span class="text-sky-400">Laporan Jualan</span></h2>
-            <div class="bg-white w-[90%] mt-[2%] py-[3%]">
+        <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
+            <h1 class="text-xl font-semibold">Laporan Jualan</h1>
+            <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-400">Laporan Jualan</span></h2>
+            <div class="bg-white text-[15px] w-[90%] mt-[2%] py-[3%]">
                 <div class="flex justify-between mb-4 mr-8">
                     <div class="w-1/2">
                         <label for="barcode" class="mr-[2%] ml-[18%]">Cari Produk:</label>
@@ -32,8 +32,8 @@
                         </div>
                     </div>
                 </div>
-                <div class=" h-[550px] w-[93%] relative overflow-y-auto jadual mx-auto mt-[2%]">
-                        <table class=" w-full text-sm text-left">
+                <div class=" h-[500px] w-[93%] relative overflow-y-auto jadual mx-auto mt-[2%]">
+                        <table class=" w-full text-[13px] text-left">
                            <thead class=" uppercase bg-sky-400 text-white text-center sticky top-0 z-10 ">
                                <tr>
                                    <th scope="col" class="px-6 py-3 w-[5%]">
@@ -51,7 +51,7 @@
                                    <th scope="col" class="px-6 py-3">
                                        kuantiti
                                    </th>
-                                   <th scope="col" class="px-6 py-3">
+                                   <th scope="col" class="px-6 py-3 w-[15%]">
                                        jumlah harga
                                    </th>
                                    <th scope="col" class="px-6 py-3 w-[20%]">
@@ -140,7 +140,7 @@
                        </table>
                     </div>
                     <div class="w-full">
-                        <button @click="generatePDF" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[40%] mt-[3%] py-2">
+                        <button @click="generatePDF" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200 ml-[40%] mt-[3%] py-2">
                                 Jana Laporan Jualan
                         </button>
                     </div>
