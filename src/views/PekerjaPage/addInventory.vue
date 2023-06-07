@@ -87,7 +87,7 @@
                                     {{ produk.Kuantiti_Produk }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <router-link :to="'/pekerja/tambah-produk/'+ produk.id"><i class="fa-solid fa-eye text-lg text-sky-500 cursor-pointer" ></i></router-link>
+                                    <router-link :to="'/pekerja/tambah-produk/'+ produk.id"><i class="fa-solid fa-plus text-green-500 cursor-pointer font-bold text-lg"></i></router-link>
                                 </td>
                             </tr> 
                                                

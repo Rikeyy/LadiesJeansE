@@ -18,10 +18,34 @@
         </div>
 
         <div class="flex mt-[90%] justify-around">
-            <i class="fa-solid fa-right-from-bracket scale-[2] text-center mt-[5.6%] bg-gradient-to-r from-sky-400 to-indigo-300 w-[45%] py-[1%] rounded-lg shadow-md hover:scale-[2.1] duration-200" style="color: #fff;"></i>
+            <i class="fa-solid fa-right-from-bracket scale-[2] text-center mt-[5.6%] bg-gradient-to-r from-sky-400 to-indigo-300 w-[45%] py-[1%] rounded-lg shadow-md hover:scale-[2.1] duration-200" style="color: #fff;" @click="logout"></i>
         </div>
     </div>
+    <ToastMessage ref="toast"/>
+
 </template>
+
+<script>
+import ToastMessage from '../components/ToastMessage.vue';
+
+export default {
+    components:{
+        ToastMessage,
+    },
+  methods: {
+    logout() {
+        const message ='Log Keluar Berjaya'
+        const status = 'Berjaya'
+                        
+        this.$refs.toast.toast(message,status,'success')
+
+        setTimeout(() => {
+          this.$router.push('/');
+        }, 1500);
+    }
+  }
+}
+</script>
 
 <style>
 .tepi{

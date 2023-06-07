@@ -9,7 +9,7 @@
             <div>
                 <h1 class="text-xl font-semibold ]">Daftar Pekerja</h1>
                                 <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
-                <h2 class="text-md text-gray-500">Halaman Utama - Pengurusan Pekerja - <span class="text-sky-400">Pendaftaran Pekerja</span></h2>
+                <h2 class="text-md text-gray-500"><span><RouterLink to="/main">Halaman Utama</RouterLink></span> - <span><RouterLink to="/urus-pekerja">Pengurusan Pekerja</RouterLink></span> - <span class="text-sky-400">Pendaftaran Pekerja</span></h2>
             </div>
             
             <div class="flex justify-between mt-[2%]">
@@ -57,12 +57,10 @@
                             <label class="text-red-600 font-medium text-xs" for="errorid" id="errorid">{{ errors.errorID }}</label>
                           </div>
                         <div class="relative z-0 w-[45%] mb-6 group">
-                            <select name="floating_role" id="floating_role" v-model="peranan" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" >
-                                <option value="Pekerja">Pekerja</option>
-                                <option value="Pengurus">Pengurus</option>
-                            </select>
-                            <label for="floating_role" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Peranan</label>
-                            <label class="text-red-600 font-medium text-xs" for="errorrole" id="errorrole">{{ errors.peranan }}</label>
+                          <input type="number" name="floating_gaji" id="floating_gaji"  v-model="gaji" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
+                            <label for="floating_gaji" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Gaji Pekerja</label>
+                            <label class="text-red-600 font-medium text-xs" for="errorgaji" id="errorgaji">{{ errors.gaji }}</label>
+                            
                           </div>
                         </div>
                         <div class="flex justify-between">
@@ -71,10 +69,20 @@
                             <label for="floating_password" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kata Laluan</label>
                             <label class="text-red-600 font-medium text-xs" for="errorps" id="errorps">{{ errors.password }}</label>
                           </div>
-                        <div class="relative z-0 w-[45%] mb-6 group">
-                            <input type="number" name="floating_gaji" id="floating_gaji"  v-model="gaji" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
-                            <label for="floating_gaji" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Gaji Pekerja</label>
-                            <label class="text-red-600 font-medium text-xs" for="errorgaji" id="errorgaji">{{ errors.gaji }}</label>
+                        <div class="relative z-0 w-[45%] mt-3 group">
+                          <div class="flex flex-col">
+                            <div>
+                              <label for="peranan" class="mr-[5%]">Peranan:</label>
+                                <select id="peranan" v-model="peranan" class=" appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                  <option disabled>-- Sila Pilih Peranan</option>
+                                  <option value="Pekerja">Pekerja</option>
+                                  <option value="Pengurus">Pengurus</option>
+                                </select>
+                            </div>
+                            <div>
+                              <label class="text-red-600 font-medium text-xs" for="errorrole" id="errorrole">{{ errors.peranan }}</label>
+                            </div>
+                          </div>
                           </div>
                         </div>
 
@@ -106,7 +114,7 @@ export default {
       emel: '',
       alamat: '',
       idpekerja: '',
-      peranan: 'Pekerja',
+      peranan: '',
       password: '',
       gaji: '',
       errors: {

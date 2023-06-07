@@ -7,7 +7,7 @@
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
             <h1 class="text-xl font-semibold">Laporan Jualan</h1>
-            <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-400">Laporan Jualan</span></h2>
+            <h2 class="text-md text-gray-500"><span><RouterLink to="/main">Halaman Utama</RouterLink></span> - <span class="text-sky-400">Laporan Jualan</span></h2>
             <div class="bg-white text-[15px] w-[90%] mt-[2%] py-[3%]">
                 <div class="flex justify-between mb-4 mr-8">
                     <div class="w-1/2">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-                <div class=" h-[500px] w-[93%] relative overflow-y-auto jadual mx-auto mt-[2%]">
+                <div class=" h-[500px] w-[93%] relative overflow-y-auto shadow-xl mx-auto mt-[2%]">
                         <table class=" w-full text-[13px] text-left">
                            <thead class=" uppercase bg-sky-400 text-white text-center sticky top-0 z-10 ">
                                <tr>
@@ -80,7 +80,7 @@
                                        {{ sale.jumlahHarga}}
                                    </td>
                                    <td class="px-6 py-3">
-                                    {{  new Date(sale.createdAt).toLocaleTimeString("en-US", {
+                                    {{  new Date(sale.createdAt).toLocaleTimeString("ms-MY", {
                                         hour12: false,
                                         hour: "numeric",
                                         minute: "numeric",
@@ -94,7 +94,7 @@
                                    </td>
                                </tr>   
                                <tr>
-                                <td colspan="7"><p class="text-center py-5 text-gray-500">Daftar lagi produk untuk melihat maklumat produk yang lain.</p></td>
+                                <td colspan="7"><p class="text-center py-5 text-gray-500">Tiada lagi jualan direkodkan.</p></td>
                                </tr>                 
                            </tbody>
                            <tbody v-else-if="filteredSaleList.length > 0">
@@ -139,10 +139,11 @@
                            </tbody>
                        </table>
                     </div>
-                    <div class="w-full">
-                        <button @click="generatePDF" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200 ml-[40%] mt-[3%] py-2">
+                    <div class="w-full flex">
+                        <button @click="generatePDF" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200 ml-[40%] mt-[2%] py-2">
                                 Jana Laporan Jualan
                         </button>
+                        <RouterLink to="/graf-jualan" class="text-gray-500 w-[37%] text-right mt-[2%]">Pergi ke graf laporan jualan <span><i class="fa-solid fa-arrow-right pl-3"></i></span></RouterLink>
                     </div>
                 </div>
         </div>
@@ -251,63 +252,6 @@ export default {
 
   doc.save('sales_report.pdf');
 },
-//     generatePDF() {
-//   const doc = new jsPDF();
-//   const rows = [];
-//   let totalSales = 0; // Variable to store the total sales
-
-//   this.saleList.forEach((sale, index) => {
-//     const rowData = [
-//       index + 1,
-//       sale.barcode,
-//       sale.produk.Nama_Produk,
-//       sale.produk.Harga_Produk,
-//       sale.kuantiti,
-//       sale.jumlahHarga,
-//       new Date(sale.createdAt).toLocaleDateString('en-US', {
-//         day: '2-digit',
-//         month: '2-digit',
-//         year: 'numeric',
-//       }) +
-//         ' ' +
-//         new Date(sale.createdAt).toLocaleTimeString('en-US', {
-//           hour12: false,
-//           hour: 'numeric',
-//           minute: 'numeric',
-//           second: 'numeric',
-//         }),
-//     ];
-//     rows.push(rowData);
-
-//     totalSales += sale.jumlahHarga; // Add the sale amount to the totalSales variable
-//   });
-
-//   const headers = [
-//     'Bilangan',
-//     'ID Produk',
-//     'Nama Produk',
-//     'Harga',
-//     'Kuantiti',
-//     'Jumlah Harga',
-//     'Tarikh dan Masa',
-//   ];
-
-//   // Add the title
-//   doc.setFontSize(18);
-//   doc.text('Laporan Jualan', 14, 15);
-
-//   // Add the total sales
-//   doc.setFontSize(12);
-//   doc.text(`Jumlah Jualan: RM ${totalSales.toFixed(2)}`, 14, 25);
-
-//   doc.autoTable({
-//     head: [headers],
-//     body: rows,
-//     startY: 35, // Adjust the startY position to leave space for the title and total sales
-//   });
-
-//   doc.save('sales_report.pdf');
-// },
     filterSales() {
       if (this.selectedDay === "" && this.selectedMonth === "") {
         this.filteredSaleList = this.saleList;
@@ -338,32 +282,3 @@ export default {
   },
 };
 </script>
-
-
-<style>
-.white{
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-
-.putih{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff; 
-}
-
-.hijau{
-    border-radius: 20px;
-    background: #d3f9d6;
-    box-shadow:  8px 8px 23px #1e3b25,
-                -8px -8px 23px #ffffff;
-}
-
-.jadual{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-</style>

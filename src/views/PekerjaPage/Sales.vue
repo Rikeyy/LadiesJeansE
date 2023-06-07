@@ -7,7 +7,7 @@
         <SidebarWorker/>
       <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
         <h1 class="text-xl font-semibold">Rekod Jualan</h1>
-        <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-500">Rekod Jualan</span></h2>
+        <h2 class="text-md text-gray-500"><span><RouterLink to="/pekerja/utama">Halaman Utama</RouterLink></span> - <span class="text-sky-500">Rekod Jualan</span></h2>
         <div class="bg-white  w-[90%] mt-[2%] pb-[5%] pt-[3%] ">
           <h3 class="text-center text-lg pb-[2%]">Masukkan ID Produk untuk mencari produk.</h3>
           <div class="flex justify-center pb-[2%]">
@@ -61,7 +61,7 @@
                     <p v-else>RM {{ productData?.Harga_Produk }}.00</p>
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td class="text-md font-semibold py-3 px-6">
                     Deskripsi
                 </td>
@@ -72,7 +72,7 @@
                     <p v-if="isSearchEmpty">-----</p>
                     <p v-else>{{ productData?.Deskripsi_Produk }}</p>
                 </td>
-            </tr>
+            </tr> -->
             <tr>
                 <td class="text-md font-semibold py-3 px-6">
                     Kategori
@@ -126,8 +126,8 @@
         
         <div class="flex justify-center pt-[2%]">
             <button class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200 ml-[2%] mt-[2%]" @click="addToCartAndContinue(quantity)">Tambah Ke Troli</button>
-            <button class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200 ml-[2%] mt-[2%]" @click="navigateToCart">Lihat Troli</button>
-        </div>
+          </div>
+          <p class="text-gray-500 text-right w-[88%] cursor-pointer" @click="navigateToCart">Lihat Troli</p>
 
         </div>
 

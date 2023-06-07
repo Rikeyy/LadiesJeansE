@@ -9,7 +9,7 @@
             <div >
                 <h1 class="text-xl font-semibold ">Ubahsuai Maklumat Produk</h1>
                                 <!-- <h1 class="text-2xl font-semibold">Ubahsuai Maklumat Pekerja</h1>  -->
-                <h2 class="text-lg text-gray-500">Halaman Utama - Pengurusan Inventori -<span class="text-sky-500">Ubahsuai Maklumat Produk</span></h2>
+                <h2 class="text-md text-gray-500"><span><RouterLink to="/main">Halaman Utama</RouterLink></span> - <span><RouterLink to="/urus-produk">Pengurusan Inventori</RouterLink></span> - <span class="text-sky-500">Ubahsuai Maklumat Produk</span></h2>
             </div>
             
             <div class="flex justify-between mt-[2%]">

@@ -9,6 +9,14 @@
         <h1 class="text-xl font-semibold">Troli</h1>
         <h2 class="text-md text-gray-500">Halaman Utama - Rekod Jualan - <span class="text-sky-500">Troli</span></h2>
   <div class="bg-white shadow-sm  w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%] h-[90%]">
+    <div class="flex justify-between w-[90%] mx-auto">
+      <div>
+        Jumlah barang di dalam troli : <span class="text-blue-600 font-bold text-xl">{{ totalCartQuantity }}</span>
+      </div>
+      <div>
+        <p @click="clearCart" class="text-red-500 text-right cursor-pointer">Kosongkan Troli <i class="fa-solid fa-eraser text-xl"></i></p>
+      </div>
+    </div>
     <div class="h-[500px] shadow-xl text-[13px] w-[95%] m-auto my-[2%] ">
       <table class=" m-auto">
         <thead  class=" uppercase bg-sky-400 text-white text-center w-[500px]">
@@ -45,9 +53,10 @@
     </div>
 
     <div class="flex justify-center">
-      <button @click="clearCart" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200  ml-[2%] mt-[2%]">Kosongkan Troli</button>
-      <button @click="openSummaryDialog" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200  ml-[2%] mt-[2%]" :class="{ 'disabled': cartItems.length === 0 }">Pembayaran</button>
+      <button @click="openSummaryDialog" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200  ml-[2%] mt-[2%]" :class="{ 'disabled': cartItems.length === 0 }">Teruskan Ke Pembayaran</button>
     </div>
+
+    <RouterLink to="/pekerja/jualan" class="text-gray-500 cursor-pointer pl-[3%]"><span><i class="fa-solid fa-plus pr-2"></i></span> Tambah lagi produk di dalam troli</RouterLink>
 
     <div v-if="showSummaryDialog" class="overlay"></div>
 
@@ -129,6 +138,9 @@ export default {
   }
 },
 computed: {
+  totalCartQuantity() {
+    return this.cartItems.reduce((total, item) => total + item.kuantiti, 0);
+  },
     totalCart() {
       this.isTableEmpty = this.cartItems.length === 0; 
       return this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
@@ -144,6 +156,10 @@ computed: {
     removeCartItem(index) {
     this.cartItems.splice(index, 1);    
     localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+    const message = "Berjaya Buang Produk Dari Troli";
+    const status = "Berjaya";
+
+    this.$refs.toast.toast(message, status, "success");
 },
 async navigateToPayment() {
   if (this.moneyReceived < this.totalCart) {
@@ -214,6 +230,10 @@ openSummaryDialog() {
       this.cartItems = [];
       this.totalPrice = 0;
       localStorage.removeItem('cartItems');
+      const message = "Buang Item Dalam Troli Berjaya";
+    const status = "Berjaya";
+
+    this.$refs.toast.toast(message, status, "success");
     },
     closeSummaryDialog() {
       this.showSummaryDialog = false;

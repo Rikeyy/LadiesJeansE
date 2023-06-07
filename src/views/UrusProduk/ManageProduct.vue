@@ -9,7 +9,7 @@
         <div class="ml-[22%] mt-[2.7%] w-[75%] h-[90%]">
             <div>
                 <h1 class="text-xl font-semibold">Pengurusan Inventori</h1>
-                <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-400">Pengurusan Inventori</span></h2>
+                <h2 class="text-md text-gray-500"><span><RouterLink to="/main">Halaman Utama</RouterLink></span> - <span class="text-sky-400">Pengurusan Inventori</span></h2>
             </div>
 
             <div class="flex justify-between mt-[2%]">

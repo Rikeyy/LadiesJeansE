@@ -7,7 +7,7 @@
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
             <h1 class="text-xl font-semibold">Paparan Stok</h1>
-            <h2 class="text-md text-gray-500">Halaman Utama - Paparan Stok</h2>
+            <h2 class="text-md text-gray-500"><span><RouterLink to="/main">Halaman Utama</RouterLink></span> - <span><RouterLink to="/paparan-stok">Paparan Stok</RouterLink></span> - <span class="text-sky-400">Maklumat Produk</span></h2>
             <div class="bg-white shadow-sm w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
                 <h3 class="text-4xl font-semibold pb-[2%]">Maklumat <span class="text-sky-400">Produk</span></h3>
                 <div class="flex justify-between">
@@ -141,8 +141,8 @@
                 axios
                     .put('http://localhost:3001/produk/' + this.produkID, this.product)
                     .then(response => {
-                    alert('Data updated successfully!');
-                    router.push('/urus-produk');
+                    // alert('Data updated successfully!');
+                    // router.push('/urus-produk');
                     })
                     .catch(error => {
                     alert('Failed to update data.');
