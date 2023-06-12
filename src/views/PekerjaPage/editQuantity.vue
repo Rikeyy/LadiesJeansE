@@ -163,31 +163,3 @@
             }
         };
     </script>
-
-<style>
-.white{
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-
-.putih{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff; 
-}
-
-.hijau{
-    border-radius: 20px;
-    background: #d3f9d6;
-    box-shadow:  8px 8px 23px #1e3b25,
-                -8px -8px 23px #ffffff;
-}
-
-.jadual{
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-</style>

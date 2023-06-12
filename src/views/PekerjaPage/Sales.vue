@@ -131,10 +131,40 @@
 
         </div>
 
+        <button @click="bukakcamera()">Open Qrcode</button>
+        <div id="overlay" class="fixed z-40 w-screen h-screen inset-0 bg-gray-900 bg-opacity-50" v-bind:class="{'hidden': !phoneScanner}"></div>
+        <dialog class="w-3/4 mx-auto shadow-product rounded-2xl  fixed top-44 z-50" v-bind:open="phoneScanner">
+            <div class="">
+                <div class="justify-center text-center">
+                    <div>
+                        <p class="font-semibold">Sila Imbas Kodbar</p>
+                    </div>
+                    <div class="flex flex-col items-center my-4">
+                        <div class="section mx-auto w-11/12 text-xs">
+                            <BarcodeScanner
+                                v-bind:qrbox="300"
+                                v-bind:fps="10"
+                                @scan-success="scanBarcode"
+                                class="mx-auto"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" class="outline-gray-300 outline outline-2 w-full p-2 rounded-md mt-2 mb-2 focus:outline focus:outline-blue-500" v-model="barkodProduk">
+                    </div>
+                    <div>
+                        <button class="w-max bg-red-600 text-white p-2 px-10 rounded-xl hover:bg-white hover:text-black hover:outline hover:outline-black " @click="camScanner">Batal</button>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+    </div>
+
 
       </div>
-    </div>
     <ToastMessage ref="toast"/>
+
+    
   </template>
   
 
@@ -142,11 +172,13 @@
 <script>
 import { ref, computed, watch } from 'vue';
 import axios from 'axios';
-import { useRouter } from 'vue-router';
 import ToastMessage from '../../components/ToastMessage.vue';
+import BarcodeScanner from '../../components/BarcodeScanner.vue';
+
 
 
 const searchId = ref('');
+const phoneScanner = ref(false);
   const productData = ref(null);
   const isSearchEmpty = computed(() => {
     return searchId.value === '';
@@ -244,6 +276,21 @@ const searchId = ref('');
     navigateToCart() {
       this.$router.push('/pekerja/bakul');
     },
+    bukakcamera()
+        {
+            phoneScanner.value = !phoneScanner.value; // Toggle the isOpen property
+        },
+    scanBarcode(decodedText)
+        {
+            if(decodedText.trim() !== '')
+            {
+                this.searchId = decodedText;
+                console.log(this.searchId)
+                setTimeout(()=>{
+                    this.phoneScanner=false
+                },500)
+            }
+        },
     async addToCartAndContinue(quantity) {
           if (!productData.value) {
         return;

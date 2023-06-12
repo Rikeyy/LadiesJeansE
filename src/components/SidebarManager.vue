@@ -19,16 +19,19 @@
                 <RouterLink to="/urus-promosi" exact-active-class="active-link">
                 <div class="hover:text-blue-300  cursor-pointer">Pengurusan Promosi</div></RouterLink>
             </div>
-            <div class="flex mb-6">
+            <div class="flex mb-6" exact-active-class="active-link">
                 <RouterLink to="/paparan-stok"><div class="hover:text-blue-300  cursor-pointer">Paparan Stok</div></RouterLink>
             </div>
-            <div class="flex mb-6">
+            <div class="flex mb-6" exact-active-class="active-link">
                 <RouterLink to="/laporan"><div class="hover:text-blue-300  cursor-pointer">Laporan Jualan</div></RouterLink>
+            </div>
+            <div class="flex mb-6" exact-active-class="active-link">
+                <RouterLink to="/notifikasi"><div class="hover:text-blue-300  cursor-pointer">Notifikasi</div></RouterLink>
             </div>
         </div>
 
         <div class="flex mt-[60%] justify-around">
-            <i  class="fa-solid fa-right-from-bracket scale-[2] text-center mt-[5.6%] bg-gradient-to-r from-sky-400 to-indigo-300 w-[45%] py-[1%] rounded-lg shadow-md hover:scale-[2.1] duration-200" style="color: #fff;" @click="logout"></i>
+            <i  class="fa-solid fa-right-from-bracket scale-[2] text-center bg-gradient-to-r from-sky-400 to-indigo-300 w-[45%] py-[1%] rounded-lg shadow-md hover:scale-[2.1] duration-200" style="color: #fff;" @click="logout"></i>
             
         </div>
     </div>

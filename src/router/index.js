@@ -132,8 +132,11 @@ const router = createRouter({
         {
             path: "/graf-jualan",
             component: () => import ("../views/GraphSales.vue"),
+        },
+        {
+            path: "/notifikasi",
+            component: () => import ("../views/Notifikasi.vue"),
         }
-        
     ],
     linkActiveClass: "routerlink-active-link",
 });
