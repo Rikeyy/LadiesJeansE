@@ -1,5 +1,7 @@
 <script setup>
     import SidebarManager from '../../components/SidebarManager.vue';
+
+    
 </script>
 
 <template>
@@ -50,12 +52,26 @@
                             <span class="text-red-500 text-sm">{{ errors.deskripsi }}</span>
 
                           </div>
-                        <div>
-                            <label for="items">Pilih Kategori:</label>
-                            <select id="items" v-model="selectedItem" placeholder="Select Item" class="block mt-2 appearance-none w-10% bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"> 
+                        <div class="flex justify-between">
+                          <div class="relative z-0 w-[45%] group  flex">
+                            <label for="items" class="pt-3 pr-3">Pilih Kategori:</label>
+                            <div>
+                              <select id="items" v-model="selectedItem" placeholder="Select Item" class="block mt-2 appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option disabled>-Select Item-</option>
-                                <option  v-for="kategori in kategoriList" :key="kategori.Nama_Kategori" :value="kategori.id" >{{ kategori.Nama_Kategori }}</option>
-                            </select>
+                                <option v-for="kategori in kategoriList" :key="kategori.Nama_Kategori" :value="kategori.id">{{ kategori.Nama_Kategori }}</option>
+                              </select>
+                              <span class="text-red-500 text-sm">{{ errors.selectedItem }}</span>
+                            </div>
+                          </div>
+                          <div class="w-[45%] mt-[0.6%]">
+                            <label for="items" class="pt-3 pr-3">Muatnaik Gambar Produk:</label>
+                            <lr-file-uploader-regular
+                              css-src="https://esm.sh/@uploadcare/blocks@0.22.9/web/file-uploader-regular.min.css"
+                              ctx-name="my-uploader"
+                              class="my-config "
+                            >
+                            </lr-file-uploader-regular>
+                          </div>
                         </div>
                         <div class="flex justify-between">
                             <RouterLink to="/urus-produk" class="w-[47%] mt-[2.8%]"><button class="text-white w-full bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200">Batal</button></RouterLink>
@@ -69,9 +85,27 @@
     </div>
 </template>
 
+<style>
+.my-config {
+  --cfg-pubkey: "3b7e00a614646d15bf1a";
+  --cfg-img-only: 1;
+  --cfg-multiple: 1;
+  --cfg-max-local-file-size-bytes: 10485760;
+  --cfg-use-cloud-image-editor: 1;
+  --cfg-source-list: "local, camera, gdrive";
+  --darkmode: 0;
+  --h-accent: 223;
+  --s-accent: 100%;
+  --l-accent: 61%;
+}
+</style>
+
 <script>
 import axios from 'axios';
 import ToastMessage from '../../components/ToastMessage.vue';
+import * as LR from "@uploadcare/blocks";
+
+LR.registerBlocks(LR);
 
 export default {
   components:{
@@ -87,6 +121,7 @@ export default {
       saiz: '',
       deskripsi: '',
       kategori: '',
+      link: '',
       errors: {
         idProduk: '',
         namaProduk: '',
@@ -100,6 +135,12 @@ export default {
   },
   mounted() {
     this.fetchKategoriData();
+    window.addEventListener("LR_UPLOAD_FINISH", async (e) => {
+    const dataUpload = e.detail.data[0];
+    this.link=dataUpload.cdnUrl + dataUpload.name;
+    console.log(this.link);
+    
+});
   },
   methods: {
     fetchKategoriData() {
@@ -127,6 +168,7 @@ export default {
         Deskripsi_Produk: this.deskripsi,
         kategoriProduk: this.selectedItem,
         Saiz_Produk: this.saiz,
+        Gambar: this.link,
       };
 
       const existingProduk = this.errors.existProduk.find(
@@ -153,6 +195,7 @@ export default {
             this.deskripsi = '';
             this.kategori = '';
             this.saiz = '';
+            this.link = ''
           })
           .catch((error) => {
             console.error(error);
@@ -184,12 +227,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.white{
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow:  8px 8px 23px #666666,
-                -8px -8px 23px #ffffff;
-}
-</style>

@@ -35,6 +35,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     ID Produk
                                 </th>
+                                <th scope="col" class="px-6 py-3 w-[10%]">
+                                    Gambar
+                                </th>
                                 <th scope="col" class="px-6 py-3">
                                     Nama Produk
                                 </th>
@@ -56,6 +59,7 @@
                                 <th scope="col" class="px-6 py-3 w-[10%]">
                                     Aksi
                                 </th>
+                                
                             </tr>
                         </thead>
                         <tbody  v-if="displayProdukList.length > 0 && displayProdukList < 7 && !selectedItem">
@@ -88,6 +92,9 @@
                                 <td class="px-6 py-4">
                                     <router-link :to="'/paparan-stok/'+ produk.id"><i class="fa-solid fa-eye text-lg text-sky-500 cursor-pointer" ></i></router-link>
                                 </td>
+                                <td class="px-6 py-4">
+                                    <img :src="produk.Gambar"/>
+                                </td>
                             </tr> 
                                                
                         </tbody>
@@ -100,6 +107,9 @@
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-[15%]">
                                     {{ produk.Produk_ID }}
                                 </th>
+                                <td class="px-6 py-4">
+                                    <img :src="produk.Gambar"/>
+                                </td>
                                 <td class="px-6 py-4 w-[15%]">
                                     {{ produk.Nama_Produk }}
                                 </td>
@@ -121,6 +131,7 @@
                                 <td class="px-6 py-4">
                                     <router-link :to="'/paparan-stok/'+ produk.id"><i class="fa-solid fa-eye text-lg text-sky-500 cursor-pointer" ></i></router-link>
                                 </td>
+
                             </tr> 
                                                
                         </tbody>

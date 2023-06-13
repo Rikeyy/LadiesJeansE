@@ -59,7 +59,8 @@
                                    </th>
                                </tr>
                            </thead>
-                           <tbody v-if="filteredSaleList.length > 0 && filteredSaleList.length < 6">
+                           <!-- <tbody v-if="filteredSaleList.length > 0 && filteredSaleList.length < 6"> -->
+                            <tbody>
                                <tr class="bg-white border-b border-gray-500 text-center" v-for="(sale,index) in filteredSaleList">
                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-[15%]">
                                        {{ index + 1 }}
@@ -68,10 +69,11 @@
                                        {{ sale.barcode }}
                                    </td>
                                    <td class="px-6 py-4  w-[15%]">
-                                       {{ sale.produk.Nama_Produk }}
+                                       {{ sale.NamaProduk }}
+
                                    </td>
                                    <td class="px-6 py-4  w-[15%]">
-                                       {{ sale.produk.Harga_Produk }}
+                                    {{ sale.HargaProduk }}
                                    </td>
                                    <td class="px-6 py-4">
                                        {{ sale.kuantiti }}
@@ -97,7 +99,7 @@
                                 <td colspan="7"><p class="text-center py-5 text-gray-500">Tiada lagi jualan direkodkan.</p></td>
                                </tr>                 
                            </tbody>
-                           <tbody v-else-if="filteredSaleList.length > 0">
+                           <!-- <tbody v-else-if="filteredSaleList.length > 0">
                             <tr class="bg-white border-b border-gray-500 text-center" v-for="(sale,index) in filteredSaleList">
                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-[15%]">
                                     {{ index + 1 }}
@@ -136,7 +138,7 @@
                                 <tr>
                                     <td colspan="7"><p class="text-center py-5 text-gray-500">Tiada jualan direkodkan.</p></td>
                                 </tr> 
-                           </tbody>
+                           </tbody> -->
                        </table>
                     </div>
                     <div class="w-full flex">
@@ -158,6 +160,7 @@ import 'jspdf-autotable';
 export default {
   data() {
     return {
+      produk: {},
       saleList: [],
       filteredSaleList: [],
       selectedDay: '',
@@ -195,6 +198,57 @@ export default {
           console.error('Error fetching promotion data:', error);
         });
     },
+    getProductDetails(barcode) {
+      let prodNamePrice = {
+        name: "",
+        price: ""
+      };
+      axios
+        .get(`http://localhost:3001/produk/${barcode}`)
+        .then(response => {
+          this.produk = response.data;
+          console.log(this.produk);
+
+        prodNamePrice.name = this.produk.Nama_Produk
+        prodNamePrice.price = this.produk.Harga_Produk   
+        
+        console.log(prodNamePrice);
+      })
+        .catch(error => {
+          console.error('Error fetching promotion data:', error);
+        });
+
+
+
+              return prodNamePrice;
+
+    },
+  // async getProductDetails(barcode) {
+  //     // let prodNamePrice = {
+  //     //   name: "",
+  //     //   price: ""
+  //     // };
+  //     try {
+  //       const response = await axios.get(`http://localhost:3001/produk/${barcode}`);
+  //       const produk = response.data;
+
+  //       // prodNamePrice.name = produk.Nama_Produk
+  //       // prodNamePrice.price = produk.Harga_Produk
+
+  //       console.log(produk);
+
+  //       return produk;
+
+  //     } catch (error) {
+  //       console.error('Error fetching product details:', error);
+  //       return {
+  //         name: '',
+  //         price: '',
+  //       };
+  //     }
+      
+      // return prodNamePrice;
+  //   },
     generatePDF() {
   const doc = new jsPDF();
   const rows = [];
@@ -203,9 +257,7 @@ export default {
   this.filteredSaleList.forEach((sale, index) => {
     const rowData = [
       index + 1,
-      sale.barcode,
-      sale.produk.Nama_Produk,
-      sale.produk.Harga_Produk,
+      sale.barcode, 
       sale.kuantiti,
       sale.jumlahHarga,
       new Date(sale.createdAt).toLocaleDateString('en-US', {

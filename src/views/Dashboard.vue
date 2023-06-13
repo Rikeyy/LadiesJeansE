@@ -90,10 +90,10 @@
                                        {{ sale.barcode }}
                                    </td>
                                    <td class="px-6 py-4  w-[15%]">
-                                       {{ sale.produk.Nama_Produk }}
+                                       {{ sale.NamaProduk }}
                                    </td>
                                    <td class="px-6 py-4  w-[15%]">
-                                       {{ sale.produk.Harga_Produk }}
+                                       {{ sale.HargaProduk }}
                                    </td>
                                    <td class="px-6 py-4">
                                        {{ sale.kuantiti }}

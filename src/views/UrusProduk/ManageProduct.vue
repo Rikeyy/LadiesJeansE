@@ -187,23 +187,27 @@ export default {
         });
     },
     deleteProduct(productId) {
-      this.updateID = productId;
+  this.updateID = productId;
 
-      axios.delete(`http://localhost:3001/produk/${productId}`)
-        .then(response => {
-          const index = this.produkList.findIndex(p => p.Produk_ID === productId);
-          if (index !== -1) {
-            this.produkList.splice(index, 1);
-          }
-          const message ='Maklumat Produk Berjaya Di Padam'
-            const status = 'Berjaya'
-            
-            this.$refs.toast.toast(message,status,'success')
-        })
-        .catch(error => {
-          console.error('Error deleting product:', error);
-        });
-    },
+  axios.delete(`http://localhost:3001/produk/${productId}`)
+    .then(response => {
+      const index = this.produkList.findIndex(p => p.Produk_ID === productId);
+      if (index !== -1) {
+        this.produkList.splice(index, 1);
+      }
+      const message = 'Maklumat Produk Berjaya Di Padam';
+      const status = 'Berjaya';
+      this.$refs.toast.toast(message, status, 'success');
+    })
+    .catch(error => {
+      const message = 'Error deleting product: ' + error.message;
+      const status = 'Gagal';
+      this.$refs.toast.toast(message, status, 'error');
+    })
+    .finally(() => {
+      this.fetchProdukList(); // Refresh the data after deletion
+    });
+},
     fetchKategori() {
   axios
     .get('http://localhost:3001/chart')

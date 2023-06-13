@@ -66,7 +66,7 @@
   <h2 class="text-lg  pb-[5%]">Senarai produk yang dibeli</h2>
   <ul>
     <li v-for="(item, index) in cartItems" :key="item.productData?.Produk_ID">
-      {{ index + 1 }}. {{ item.productData?.Nama_Produk }} - {{ item.quantity }} - {{ item.totalPrice }}
+      {{ index + 1 }}. {{ item.productData?.Nama_Produk }} - {{ item.kuantiti }} - {{ item.totalPrice }}
     </li>
   </ul>
   <p class="py-[5%]">Jumlah Harga: RM {{ totalCart }}.00</p>
@@ -113,6 +113,8 @@ export default {
   const storedProductData = JSON.parse(localStorage.getItem('productData'));
   const storedTotalPrice = localStorage.getItem('totalPrice');
   const storedQuantity = parseInt(localStorage.getItem('kuantiti'));
+  const storedNamaProduk = localStorage.getItem('namaProduk');
+  const storedHargaProduk = localStorage.getItem('hargaProduk');
 
   const storedCartItems = localStorage.getItem('cartItems');
   
@@ -125,11 +127,15 @@ export default {
       productData: storedProductData,
       quantity: storedQuantity,
       totalPrice: storedTotalPrice,
+      namaProduk: storedNamaProduk,
+      hargaProduk: storedHargaProduk,
     });
 
     localStorage.removeItem('productData');
     localStorage.removeItem('totalPrice');
     localStorage.removeItem('quantity');
+    localStorage.removeItem('namaProduk');
+    localStorage.removeItem('hargaProduk');
 
 
     this.$watch('moneyReceived', () => {
@@ -175,6 +181,7 @@ async navigateToPayment() {
           cartItems: this.cartItems,
           totalCart: this.totalCart,
           moneyReceived: this.moneyReceived,
+
         });
 
         console.log("Sales recorded:", response.data);

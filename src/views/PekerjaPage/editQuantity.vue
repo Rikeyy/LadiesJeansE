@@ -97,6 +97,33 @@
             </div>
         </div>
     </div>
+    <!-- <button @click="bukakcamera()">Open Qrcode</button>
+        <div id="overlay" class="fixed z-40 w-screen h-screen inset-0 bg-gray-900 bg-opacity-50" v-bind:class="{'hidden': !phoneScanner}"></div>
+        <dialog class="w-2/4 mx-auto shadow-product rounded-2xl  fixed top-44 z-50" v-bind:open="phoneScanner">
+            <div class="">
+                <div class="justify-center text-center">
+                    <div>
+                        <p class="font-semibold">Sila Imbas Kodbar</p>
+                    </div>
+                    <div class="flex flex-col items-center my-4">
+                        <div class="section mx-auto w-9/12 text-xs">
+                            <BarcodeScanner
+                                v-bind:qrbox="300"
+                                v-bind:fps="10"
+                                @scan-success="scanBarcode"
+                                class="mx-auto"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" class="outline-gray-300 outline outline-2 w-full p-2 rounded-md mt-2 mb-2 focus:outline focus:outline-blue-500" v-model="barkodProduk">
+                    </div>
+                    <div>
+                        <button class="w-max bg-red-600 text-white p-2 px-10 rounded-xl hover:bg-white hover:text-black hover:outline hover:outline-black " @click="camScanner">Batal</button>
+                    </div>
+                </div>
+            </div>
+        </dialog> -->
     <ToastMessage ref="toast"/>
 </template>
 
@@ -104,6 +131,7 @@
         import axios from 'axios';
         import router from '../../router';
         import ToastMessage from '../../components/ToastMessage.vue';
+        // import BarcodeScanner from '../../components/BarcodeScanner.vue';
 
 
         export default {
@@ -117,7 +145,8 @@
                     kategoriList: [],
                     selectedItem: null,
                     barcodeURL: '',
-                    kuantiti: null
+                    kuantiti: null,
+                    // phoneScanner: false
                 };
             },
             mounted() {
@@ -135,7 +164,7 @@
                 submitForm() {
                     this.product.Kuantiti_Produk += parseInt(this.kuantiti);
                     axios
-                    .put('http://localhost:3001/kuantiti/' + this.produkID, { kuantiti: this.kuantiti })
+                    .put('http://localhost:3001/tambahKuantiti/' + this.produkID, { kuantiti: this.kuantiti })
                     .then(response => {
                         const message = "tambah Produk Berjaya";
                         const status = "Berjaya";
@@ -150,6 +179,21 @@
                         console.log(error);
                     });
                     },
+                    // bukakcamera()
+                    // {
+                    //     this.phoneScanner = !this.phoneScanner; // Toggle the isOpen property
+                    // },
+                    // scanBarcode(decodedText)
+                    //     {
+                    //         if(decodedText.trim() !== '')
+                    //         {
+                    //             this.searchId = decodedText;
+                    //             console.log(this.searchId)
+                    //             setTimeout(()=>{
+                    //                 this.phoneScanner=false
+                    //             },500)
+                    //         }
+                    //     },
                 
                 fetchKategoriData() {
                 axios.get('http://localhost:3001/kategori')

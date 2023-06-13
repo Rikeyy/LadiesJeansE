@@ -131,33 +131,6 @@
 
         </div>
 
-        <button @click="bukakcamera()">Open Qrcode</button>
-        <div id="overlay" class="fixed z-40 w-screen h-screen inset-0 bg-gray-900 bg-opacity-50" v-bind:class="{'hidden': !phoneScanner}"></div>
-        <dialog class="w-3/4 mx-auto shadow-product rounded-2xl  fixed top-44 z-50" v-bind:open="phoneScanner">
-            <div class="">
-                <div class="justify-center text-center">
-                    <div>
-                        <p class="font-semibold">Sila Imbas Kodbar</p>
-                    </div>
-                    <div class="flex flex-col items-center my-4">
-                        <div class="section mx-auto w-11/12 text-xs">
-                            <BarcodeScanner
-                                v-bind:qrbox="300"
-                                v-bind:fps="10"
-                                @scan-success="scanBarcode"
-                                class="mx-auto"
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <input type="text" class="outline-gray-300 outline outline-2 w-full p-2 rounded-md mt-2 mb-2 focus:outline focus:outline-blue-500" v-model="barkodProduk">
-                    </div>
-                    <div>
-                        <button class="w-max bg-red-600 text-white p-2 px-10 rounded-xl hover:bg-white hover:text-black hover:outline hover:outline-black " @click="camScanner">Batal</button>
-                    </div>
-                </div>
-            </div>
-        </dialog>
     </div>
 
 
@@ -166,137 +139,117 @@
 
     
   </template>
-  
-
 
 <script>
 import { ref, computed, watch } from 'vue';
 import axios from 'axios';
 import ToastMessage from '../../components/ToastMessage.vue';
-import BarcodeScanner from '../../components/BarcodeScanner.vue';
 
-
-
-const searchId = ref('');
-const phoneScanner = ref(false);
-  const productData = ref(null);
-  const isSearchEmpty = computed(() => {
-    return searchId.value === '';
-  });
-  const quantity = ref(0);
-  const selectedPromo = ref('');
-
-
-  const filteredPromoList = computed(() => {
-    if (!productData.value || !productData.value.Kategori) {
-      return [];
-    }
-    const productCategoryId = productData.value.Kategori.id;
-    return activePromoList.value.filter((promo) => promo.kategoriTerlibat === productCategoryId);
-  });
-
-  async function searchProducts() {
-    try {
-      const response = await axios.get('http://localhost:3001/cari', {
-        params: {
-          Produk_ID: searchId.value,
-        },
-      });
-      productData.value = response.data[0]; 
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error searching products:', error);
-    }
-  }
-
-  watch(searchId, () => {
-    searchProducts();
-  });
-
-  watch([quantity, selectedPromo], () => {
-    calculateTotalPrice();
-  });
-
-  const totalPrice = ref(0);
-  const totalPricePromo = ref(0);
-
-  function calculateTotalPrice() {
-    const productPrice = parseInt(productData.value?.Harga_Produk);
-    if (!isNaN(productPrice)) {
-      totalPrice.value = productPrice * quantity.value;
-      const selectedPromoData = activePromoList.value.find((promo) => promo.id === selectedPromo.value);
-      if (selectedPromoData) {
-        const promoPrice = parseInt(selectedPromoData.Harga_Promosi);
-        if (!isNaN(promoPrice)) {
-          totalPricePromo.value = totalPrice.value - (promoPrice*quantity.value);
-        } else {
-          totalPricePromo.value = totalPrice.value;
-        }
-      } else {
-        totalPricePromo.value = totalPrice.value;
-      }
-    } else {
-      totalPrice.value = 0;
-      totalPricePromo.value = 0;
-    }
-  }
-
-  const activePromoList = ref([]);
-
-  function fetchActivePromo() {
-    axios
-      .get('http://localhost:3001/aktif')
-      .then((response) => {
-        activePromoList.value = response.data;
-        console.log(activePromoList.value);
-      })
-      .catch((error) => {
-        console.error('Error fetching promotion data:', error);
-      });
-  }
-
-  fetchActivePromo();
-
-  function addToCart(quantity) {
-    const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-    storedCartItems.push({
-      productData: productData.value,
-      quantity,
-      totalPrice: totalPricePromo.value,
-    });
-
-    localStorage.setItem('cartItems', JSON.stringify(storedCartItems));
-  }
-  export default {
-    components:{
+export default {
+  components: {
     ToastMessage,
   },
+  data() {
+    return {
+      searchId: '',
+      // phoneScanner: false,
+      productData: null,
+      quantity: 0,
+      selectedPromo: '',
+      totalPrice: 0,
+      totalPricePromo: 0,
+      activePromoList: [],
+    };
+  },
+  computed: {
+    isSearchEmpty() {
+      return this.searchId === '';
+    },
+    filteredPromoList() {
+      if (!this.productData || !this.productData.Kategori) {
+        return [];
+      }
+      const productCategoryId = this.productData.Kategori.id;
+      return this.activePromoList.filter((promo) => promo.kategoriTerlibat === productCategoryId);
+    },
+  },
+  watch: {
+    searchId() {
+      this.searchProducts();
+    },
+    quantity() {
+      this.calculateTotalPrice();
+    },
+    selectedPromo() {
+      this.calculateTotalPrice();
+    },
+  },
   methods: {
+    async searchProducts() {
+      try {
+        const response = await axios.get('http://localhost:3001/cari', {
+          params: {
+            Produk_ID: this.searchId,
+          },
+        });
+        this.productData = response.data[0];
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error searching products:', error);
+      }
+    },
+    calculateTotalPrice() {
+      const productPrice = parseInt(this.productData?.Harga_Produk);
+      console.log(this.quantity);
+      if (!isNaN(productPrice)) {
+        this.totalPrice = productPrice * this.quantity;
+        const selectedPromoData = this.activePromoList.find((promo) => promo.id === this.selectedPromo);
+        if (selectedPromoData) {
+          const promoPrice = parseInt(selectedPromoData.Harga_Promosi);
+          if (!isNaN(promoPrice)) {
+            this.totalPricePromo = this.totalPrice - promoPrice * this.quantity;
+          } else {
+            this.totalPricePromo = this.totalPrice;
+          }
+        } else {
+          this.totalPricePromo = this.totalPrice;
+        }
+      } else {
+        this.totalPrice = 0;
+        this.totalPricePromo = 0;
+      }
+    },
+    fetchActivePromo() {
+      axios
+        .get('http://localhost:3001/aktif')
+        .then((response) => {
+          this.activePromoList = response.data;
+          console.log(this.activePromoList);
+        })
+        .catch((error) => {
+          console.error('Error fetching promotion data:', error);
+        });
+    },
+    addToCart(quantity) {
+      const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+      storedCartItems.push({
+        productData: this.productData,
+        quantity,
+        totalPrice: this.totalPricePromo,
+      });
+
+      localStorage.setItem('cartItems', JSON.stringify(storedCartItems));
+    },
     navigateToCart() {
       this.$router.push('/pekerja/bakul');
     },
-    bukakcamera()
-        {
-            phoneScanner.value = !phoneScanner.value; // Toggle the isOpen property
-        },
-    scanBarcode(decodedText)
-        {
-            if(decodedText.trim() !== '')
-            {
-                this.searchId = decodedText;
-                console.log(this.searchId)
-                setTimeout(()=>{
-                    this.phoneScanner=false
-                },500)
-            }
-        },
     async addToCartAndContinue(quantity) {
-          if (!productData.value) {
+      if (!this.productData) {
         return;
       }
 
-      const productQuantity = await this.fetchProductQuantity(productData.value.Produk_ID);
+      const productQuantity = await this.fetchProductQuantity(this.productData.Produk_ID);
       if (isNaN(productQuantity)) {
         return;
       }
@@ -305,15 +258,17 @@ const phoneScanner = ref(false);
         const message = 'Bilangan Produk Melebihi Bilangan Stok';
         const status = 'Gagal';
         this.$refs.toast.toast(message, status, 'error');
-       return;
+        return;
       }
 
       const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
       storedCartItems.push({
-        productData: productData.value,
-        kuantiti: quantity,
-        totalPrice: totalPricePromo.value,
+        productData: this.productData,
+        kuantiti: this.quantity,
+        totalPrice: this.totalPricePromo,
+        namaProduk: this.productData?.Nama_Produk,
+        hargaProduk:this.productData?.Harga_Produk,
       });
 
       localStorage.setItem('cartItems', JSON.stringify(storedCartItems));
@@ -322,7 +277,6 @@ const phoneScanner = ref(false);
       const status = 'Berjaya';
       this.$refs.toast.toast(message, status, 'success');
     },
-
     async fetchProductQuantity(productID) {
       try {
         const response = await axios.get('http://localhost:3001/bilangan');
@@ -339,8 +293,10 @@ const phoneScanner = ref(false);
         console.error('Error fetching product quantity:', error);
         return NaN;
       }
-    }
+    },
   },
-  
-}
+  mounted() {
+    this.fetchActivePromo();
+  },
+};
 </script>
