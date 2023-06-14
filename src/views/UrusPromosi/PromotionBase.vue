@@ -23,6 +23,9 @@
   
       <thead class="uppercase bg-sky-400 text-white text-center sticky top-0 z-10">
         <tr>
+          <th scope="col" class="py-3 w-[10%]">
+            ID Promosi
+          </th>
           <th scope="col" class="py-3">
             Nama Promosi
           </th>
@@ -38,7 +41,7 @@
           <th scope="col" class="py-3">
             Kategori Terlibat
           </th>
-          <th scope="col" class="py-3 px-3">
+          <th scope="col" class="py-3 px-3 w-[8%]">
             Aksi
           </th>
         </tr>
@@ -46,6 +49,9 @@
       <tbody v-if="promosiList.length > 0 && promosiList.length <6">
         <tr class="bg-white border-b border-gray-500 text-center" v-for="promosi in promosiList">
           <td scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
+            {{ promosi.ID_Promosi }}
+          </td>
+          <td class="py-4">
             {{ promosi.Nama_Promosi }}
           </td>
           <td class="py-4">
@@ -61,8 +67,8 @@
             {{ promosi.Kategori.Nama_Kategori }}
           </td>
           <td class="py-4 flex justify-around">
-            <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deletePromosi(promosi.id)"></i>
             <router-link :to="'/urus-promosi/update/'+ promosi.id"><i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i></router-link>
+            <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deletePromosi(promosi.id)"></i>
           </td>
         </tr>
         <tr>
@@ -87,8 +93,8 @@
             {{ promosi.Kategori.Nama_Kategori }}
           </td>
           <td class="py-4 flex justify-around">
-            <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deletePromosi(promosi.id)"></i>
             <router-link :to="'/urus-promosi/update/'+ promosi.id"><i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i></router-link>
+            <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deletePromosi(promosi.id)"></i>
           </td>
         </tr>
       </tbody>
@@ -137,6 +143,7 @@ export default {
     deletePromosi(promosi_id) {
       this.updateID = promosi_id
       console.log(this.updateID);
+      if (confirm("Are you sure you want to delete this promotion?")) {
       axios
         .delete(`http://localhost:3001/promosi/${promosi_id}`)
         .then(response => {
@@ -151,7 +158,7 @@ export default {
             this.$refs.toast.toast(message,status,'success')        })
         .catch(error => {
           console.error('Error deleting promotion:', error);
-        });
+        });}
     }
   },
 };

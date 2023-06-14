@@ -152,7 +152,7 @@
             mounted() {
             this.fetchKategoriData();
             axios
-                .get('http://localhost:3001/produk/' + this.produkID)
+                .get('http://localhost:3001/barang/' + this.produkID)
                 .then(response => {
                 this.product = response.data;
                 console.log(this.product);

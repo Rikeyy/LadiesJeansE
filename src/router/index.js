@@ -136,7 +136,8 @@ const router = createRouter({
         {
             path: "/notifikasi",
             component: () => import ("../views/Notifikasi.vue"),
-        }
+        },
+
     ],
     linkActiveClass: "routerlink-active-link",
 });

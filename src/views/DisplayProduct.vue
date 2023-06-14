@@ -3,15 +3,24 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
+    <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
             <h1 class="text-xl font-semibold">Paparan Stok</h1>
             <h2 class="text-md text-gray-500"><span><RouterLink to="/main">Halaman Utama</RouterLink></span> - <span><RouterLink to="/paparan-stok">Paparan Stok</RouterLink></span> - <span class="text-sky-400">Maklumat Produk</span></h2>
             <div class="bg-white shadow-sm w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
                 <h3 class="text-4xl font-semibold pb-[2%]">Maklumat <span class="text-sky-400">Produk</span></h3>
-                <div class="flex justify-between">
-                    <table>
+                <div class="flex justify-around">
+                  <table class="w-[40%]">
+                    <tr>
+                      <img :src="product.Gambar" class="w-[200px] mx-auto mt-[8%] scale-125 shadow-2xl"/>
+                    </tr>
+                    <tr>
+                      <svg id="barcode" ref="barcode" class="border-2 border-black m-auto mt-[13%] w-[250px] bg-white"></svg>
+                    </tr>
+                  </table>
+
+                  <table class="w-[60%] h-fit">
                         <tr>
                             <td class="text-md font-semibold py-3 px-6">
                                 Nama Produk
@@ -90,11 +99,11 @@
                             </td>
                         </tr>
                     </table>
-                    <div class="px-[5%] py-[5%] h-[60%] putih mr-[5%]">
-                            <svg id="barcode" ref="barcode" class="border-2 border-black m-auto mb-[2%]"></svg>
-                            <button @click="printBarcode" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200 ml-[15%] mt-[5%]">Print Barcode</button>
-                    </div>
-                </div>
+
+                  </div>
+                  <div class="flex justify-center mt-[5%]">
+                    <button @click="printBarcode" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200">Cetak Kodbar</button>
+                  </div>
             </div>
         </div>
     </div>
@@ -119,7 +128,7 @@
             mounted() {
             this.fetchKategoriData();
             axios
-                .get('http://localhost:3001/produk/' + this.produkID)
+                .get('http://localhost:3001/barang/' + this.produkID)
                 .then(response => {
                 this.product = response.data;
                 console.log(this.product);

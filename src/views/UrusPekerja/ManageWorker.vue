@@ -124,6 +124,12 @@
                     
                     <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-400 dark:text-white text-center sticky top-0 z-10">
                         <tr>
+                          <th scope="col" class="px-4 py-3">
+                                Bilangan
+                            </th>
+                            <th scope="col" class="px-4 py-3">
+                                Gambar Pekerja
+                            </th>
                             <th scope="col" class="px-4 py-3">
                                 Nama Pekerja
                             </th>
@@ -145,59 +151,37 @@
                         </tr>
                     </thead>
                     <tbody v-if="workerList.length > 0 && workerList.length < 6">
-                        <tr class="bg-white border-b border-gray-500 text-center" v-for="worker in workerList">
-                            <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        <tr class="bg-white border-b border-gray-500 text-center" v-for="(worker,index) in workerList">
+                            <td scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap w-[5%]">
+                                {{ index + 1}}
+                            </td>
+                            <td class="px-4 py-4 w-[10%]">
+                            <img class="w-[80px] mx-auto" :src="worker.GambarPekerja"/>
+                            </td>
+                            <td scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap w-[15%] ">
                                 {{ worker.Nama_Pekerja }}
-                            </th>
-                            <td class="px-4 py-4">
+                            </td>
+                            <td class="px-4 py-4 w-[10%]">
                                 {{ worker.Staf_ID }}
                             </td>
-                            <td class="px-4 py-4">
+                            <td class="px-4 py-4 w-[15%]">
                                 {{ worker.NoKP_Pekerja }}
                             </td>
-                            <td class="px-4 py-4">
+                            <td class="px-4 py-4 w-[15%]">
                                 {{ worker.Emel_Pekerja }}
                             </td>
-                            <td class="px-4 py-4">
+                            <td class="px-4 py-4 w-[15%]">
                                 {{ worker.Telefon_Pekerja }}
                             </td>
-                            <td class="px-4 py-4 flex justify-around">
-                                <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteWorker(worker.id)"></i>
+                            <td class="px-4 py-4 flex justify-around mt-[20%] ">
+                              <div>
                                 <RouterLink :to="'/update-pekerja/' + worker.id">
                                     <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
                                 </RouterLink>
-                            </td>
-                        </tr>    
-                        <tr>
-                                <td colspan="7">
-                                <p class="text-center py-5 text-gray-500">Daftar lagi pekerja untuk melihat yang lain.</p>
-                                </td>
-                            </tr>                 
-                    </tbody>
-                    <tbody v-else-if="workerList.length > 0">
-                        <tr class="bg-white border-b border-gray-500 text-center" v-for="worker in workerList">
-                            <th scope="row" class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                {{ worker.Nama_Pekerja }}
-                            </th>
-                            <td class="px-4 py-4">
-                                {{ worker.Staf_ID }}
-                            </td>
-                            <td class="px-4 py-4">
-                                {{ worker.NoKP_Pekerja }}
-                            </td>
-                            <td class="px-4 py-4">
-                                {{ worker.Emel_Pekerja }}
-                            </td>
-                            <td class="px-4 py-4">
-                                {{ worker.Telefon_Pekerja }}
-                            </td>
-                            <td class="px-4 py-4 flex justify-around">
+                              </div>
                                 <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteWorker(worker.id)"></i>
-                                <RouterLink :to="'/update-pekerja/' + worker.id">
-                                    <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
-                                </RouterLink>
                             </td>
-                        </tr>                     
+                        </tr>                  
                     </tbody>
                     <tbody v-else>
                         <tr>
@@ -254,22 +238,24 @@ export default {
     deleteWorker(worker) {
       this.updateID = worker;
 
-      axios.delete(`http://localhost:3001/` + worker)
-        .then(response => {
-          const index = this.workerList.findIndex(w => w.id === worker);
-          if (index !== -1) {
-            this.workerList.splice(index, 1);
-          }
-          console.log('Worker deleted successfully.');
-        })
-        .catch(error => {
-          console.error('Error deleting worker:', error);
-        });
+      if (confirm("Are you sure you want to delete this worker?")) {
+        axios
+          .delete(`http://localhost:3001/` + worker)
+          .then(response => {
+            const index = this.workerList.findIndex(w => w.id === worker);
+            if (index !== -1) {
+              this.workerList.splice(index, 1);
+            }
+            console.log('Worker deleted successfully.');
+          })
+          .catch(error => {
+            console.error('Error deleting worker:', error);
+          });
 
-        const message ='Maklumat Pekerja Berjaya Di Padam'
-            const status = 'Berjaya'
-            
-            this.$refs.toast.toast(message,status,'success')
+        const message = 'Maklumat Pekerja Berjaya Di Padam';
+        const status = 'Berjaya';
+        this.$refs.toast.toast(message, status, 'success');
+      }
     },
     fetchrole() {
       axios

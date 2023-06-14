@@ -41,8 +41,8 @@
             {{ kategori.Deskripsi_Kategori }}
           </td>
           <td class="py-4 flex justify-evenly">
-            <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteKategori(kategori.id)"></i>
             <router-link :to="'/urus-produk/update/'+ kategori.id"><i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i></router-link>
+            <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteKategori(kategori.id)"></i>
           </td>
         </tr>
         <tr>
@@ -58,8 +58,8 @@
             {{ kategori.Deskripsi_Kategori }}
           </td>
           <td class="py-4 flex justify-evenly">
-            <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteKategori(kategori.id)"></i>
             <router-link :to="'/urus-produk/update/'+ kategori.id"><i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i></router-link>
+            <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteKategori(kategori.id)"></i>
           </td>
         </tr>
       </tbody>
@@ -105,7 +105,7 @@
       },
       deleteKategori(kategoriID) {
         this.updateID = kategoriID;
-
+        if (confirm("Are you sure you want to delete this category?")) {
         axios
           .delete(`http://localhost:3001/kategori/` +kategoriID)
           .then(response => {
@@ -126,6 +126,7 @@
             
             this.$refs.toast.toast(message,status,'error')
           });
+        }
 
           
       },

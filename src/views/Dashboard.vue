@@ -49,70 +49,68 @@
                 </div>           
             </div>
 
-            <div  class="mt-[3%] bg-white w-full h-[51%] px-[2%] pb-[3%] ">
-                <div class="p-5 text-[17px] font-semibold text-left bg-white ">
-                    Jualan Terakhir
-                    <p class="mt-1 font-normal text-sm text-gray-400">Senarai jualan terakhir yang direkod hari ini.</p>
+            <div  class="mt-[3%] bg-white w-full h-[55%] px-[2%] pb-[3%] ">
+                <div class="p-5 text-[17px] font-semibold text-left text-red-500 bg-white ">
+                    Amaran Stok Produk
+                    <p class="mt-1 font-normal text-sm text-gray-400">Senarai produk yang mempunyai kuantiti yang sedikit di dalam inventori.</p>
                 </div>
-                <div class=" h-[306px] relative overflow-y-auto shadow-xl mx-auto">
+                <div class=" h-[350px] relative overflow-y-auto shadow-xl mx-auto">
                         <table class=" w-full text-[13px] text-left">
                            <thead class=" uppercase bg-sky-400 text-white text-center sticky top-0 z-10 ">
                                <tr>
-                                   <th scope="col" class="px-6 py-3 w-[5%]">
+                                   <th scope="col" class="px-6 py-3 ">
                                        Bilangan
                                    </th>
-                                   <th scope="col" class="px-6 py-3 w-[10%]">
+                                   <th scope="col" class="px-6 py-3">
                                        ID Produk
                                    </th>
-                                   <th scope="col" class="px-6 py-3 w-[20%]">
+                                   <th scope="col" class="px-6 py-3">
                                        Nama Produk
                                    </th>
                                    <th scope="col" class="px-6 py-3">
-                                       harga
+                                       Deskripsi Produk
                                    </th>
                                    <th scope="col" class="px-6 py-3">
-                                       kuantiti
+                                       Kategori Produk
                                    </th>
-                                   <th scope="col" class="px-6 py-3 w-[15%]">
-                                       jumlah harga
+                                   <th scope="col" class="px-6 py-3">
+                                       Saiz
                                    </th>
-                                   <th scope="col" class="px-6 py-3 w-[20%]">
-                                       tarikh dan masa
+                                   <th scope="col" class="px-6 py-3">
+                                       Kuantiti
+                                   </th>
+                                   <th scope="col" class="px-6 py-3">
+                                       Amaran
                                    </th>
                                </tr>
                            </thead>
                            <tbody>
-                               <tr class="bg-white border-b border-gray-500 text-center" v-for="(sale,index) in saleList">
-                                   <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-[15%]">
+                               <tr class="bg-red-100 border-b border-gray-500 text-center" v-for="(sale,index) in saleList">
+                                   <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-[3%]">
                                        {{ index + 1 }}
                                    </th>
-                                   <td class="px-6 py-4 w-[15%]">
-                                       {{ sale.barcode }}
+                                   <td class="px-6 py-4 w-[5%]">
+                                       {{ sale.Produk_ID }}
                                    </td>
                                    <td class="px-6 py-4  w-[15%]">
-                                       {{ sale.NamaProduk }}
+                                       {{ sale.Nama_Produk }}
                                    </td>
-                                   <td class="px-6 py-4  w-[15%]">
-                                       {{ sale.HargaProduk }}
+                                   <td class="px-6 py-4  w-[20%]">
+                                       {{ sale.Deskripsi_Produk }}
                                    </td>
-                                   <td class="px-6 py-4">
-                                       {{ sale.kuantiti }}
+                                   <td class="px-6 py-4  w-[20%]">
+                                       {{ sale.Kategori.Nama_Kategori }}
                                    </td>
-                                   <td class="px-6 py-3">
-                                       {{ sale.jumlahHarga}}
+                                   <td class="px-6 py-4  w-[5%]">
+                                       {{ sale.Saiz_Produk }}
                                    </td>
-                                   <td class="px-6 py-3">
-                                    {{  new Date(sale.createdAt).toLocaleTimeString("ms-MY", {
-                                        hour12: false,
-                                        hour: "numeric",
-                                        minute: "numeric",
-                                        second: "numeric"
-                                        })
-                                        }} pada {{ new Date(sale.createdAt).toLocaleDateString("ms-MY", {
-                                        day: "2-digit",
-                                        month: "long",
-                                        year: "numeric"
-                                        }).replace(/(\d+) (\w+) (\d+)/, '$1 $2 $3') }}
+                                   <td class="px-6 py-4  w-[5%]">
+                                       {{ sale.Kuantiti_Produk }}
+                                   </td>
+                                   <td class="px-6 py-3 w-[11%]">
+                                    <div class="tooltip z-10" data-tooltip="Kuantiti Produk Rendah !">
+                                      <i class="fa-solid fa-triangle-exclamation text-xl text-red-500"></i>
+                                    </div>
                                    </td>
                                </tr>          
                            </tbody>
@@ -123,9 +121,40 @@
     </div>
 </template>
 
+<style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 12px;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.tooltip:hover::before {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+
 <script>
 import axios from 'axios';
 import { Chart } from 'chart.js/auto';
+
 
 export default {
   data() {
@@ -153,10 +182,9 @@ export default {
   methods: {
     fetchSalesData() {
       axios
-        .get('http://localhost:3001/jualan')
+        .get('http://localhost:3001/amaran')
         .then(response => {
-            const sortedSales = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            this.saleList = sortedSales.slice(0, 5);
+            this.saleList = response.data;
             console.log(this.saleList);
 
         })

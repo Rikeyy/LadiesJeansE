@@ -61,6 +61,13 @@
                                 <label for="floating_gaji" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Gaji Pekerja</label>
                             </div>
                             </div>
+                            <label for="items" class="pt-3 pr-3">Muatnaik Gambar Pekerja:</label>
+                            <lr-file-uploader-regular
+                              css-src="https://esm.sh/@uploadcare/blocks@0.22.9/web/file-uploader-regular.min.css"
+                              ctx-name="my-uploader"
+                              class="my-config "
+                            >
+                            </lr-file-uploader-regular>
                             <div class="flex justify-between">
                                 <RouterLink to="/urus-pekerja" class="w-[47%] mt-[2.8%]"><button class="text-white w-full bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200">Batal</button></RouterLink>
                                 <button class="text-white w-[47%] bg-gradient-to-r from-yellow-400 to-yellow-200 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200 mt-[3%]">Ubahsuai</button>
@@ -74,10 +81,28 @@
         </div>
     </template>
 
+    <style>
+.my-config {
+  --cfg-pubkey: "3b7e00a614646d15bf1a";
+  --cfg-img-only: 1;
+  --cfg-multiple: 1;
+  --cfg-max-local-file-size-bytes: 10485760;
+  --cfg-use-cloud-image-editor: 1;
+  --cfg-source-list: "local, camera, gdrive";
+  --darkmode: 0;
+  --h-accent: 223;
+  --s-accent: 100%;
+  --l-accent: 61%;
+}
+</style>
+
     <script>
         import axios from 'axios';
         import router from '../../router';
         import ToastMessage from '../../components/ToastMessage.vue';
+        import * as LR from "@uploadcare/blocks";
+
+        LR.registerBlocks(LR);
 
         export default {
             components:{
@@ -95,9 +120,15 @@
                         this.worker = response.data;
                     })
                     .catch(error => console.log(error));
+                    window.addEventListener("LR_UPLOAD_FINISH", async (e) => {
+                        const dataUpload = e.detail.data[0];
+                        this.link=dataUpload.cdnUrl + dataUpload.name;
+                        console.log(this.link);
+                    });
             },
             methods: {
                 submitForm() {
+                    this.worker.GambarPekerja = this.link;
                     axios.put('http://localhost:3001/' + this.workerId, this.worker)
                         .then(response => {
                             const message ='Ubahsuai Maklumat Pekerja Berjaya'

@@ -43,12 +43,25 @@
                             <input type="text" name="floating_deskripsi" id="floating_deskripsi"  v-model="product.Deskripsi_Produk" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                             <label for="floating_deskripsi" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Deskripsi Produk</label>
                         </div>
-                        <div>
-                            <label for="items">Pilih Kategori:</label>
-                            <select id="items" v-model="product.kategoriProduk" class="block mt-2 appearance-none w-10% bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"> 
-                                <option disabled>-Select Item-</option>
-                                <option v-for="kategori in kategoriList" :key="kategori.id" :value="kategori.id">{{ kategori.Nama_Kategori }}</option>
-                            </select>
+                        <div class="flex justify-between">
+                            <div class="relative z-0 w-[45%] group  flex">
+                                <label for="items" class="pt-3 pr-3">Pilih Kategori:</label>
+                                <div>
+                                    <select id="items" v-model="product.kategoriProduk" class="block mt-2 appearance-none w-10% bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"> 
+                                        <option disabled>-Select Item-</option>
+                                        <option v-for="kategori in kategoriList" :key="kategori.id" :value="kategori.id">{{ kategori.Nama_Kategori }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="w-[45%] mt-[0.6%]">
+                            <label for="items" class="pt-3 pr-3">Muatnaik Gambar Produk:</label>
+                            <lr-file-uploader-regular
+                              css-src="https://esm.sh/@uploadcare/blocks@0.22.9/web/file-uploader-regular.min.css"
+                              ctx-name="my-uploader"
+                              class="my-config "
+                            >
+                            </lr-file-uploader-regular>
+                          </div>
                         </div>
                         <div class="flex justify-between">
                             <RouterLink to="/urus-produk" class="w-[47%] mt-[2.8%]"><button class="text-white w-full bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200">Batal</button></RouterLink>
@@ -63,11 +76,28 @@
     </div>
 </template>
 
+<style>
+.my-config {
+  --cfg-pubkey: "3b7e00a614646d15bf1a";
+  --cfg-img-only: 1;
+  --cfg-multiple: 1;
+  --cfg-max-local-file-size-bytes: 10485760;
+  --cfg-use-cloud-image-editor: 1;
+  --cfg-source-list: "local, camera, gdrive";
+  --darkmode: 0;
+  --h-accent: 223;
+  --s-accent: 100%;
+  --l-accent: 61%;
+}
+</style>
+
 <script>
         import axios from 'axios';
         import router from '../../router';
         import ToastMessage from '../../components/ToastMessage.vue';
+        import * as LR from "@uploadcare/blocks";
 
+        LR.registerBlocks(LR);
 
         export default {
             components:{
@@ -89,9 +119,15 @@
                         console.log(this.product)
                     })
                     .catch(error => console.log(error));
+                    window.addEventListener("LR_UPLOAD_FINISH", async (e) => {
+                        const dataUpload = e.detail.data[0];
+                        this.link=dataUpload.cdnUrl + dataUpload.name;
+                        console.log(this.link);
+                    });
             },
             methods: {
                 submitForm() {
+                this.product.Gambar = this.link;
                 this.product.kategoriProduk = this.product.kategoriProduk;
                 axios
                     .put('http://localhost:3001/produk/' + this.produkID, this.product)

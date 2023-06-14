@@ -27,7 +27,7 @@
 
           <div class="w-[30%] bg-white shadow-sm rounded-lg h-[320px] pt-[1%] pb-[5%]">
             <h1 class="font-semibold text-md pb-[3%]">Komposisi Status Promosi</h1>
-            <canvas id="promotionStatusChart" class="chart-canvas"></canvas>
+            <canvas id="promotionStatusChart" class="mx-auto"></canvas>
           </div>
         </div>
       </div>
@@ -39,9 +39,12 @@
   </div>
 </template>
 
+
 <script>
 import axios from 'axios';
 import { Chart } from 'chart.js';
+import 'chart.js/auto';
+
 
 export default {
   data() {
@@ -126,10 +129,6 @@ export default {
               backgroundColor: ['#FF6384', '#36A2EB'],
             },
           ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
         },
       });
     },

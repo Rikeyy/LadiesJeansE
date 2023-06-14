@@ -86,6 +86,14 @@
                           </div>
                         </div>
 
+                        <label for="items" class="pt-3 pr-3">Muatnaik Gambar Pekerja:</label>
+                            <lr-file-uploader-regular
+                              css-src="https://esm.sh/@uploadcare/blocks@0.22.9/web/file-uploader-regular.min.css"
+                              ctx-name="my-uploader"
+                              class="my-config "
+                            >
+                            </lr-file-uploader-regular>
+
                         <div class="flex justify-between">
                             <RouterLink to="/urus-pekerja" class="w-[47%] mt-[2.8%]"><button class="text-white w-full text-md bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200">Batal</button></RouterLink>
                             <button type="submit" class="text-white w-[47%] bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-xl mt-[2.80%] hover:scale-105 duration-200">Daftar</button>
@@ -94,13 +102,31 @@
                 </div>
             </div>
         </div>
-        <ToastMessage ref="toast"/>
+        <ToastMessage ref="toast"/>  
     </div>
 </template>
+
+<style>
+.my-config {
+  --cfg-pubkey: "3b7e00a614646d15bf1a";
+  --cfg-img-only: 1;
+  --cfg-multiple: 1;
+  --cfg-max-local-file-size-bytes: 10485760;
+  --cfg-use-cloud-image-editor: 1;
+  --cfg-source-list: "local, camera, gdrive";
+  --darkmode: 0;
+  --h-accent: 223;
+  --s-accent: 100%;
+  --l-accent: 61%;
+}
+</style>
 
 <script>
 import axios from 'axios';
 import ToastMessage from '../../components/ToastMessage.vue';
+import * as LR from "@uploadcare/blocks";
+
+LR.registerBlocks(LR);
 
 export default {
   components:{
@@ -117,6 +143,7 @@ export default {
       peranan: '',
       password: '',
       gaji: '',
+      link: '',
       errors: {
         namapenuh: '',
         nokp: '',
@@ -138,20 +165,28 @@ export default {
       },
     };
   },
+  mounted() {
+    window.addEventListener("LR_UPLOAD_FINISH", async (e) => {
+    const dataUpload = e.detail.data[0];
+    this.link=dataUpload.cdnUrl + dataUpload.name;
+    console.log(this.link);
+    
+});
+  },
   methods: {
     async checkExistingData() {
       try {
-        const responseKP = await axios.get(`http://localhost:3001/noKP/${this.nokp}`);
-        this.errors.existKP = responseKP.data;
+        const responseKP = await axios.get(`http://localhost:3001/noKP?nokp=${this.nokp}`);
+        this.errors.existKP = responseKP.data.length > 0;
 
-        const responseEmel = await axios.get(`http://localhost:3001/emel/${this.emel}`);
-        this.errors.existEmel = responseEmel.data;
+        const responseEmel = await axios.get(`http://localhost:3001/emel?emel=${this.emel}`);
+        this.errors.existEmel = responseEmel.data.length > 0;
 
-        const responseTel = await axios.get(`http://localhost:3001/telefon/${this.telefon}`);
-        this.errors.existTel = responseTel.data;
+        const responseTel = await axios.get(`http://localhost:3001/telefon?telefon=${this.telefon}`);
+        this.errors.existTel = responseTel.data.length > 0;
 
-        const responseID = await axios.get(`http://localhost:3001/stafID/${this.idpekerja}`);
-        this.errors.existID = responseID.data;
+        const responseID = await axios.get(`http://localhost:3001/stafID?idpekerja=${this.idpekerja}`);
+        this.errors.existID = responseID.data.length > 0;
 
         console.log(this.errors.existKP);
         console.log(this.errors.existEmel);
@@ -212,6 +247,7 @@ export default {
             Peranan_Pekerja: this.peranan,
             KataLaluan_Pekerja: this.password,
             Gaji_Pekerja: this.gaji,
+            GambarPekerja: this.link,
           };
 
           axios
@@ -227,6 +263,7 @@ export default {
               this.peranan = '';
               this.password = '';
               this.gaji = '';
+              this.link = '';
 
               const message ='Pendaftaran Pekerja Berjaya'
               const status = 'Berjaya'

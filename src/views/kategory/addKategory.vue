@@ -55,7 +55,10 @@ export default {
         if (existingKategori) {
           this.errors.errorNama = '*Kategori Sudah Ada Di Dalam Pangkalan Data';
           return;
+        } else {
+          this.errors.errorNama = '';
         }
+      
       } catch (error) {
         console.log(error);
       }

@@ -1,7 +1,5 @@
 <script setup>
     import SidebarManager from '../../components/SidebarManager.vue';
-
-    
 </script>
 
 <template>
@@ -139,7 +137,6 @@ export default {
     const dataUpload = e.detail.data[0];
     this.link=dataUpload.cdnUrl + dataUpload.name;
     console.log(this.link);
-    
 });
   },
   methods: {
@@ -195,7 +192,7 @@ export default {
             this.deskripsi = '';
             this.kategori = '';
             this.saiz = '';
-            this.link = ''
+            this.link = '';
           })
           .catch((error) => {
             console.error(error);

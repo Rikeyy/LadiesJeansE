@@ -99,10 +99,10 @@
                                         {{ produk.Saiz_Produk }}
                                     </td>
                                    <td class="px-6 py-4 flex justify-around">
+                                      <RouterLink :to="'/update-product/' + produk.id">
+                                         <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
+                                     </RouterLink>
                                        <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteProduct(produk.Produk_ID)"></i>
-                                       <RouterLink :to="'/update-product/' + produk.id">
-                                           <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
-                                       </RouterLink>
                                    </td>
                                </tr>   
                                <tr>
@@ -130,10 +130,10 @@
                                         {{ produk.Saiz_Produk }}
                                     </td>
                                    <td class="px-6 py-4 flex justify-around">
+                                     <RouterLink :to="'/update-product/' + produk.id">
+                                         <i class="fa-solid fa-pen-to-square text-lg text-black cursor-pointer"></i>
+                                     </RouterLink>
                                        <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteProduct(produk.Produk_ID)"></i>
-                                       <RouterLink :to="'/update-product/' + produk.id">
-                                           <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
-                                       </RouterLink>
                                    </td>
                                </tr>                   
                            </tbody>
@@ -188,7 +188,7 @@ export default {
     },
     deleteProduct(productId) {
   this.updateID = productId;
-
+  if (confirm("Are you sure you want to delete this product?")) {
   axios.delete(`http://localhost:3001/produk/${productId}`)
     .then(response => {
       const index = this.produkList.findIndex(p => p.Produk_ID === productId);
@@ -206,7 +206,7 @@ export default {
     })
     .finally(() => {
       this.fetchProdukList(); // Refresh the data after deletion
-    });
+    });}
 },
     fetchKategori() {
   axios

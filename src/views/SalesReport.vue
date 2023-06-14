@@ -258,6 +258,8 @@ export default {
     const rowData = [
       index + 1,
       sale.barcode, 
+      sale.NamaProduk,
+      sale.HargaProduk,
       sale.kuantiti,
       sale.jumlahHarga,
       new Date(sale.createdAt).toLocaleDateString('en-US', {
