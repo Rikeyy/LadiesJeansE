@@ -57,7 +57,7 @@
                   {{ produk.Kuantiti_Tambahan }}
                 </td>
                 <td class="px-6 py-4 flex justify-around">
-                  <i class="fa-solid fa-x text-lg text-green-500 cursor-pointer"></i>
+                  <i class="fa-solid fa-x text-lg text-green-500 cursor-pointer" @click="onCrossButtonClick(produk.id)"></i>
                   <i class="fa-solid fa-check text-lg text-green-500 cursor-pointer" @click="onCheckButtonClick(produk.id)"></i>
                 </td>
               </tr> 
@@ -71,12 +71,23 @@
         </div>
       </div>
     </div>
+        <ToastMessage ref="toast"/>
   </div>
 </template>
+
+<style>
+  /* Override the default styles */
+  .swal2-confirm:focus {
+    box-shadow: 0 0 0 3px red !important;
+  }
+</style>
 
 <script>
 import { ref, watch } from 'vue';
 import axios from 'axios';
+import ToastMessage from '../components/ToastMessage.vue';
+import Swal from 'sweetalert2';
+
 
 export default {
   data() {
@@ -97,11 +108,42 @@ export default {
         console.error('Error fetching product data:', error);
       }
     },
+    async onCrossButtonClick(id) {
+  try {
+    const confirmed = await Swal.fire({
+      title: 'Pasti?',
+      text: 'Adakah anda pasti untuk membatalkan penambahan kuantiti produk ini?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, Pasti',
+      cancelButtonText: 'Batal',
+      customClass: {
+      icon: 'text-blue-500', // Customize the icon color
+    },
+    confirmButtonColor: '#e53e3e', // Set the confirm button color to red
+    });
+
+    if (confirmed.isConfirmed) {
+      const response = await axios.put(`http://localhost:3001/pangkah/${id}`, { Kuantiti_Tambahan: 0 });
+      console.log(response.data);
+      await this.fetchProdukData();
+      const message = 'Batal Tambah Kuantiti Produk Berjaya';
+      const status = 'Berjaya';
+      this.$refs.toast.toast(message, status, 'success');
+    }
+  } catch (error) {
+    console.error('Error updating produk:', error);
+  }
+},
+
     async onCheckButtonClick(id) {
       try {
         const response = await axios.put(`http://localhost:3001/kuantiti/${id}`);
         console.log(response.data);
         await this.fetchProdukData();
+         const message = 'Tambah Kuantiti Produk Berjaya';
+          const status = 'Berjaya';
+          this.$refs.toast.toast(message, status, 'success');
       } catch (error) {
         console.error('Error updating produk:', error);
       }

@@ -149,6 +149,8 @@
                     </div>
                 </div>
         </div>
+        <ToastMessage ref="toast"/>
+
     </div>
 </template>
 
@@ -156,6 +158,8 @@
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import ToastMessage from '../components/ToastMessage.vue';
+
 
 export default {
   data() {
@@ -223,36 +227,15 @@ export default {
               return prodNamePrice;
 
     },
-  // async getProductDetails(barcode) {
-  //     // let prodNamePrice = {
-  //     //   name: "",
-  //     //   price: ""
-  //     // };
-  //     try {
-  //       const response = await axios.get(`http://localhost:3001/produk/${barcode}`);
-  //       const produk = response.data;
-
-  //       // prodNamePrice.name = produk.Nama_Produk
-  //       // prodNamePrice.price = produk.Harga_Produk
-
-  //       console.log(produk);
-
-  //       return produk;
-
-  //     } catch (error) {
-  //       console.error('Error fetching product details:', error);
-  //       return {
-  //         name: '',
-  //         price: '',
-  //       };
-  //     }
-      
-      // return prodNamePrice;
-  //   },
     generatePDF() {
   const doc = new jsPDF();
   const rows = [];
   let totalSales = 0; // Variable to store the total sales
+
+  const message = 'Cetak Laporan Jualan Berjaya!';
+              const status = 'Berjaya';
+
+              this.$refs.toast.toast(message, status, 'success');
 
   this.filteredSaleList.forEach((sale, index) => {
     const rowData = [

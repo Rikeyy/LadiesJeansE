@@ -109,9 +109,18 @@
   </div>
 </template>
 
+<style>
+  /* Override the default styles */
+  .swal2-confirm:focus {
+    box-shadow: 0 0 0 3px red !important;
+  }
+</style>
+
 <script>
 import axios from 'axios';
 import ToastMessage from '../../components/ToastMessage.vue';
+import Swal from 'sweetalert2';
+
 
 export default {
   components:{
@@ -141,25 +150,39 @@ export default {
         });
     },
     deletePromosi(promosi_id) {
-      this.updateID = promosi_id
-      console.log(this.updateID);
-      if (confirm("Are you sure you want to delete this promotion?")) {
+  this.updateID = promosi_id;
+
+  Swal.fire({
+    title: 'Pasti?',
+    text: 'Adakah anda pasti untuk memadam maklumat promosi ini?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Ya, padam',
+    cancelButtonText: 'Batal',
+    customClass: {
+    icon: 'text-blue-500', // Customize the icon color
+  },
+  confirmButtonColor: '#e53e3e', // Set the confirm button color to red
+  }).then((result) => {
+    if (result.isConfirmed) {
       axios
         .delete(`http://localhost:3001/promosi/${promosi_id}`)
-        .then(response => {
-          // Remove the deleted promotion from promosiList
-          const index = this.promosiList.findIndex(p => p.id === promosi_id);
+        .then((response) => {
+          const index = this.promosiList.findIndex((p) => p.id === promosi_id);
           if (index !== -1) {
             this.promosiList.splice(index, 1);
           }
-          const message ='Maklumat Promosi Berjaya Di Padam'
-            const status = 'Berjaya'
-            
-            this.$refs.toast.toast(message,status,'success')        })
-        .catch(error => {
+          const message = 'Maklumat Promosi Berjaya Di Padam';
+          const status = 'Berjaya';
+          this.$refs.toast.toast(message, status, 'success');
+        })
+        .catch((error) => {
           console.error('Error deleting promotion:', error);
-        });}
+        });
     }
+  });
+}
+
   },
 };
 </script>

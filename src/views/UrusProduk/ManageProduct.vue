@@ -153,10 +153,18 @@
     </div>
 </template>
 
+<style>
+  /* Override the default styles */
+  .swal2-confirm:focus {
+    box-shadow: 0 0 0 3px red !important;
+  }
+</style>
+
 <script>
 import axios from 'axios';
 import { Chart } from 'chart.js/auto';
 import ToastMessage from '../../components/ToastMessage.vue';
+import Swal from 'sweetalert2';
 
 export default {
   components:{
@@ -188,25 +196,41 @@ export default {
     },
     deleteProduct(productId) {
   this.updateID = productId;
-  if (confirm("Are you sure you want to delete this product?")) {
-  axios.delete(`http://localhost:3001/produk/${productId}`)
-    .then(response => {
-      const index = this.produkList.findIndex(p => p.Produk_ID === productId);
-      if (index !== -1) {
-        this.produkList.splice(index, 1);
-      }
-      const message = 'Maklumat Produk Berjaya Di Padam';
-      const status = 'Berjaya';
-      this.$refs.toast.toast(message, status, 'success');
-    })
-    .catch(error => {
-      const message = 'Error deleting product: ' + error.message;
-      const status = 'Gagal';
-      this.$refs.toast.toast(message, status, 'error');
-    })
-    .finally(() => {
-      this.fetchProdukList(); // Refresh the data after deletion
-    });}
+
+  Swal.fire({
+    title: 'Pasti?',
+    text: 'Adakah anda pasti untuk memadam maklumat produk ini?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Ya, padam',
+    cancelButtonText: 'Batal',
+    customClass: {
+    icon: 'text-blue-500', // Customize the icon color
+  },
+  confirmButtonColor: '#e53e3e', // Set the confirm button color to red
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axios
+        .delete(`http://localhost:3001/produk/${productId}`)
+        .then((response) => {
+          const index = this.produkList.findIndex((p) => p.Produk_ID === productId);
+          if (index !== -1) {
+            this.produkList.splice(index, 1);
+          }
+          const message = 'Maklumat Produk Berjaya Di Padam';
+          const status = 'Berjaya';
+          this.$refs.toast.toast(message, status, 'success');
+        })
+        .catch((error) => {
+          const message = 'Error deleting product: ' + error.message;
+          const status = 'Gagal';
+          this.$refs.toast.toast(message, status, 'error');
+        })
+        .finally(() => {
+          this.fetchProdukList(); // Refresh the data after deletion
+        });
+    }
+  });
 },
     fetchKategori() {
   axios

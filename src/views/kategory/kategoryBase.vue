@@ -76,6 +76,7 @@
   <script>
   import axios from 'axios';
   import ToastMessage from '../../components/ToastMessage.vue';
+  import Swal from 'sweetalert2';
 
   export default {
     components:{
@@ -104,33 +105,53 @@
           });
       },
       deleteKategori(kategoriID) {
-        this.updateID = kategoriID;
-        if (confirm("Are you sure you want to delete this category?")) {
-        axios
-          .delete(`http://localhost:3001/kategori/` +kategoriID)
-          .then(response => {
-            // Remove the deleted product from the kategoriList
-            const index = this.kategoriList.findIndex(k => k.id === kategoriID);
-            if (index !== -1) {
-              this.kategoriList.splice(index, 1);
-            }
-            const message ='Maklumat Kategori Berjaya Di Padam'
-            const status = 'Berjaya'
-            
-            this.$refs.toast.toast(message,status,'success')
-          })
-          .catch(error => {
-            console.error('Error deleting kategori:', error);
-            const message ='Gagal PadamMaklumat Kategori'
-            const status = 'Gagal'
-            
-            this.$refs.toast.toast(message,status,'error')
-          });
-        }
+      this.updateID = kategoriID;
 
-          
-      },
+      Swal.fire({
+        title: 'Pasti?',
+        text: 'Adakah anda pasti untuk memadam maklumat kategori ini?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, padam',
+        cancelButtonText: 'Batal',
+        customClass: {
+          icon: 'text-blue-500', // Customize the icon color
+        },
+        confirmButtonColor: '#e53e3e', // Set the confirm button color to red
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .delete(`http://localhost:3001/kategori/` + kategoriID)
+            .then((response) => {
+              // Remove the deleted product from the kategoriList
+              const index = this.kategoriList.findIndex((k) => k.id === kategoriID);
+              if (index !== -1) {
+                this.kategoriList.splice(index, 1);
+              }
+              const message = 'Maklumat Kategori Berjaya Di Padam';
+              const status = 'Berjaya';
+
+              this.$refs.toast.toast(message, status, 'success');
+            })
+            .catch((error) => {
+              console.error('Error deleting kategori:', error);
+              const message = 'Kategori Terlibat Dalam Produk Yang Masih Aktif';
+              const status = 'Gagal';
+
+              this.$refs.toast.toast(message, status, 'error');
+            });
+        }
+      });
+    },
+
     },
   };
   </script>
+
+  <style>
+  /* Override the default styles */
+  .swal2-confirm:focus {
+    box-shadow: 0 0 0 3px red !important;
+  }
+</style>
   

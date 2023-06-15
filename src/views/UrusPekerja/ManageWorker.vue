@@ -202,6 +202,7 @@
 <script>
 import axios from 'axios';
 import { Chart } from 'chart.js/auto';
+import Swal from 'sweetalert2';
 
 export default {
   components:{
@@ -236,27 +237,40 @@ export default {
       this.workerList.sort((a, b) => a.Nama_Pekerja.localeCompare(b.Nama_Pekerja));
     },
     deleteWorker(worker) {
-      this.updateID = worker;
+  this.updateID = worker;
 
-      if (confirm("Are you sure you want to delete this worker?")) {
-        axios
-          .delete(`http://localhost:3001/` + worker)
-          .then(response => {
-            const index = this.workerList.findIndex(w => w.id === worker);
-            if (index !== -1) {
-              this.workerList.splice(index, 1);
-            }
-            console.log('Worker deleted successfully.');
-          })
-          .catch(error => {
-            console.error('Error deleting worker:', error);
-          });
+  Swal.fire({
+  title: 'Pasti?',
+  text: 'Adakah anda pasti untuk memadam maklumat pekerja ini?',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Ya, padam',
+  cancelButtonText: 'Batal',
+  customClass: {
+    icon: 'text-blue-500', // Customize the icon color
+  },
+  confirmButtonColor: '#e53e3e', // Set the confirm button color to red
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axios
+        .delete(`http://localhost:3001/` + worker)
+        .then(response => {
+          const index = this.workerList.findIndex(w => w.id === worker);
+          if (index !== -1) {
+            this.workerList.splice(index, 1);
+          }
+          console.log('Worker deleted successfully.');
 
-        const message = 'Maklumat Pekerja Berjaya Di Padam';
-        const status = 'Berjaya';
-        this.$refs.toast.toast(message, status, 'success');
-      }
-    },
+          const message = 'Maklumat Pekerja Berjaya Di Padam';
+          const status = 'Berjaya';
+          this.$refs.toast.toast(message, status, 'success');
+        })
+        .catch(error => {
+          console.error('Error deleting worker:', error);
+        });
+    }
+  });
+},
     fetchrole() {
       axios
         .get('http://localhost:3001/role')
@@ -311,3 +325,10 @@ export default {
 };
 </script>
 
+
+<style>
+  /* Override the default styles */
+  .swal2-confirm:focus {
+    box-shadow: 0 0 0 3px red !important;
+  }
+</style>

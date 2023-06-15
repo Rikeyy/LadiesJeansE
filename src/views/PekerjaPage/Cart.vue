@@ -63,29 +63,42 @@
     <!-- Summary dialog -->
     <dialog v-if="showSummaryDialog" open @close="closeSummaryDialog" class="dialog-container text-center shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] px-[5%] py-[5%]">
   <h2 class="text-2xl font-semibold pb-[5%]">Rekod Jualan</h2>
-  <h2 class="text-lg  pb-[5%]">Senarai produk yang dibeli</h2>
-  <ul>
-    <li v-for="(item, index) in cartItems" :key="item.productData?.Produk_ID">
-      {{ index + 1 }}. {{ item.productData?.Nama_Produk }} - {{ item.kuantiti }} - {{ item.totalPrice }}
-    </li>
-  </ul>
+  <h2 class="text-lg  pb-[5%]">Senarai produk yang dibeli:</h2>
+  <table class="w-full ">
+    <thead class="border-b-blue-500 border-2 border-t-white border-l-white border-r-white">
+      <tr >
+        <th class="px-6">Bil.</th>
+        <th class="px-6">Nama Produk</th>
+        <th class="px-6">Kuantiti</th>
+        <th class="px-6">Harga</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(item, index) in cartItems" :key="item.productData?.Produk_ID">
+        <td>{{ index + 1 }}</td>
+        <td>{{ item.productData?.Nama_Produk }}</td>
+        <td>{{ item.kuantiti }}</td>
+        <td>{{ item.totalPrice }}</td>
+      </tr>
+    </tbody>
+  </table>
   <p class="py-[5%]">Jumlah Harga: RM {{ totalCart }}.00</p>
   <div class="flex flex-col items-center">
     <label for="moneyReceived" class="mr-2">Duit Diterima:</label>
     <input type="number" id="moneyReceived" v-model.number="moneyReceived" class="text-center rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
   </div>
   
-  <p class="pb-[10%]">Wang Baki: {{ calculateBalance }}</p>
+  <p class="pb-[10%] pt-[5%]">Wang Baki: <span class="text-lg">RM{{ calculateBalance }}.00</span></p>
   
   <button @click="navigateToPayment" class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200  ml-[2%] mt-[2%]">Selesai</button>
   <button @click="closeSummaryDialog" class="text-white bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200  ml-[2%] mt-[2%]">Batal</button>
-
 </dialog>
+
   </div>
   </div>
   </div>
 
-  <ToastMessage ref="toast"/>
+  <ToastMessage ref="toast" class="z-50"/>
 
 </template>
 
@@ -193,10 +206,14 @@ async navigateToPayment() {
         this.moneyReceived = 0;
 
         this.closeSummaryDialog();
-        window.alert("Sales recorded successfully!");
+        const message = "Berjaya Rekod Jualan Produk";
+        const status = "Berjaya";
 
-        this.$router.push("/pekerja/jualan");
+        this.$refs.toast.toast(message, status, "success");
 
+        setTimeout(() => {
+          this.$router.push('/pekerja/jualan');
+        }, 1000);
       } catch (error) {
         console.error("Failed to record sales:", error);
       }

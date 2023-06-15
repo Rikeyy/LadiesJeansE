@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
+    <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarWorker/>
       <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
         <h1 class="text-xl font-semibold">Rekod Jualan</h1>
@@ -22,9 +22,18 @@
             </div>
           </div>
 
-          <div class="flex ml-[10%] w-[80%] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] py-5 px-5 mt-[2%]">
+          <div class=" ml-[10%] w-[80%] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] py-5 px-5 mt-[2%]">
 
-          <table class="w-[45%]">
+          <table class="mx-auto">
+            <div>
+              
+            </div>
+            <tr>
+              <td rowspan="6">
+                <img v-if="!isSearchEmpty && productData" :src="productData.Gambar" class="w-[160px] h-[200px]"/>
+                <p v-else class="w-[160px] h-[200px] border-black border-2 text-center">Gambar</p>
+              </td>
+            </tr>
             <tr>
                 <td class="text-md font-semibold py-3 px-6 w-[40%]">
                     ID Produk
@@ -33,8 +42,8 @@
                     :
                 </td>
                 <td class="text-md " >
-                    <p v-if="isSearchEmpty">-----</p>
-                    <p v-else >{{ productData?.Produk_ID }}</p>
+                  <p v-if="!isSearchEmpty && productData" :src="productData.Gambar" >{{ productData?.Produk_ID }}</p>
+                  <p v-else>-----</p>
                 </td>
             </tr>
             <tr>
@@ -45,8 +54,8 @@
                     :
                 </td>
                 <td class="text-md ">
-                    <p v-if="isSearchEmpty">-----</p>
-                    <p v-else>{{ productData?.Nama_Produk }}</p>
+                  <p v-if="!isSearchEmpty && productData" :src="productData.Gambar">{{ productData?.Nama_Produk }}</p>
+                  <p v-else>-----</p>
                 </td>
             </tr>
             <tr>
@@ -57,22 +66,22 @@
                     :
                 </td>
                 <td class="text-md pl-2">
-                    <p v-if="isSearchEmpty">RM 0.00</p>
-                    <p v-else>RM {{ productData?.Harga_Produk }}.00</p>
+                  <p v-if="!isSearchEmpty && productData" :src="productData.Gambar">RM {{ productData?.Harga_Produk }}.00</p>
+                  <p v-else>RM 0.00</p>
                 </td>
             </tr>
-            <!-- <tr>
+            <tr>
                 <td class="text-md font-semibold py-3 px-6">
-                    Deskripsi
+                    Saiz Produk
                 </td>
-                <td class="text-md font-bold">
+                <td class="text-md font-bold ">
                     :
                 </td>
                 <td class="text-md pl-2">
-                    <p v-if="isSearchEmpty">-----</p>
-                    <p v-else>{{ productData?.Deskripsi_Produk }}</p>
+                  <p v-if="!isSearchEmpty && productData" :src="productData.Gambar">{{ productData?.Saiz_Produk }}</p>
+                  <p v-else>-----</p>
                 </td>
-            </tr> -->
+            </tr>
             <tr>
                 <td class="text-md font-semibold py-3 px-6">
                     Kategori
@@ -81,12 +90,12 @@
                     :
                 </td>
                 <td class="text-md pl-2">
-                    <p v-if="isSearchEmpty">-----</p>
-                    <p v-else>{{ productData?.Kategori.Nama_Kategori }}</p>
+                  <p v-if="!isSearchEmpty && productData" :src="productData.Gambar">{{ productData?.Kategori.Nama_Kategori }}</p>
+                  <p v-else>-----</p>
                 </td>
             </tr>
           </table>
-          <table class="w-[45%]">
+          <table class="m-auto">
             <tr>
                 <td class="text-md font-semibold py-3 px-6">Pilih Promosi</td>
                 <td class="text-md font-bold px-3">:</td>
@@ -127,7 +136,7 @@
         <div class="flex justify-center pt-[2%]">
             <button class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200 ml-[2%] mt-[2%]" @click="addToCartAndContinue(quantity)">Tambah Ke Troli</button>
           </div>
-          <p class="text-gray-500 text-right w-[88%] cursor-pointer" @click="navigateToCart">Lihat Troli</p>
+          <p class="text-gray-500 text-right w-[88%] cursor-pointer" @click="navigateToCart">Lihat Troli <span><i class="fa-solid fa-arrow-right pl-3"></i></span></p>
 
         </div>
 
@@ -141,6 +150,7 @@
   </template>
 
 <script>
+
 import { ref, computed, watch } from 'vue';
 import axios from 'axios';
 import ToastMessage from '../../components/ToastMessage.vue';
