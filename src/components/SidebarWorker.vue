@@ -34,6 +34,8 @@ export default {
     },
   methods: {
     logout() {
+        sessionStorage.clear();
+
         const message ='Log Keluar Berjaya'
         const status = 'Berjaya'
                         

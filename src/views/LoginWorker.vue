@@ -25,9 +25,9 @@ import axios from 'axios';
 import ToastMessage from '../components/ToastMessage.vue';
 
 export default {
-  components:{
-                ToastMessage,
-            },
+  components: {
+    ToastMessage,
+  },
   data() {
     return {
       idPekerja: '',
@@ -36,36 +36,39 @@ export default {
   },
   methods: {
     submitForm() {
-    const credentials = {
-      idPekerja: this.idPekerja,
-      password: this.password,
-    };
+      const credentials = {
+        idPekerja: this.idPekerja,
+        password: this.password,
+      };
 
-    axios
-      .post('http://localhost:3001/login', credentials)
-      .then(response => {
-        setTimeout(() => {
-      this.$router.push('/pekerja/utama');
-    }, 2000);
-        const message ='Log Masuk Berjaya'
-        const status = 'Berjaya'
-                        
-        this.$refs.toast.toast(message,status,'success')
-      })
-      .catch(error => {
-        console.log('Login failed:', error.message);
-        if (error.response && error.response.status === 403) {
-          const message ='Maaf Hanya Pekerja Yang Boleh Log Masuk'
-          const status = 'Gagal'
-                    
-          this.$refs.toast.toast(message,status,'error')        
-        } else {
-          const message ='ID Pekerja atau Kata Laluan Salah'
-          const status = 'Gagal'
-                    
-          this.$refs.toast.toast(message,status,'error')        }
-      });
-  },
+      axios
+        .post('http://localhost:3001/login', credentials)
+        .then(response => {
+          // Store user's name in session storage
+          sessionStorage.setItem('stafID', this.idPekerja);
+          setTimeout(() => {
+            this.$router.push('/pekerja/utama');
+          }, 2000);
+          const message = 'Log Masuk Berjaya';
+          const status = 'Berjaya';
+
+          this.$refs.toast.toast(message, status, 'success');
+        })
+        .catch(error => {
+          console.log('Login failed:', error.message);
+          if (error.response && error.response.status === 403) {
+            const message = 'Maaf Hanya Pekerja Yang Boleh Log Masuk';
+            const status = 'Gagal';
+
+            this.$refs.toast.toast(message, status, 'error');
+          } else {
+            const message = 'ID Pekerja atau Kata Laluan Salah';
+            const status = 'Gagal';
+
+            this.$refs.toast.toast(message, status, 'error');
+          }
+        });
+    },
   },
 };
 </script>

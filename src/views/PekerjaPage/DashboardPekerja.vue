@@ -12,119 +12,193 @@
             </div>
             
             <div class="flex justify-around mt-[2%] ">
-                <div  class="w-[30%] h-60 bg-[#f7d9e3] rounded-lg shadow-lg">
-                    
-                </div>
 
-                <div  class="w-[30%] bg-[#cbf0f4] rounded-lg shadow-lg">
-                    
+                <div  class="w-full h-60 bg-[#cbf0f4] rounded-lg shadow-lg flex justify-center">
+                    <img :src="workerData.GambarPekerja" class="h-[80%] rounded-xl shadow-md shadow-sky-500 ml-[3%] mt-[1.5%] mr-[4%]"/>
+                    <div>
+                        <table class="mt-[16%]">
+                            <tr class="font-bold text-xl ">
+                                <td>
+                                    {{ workerData.Nama_Pekerja }}
+                                </td>
+                            </tr>
+                            <tr class="font-semibold text-lg">
+                                <td>
+                                    {{ workerData.Staf_ID }}
+                                </td>
+                            </tr>
+                            <tr class="font-semibold text-md text-gray-500">
+                                <td class="pt-[3%]">
+                                    {{ workerData.Peranan_Pekerja }}
+                                </td>
+                            </tr>
+                            <tr class="font-semibold text-md text-gray-500">
+                                <td>
+                                    {{ workerData.Telefon_Pekerja }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="h-52 w-1 bg-sky-300 my-auto ml-[2%]"></div>
+                    <div>
+                        <table class="ml-[5%] mt-[8%]">
+                            <tr>
+                                <td class="font-semibold text-md">
+                                    Alamat:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pb-[2%]">
+                                    {{ workerData.Alamat_Pekerja }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold text-md">
+                                    Emel:
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{ workerData.Emel_Pekerja }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-
-                <div  class="w-[30%] bg-[#cbd4f4] rounded-lg shadow-lg">
-                    
-                </div>           
+       
             </div>
 
             <div  class="mt-[3%] bg-white w-full h-[51%] px-[2%] pb-[3%] ">
-                 <table class="w-full text-[13px] text-left shadow-2xl">
-                <caption class="p-5 text-[17px] font-semibold text-left bg-white ">
-                    Jualan Terakhir
-                    <p class="mt-1 font-normal text-sm text-gray-400">Senarai jualan terakhir yang direkod hari ini.</p>
-                </caption>
-                    <thead class=" text-gray-700 uppercase bg-gray-50 dark:bg-sky-400 dark:text-white">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                Product name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Color
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Category
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Price
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                <span class="sr-only">Edit</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-white border-b border-gray-500">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                Apple MacBook Pro 17"
-                            </th>
-                            <td class="px-6 py-4">
-                                Silver
-                            </td>
-                            <td class="px-6 py-4">
-                                Laptop
-                            </td>
-                            <td class="px-6 py-4">
-                                $2999
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b  dark:border-gray-500">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                Microsoft Surface Pro
-                            </th>
-                            <td class="px-6 py-4">
-                                White
-                            </td>
-                            <td class="px-6 py-4">
-                                Laptop PC
-                            </td>
-                            <td class="px-6 py-4">
-                                $1999
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b border-gray-500">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                Apple MacBook Pro 17"
-                            </th>
-                            <td class="px-6 py-4">
-                                Silver
-                            </td>
-                            <td class="px-6 py-4">
-                                Laptop
-                            </td>
-                            <td class="px-6 py-4">
-                                $2999
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b border-gray-500">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                Apple MacBook Pro 17"
-                            </th>
-                            <td class="px-6 py-4">
-                                Silver
-                            </td>
-                            <td class="px-6 py-4">
-                                Laptop
-                            </td>
-                            <td class="px-6 py-4">
-                                $2999
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b border-gray-500">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                Apple MacBook Pro 17"
-                            </th>
-                            <td class="px-6 py-4">
-                                Silver
-                            </td>
-                            <td class="px-6 py-4">
-                                Laptop
-                            </td>
-                            <td class="px-6 py-4">
-                                $2999
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
+                <div class="p-5 text-[17px] font-semibold text-left bg-white ">
+                    Promosi Produk
+                    <p class="mt-1 font-normal text-sm text-gray-400">Sila fahamkan dan hafal promosi-promosi yang ada bagi tujuan jualan.</p>
+                </div>
+                <div class="relative overflow-y-auto shadow-xl min-h-[320px] m-auto ">
+            <table class="w-full text-[13px] text-left">
+        
+            <thead class="uppercase bg-sky-400 text-white text-center sticky top-0 z-10">
+                <tr>
+                <th scope="col" class="py-3 w-[10%]">
+                    ID Promosi
+                </th>
+                <th scope="col" class="py-3">
+                    Nama Promosi
+                </th>
+                <th scope="col" class="py-3">
+                    Deskripsi promosi
+                </th>
+                <th scope="col" class="py-3">
+                    Harga Promosi (RM)
+                </th>
+                <th scope="col" class="py-3">
+                    Status Promosi
+                </th>
+                <th scope="col" class="py-3">
+                    Kategori Terlibat
+                </th>
+                </tr>
+            </thead>
+            <tbody v-if="promosiList.length > 0 && promosiList.length <6">
+                <tr class="bg-white border-b border-gray-500 text-center" v-for="promosi in promosiList">
+                <td scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
+                    {{ promosi.ID_Promosi }}
+                </td>
+                <td class="py-4">
+                    {{ promosi.Nama_Promosi }}
+                </td>
+                <td class="py-4">
+                    {{ promosi.Deskripsi_Promosi }}
+                </td>
+                <td class="py-4">
+                    {{ promosi.Harga_Promosi }}
+                </td>
+                <td class="py-4">
+                    {{ promosi.Status_Promosi }}
+                </td>
+                <td class="py-4">
+                    {{ promosi.Kategori.Nama_Kategori }}
+                </td>
+                </tr>
+                <tr>
+                <td colspan="6"><p class="text-center py-5 text-gray-500">Tiada lagi promosi yang terdaftar.</p></td>
+                </tr>
+            </tbody>
+            <tbody v-else-if="promosiList.length > 0">
+                <tr class="bg-white border-b border-gray-500 text-center" v-for="promosi in promosiList">
+                <td scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
+                    {{ promosi.Nama_Promosi }}
+                </td>
+                <td class="py-4">
+                    {{ promosi.Deskripsi_Promosi }}
+                </td>
+                <td class="py-4">
+                    {{ promosi.Harga_Promosi }}
+                </td>
+                <td class="py-4">
+                    {{ promosi.Status_Promosi }}
+                </td>
+                <td class="py-4">
+                    {{ promosi.Kategori.Nama_Kategori }}
+                </td>
+                </tr>
+            </tbody>
+            <tbody v-else>
+                <tr>
+                <td colspan="6"><p class="text-center py-5 text-gray-500">Tiada promosi terdaftar.</p></td>
+                </tr>
+            </tbody>
+            </table>
+            </div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      promosiList: [],
+      data2 : [],
+      selectedPromosi: null,
+      updateID: "",
+      workerData: "",
+    };
+  },
+  mounted() {
+    this.fetchPromotionData();
+    this.fetchWorkerData();
+  },
+  methods: {
+    fetchPromotionData() {
+      axios
+        .get('http://localhost:3001/promosi')
+        .then(response => {
+          this.promosiList = response.data;
+          console.log(this.promosiList);
+        })
+        .catch(error => {
+          console.error('Error fetching promotion data:', error);
+        });
+    },
+    fetchWorkerData() {
+      // Fetch worker data based on stafID from session storage
+      const stafID = sessionStorage.getItem('stafID');
+
+      axios
+        .get(`http://localhost:3001/dash/${stafID}`)
+        .then(response => {
+          this.workerData = response.data;
+          console.log(this.workerData);
+        })
+        .catch(error => {
+          console.error('Error fetching worker data:', error);
+        });
+    },
+
+  },
+};
+</script>
+
