@@ -5,15 +5,15 @@
 <template>
     <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
         <SidebarWorker/>
-        <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
+        <div class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
             <h1 class="text-xl font-semibold">Tambah Stok Produk</h1>
             <h2 class="text-md text-gray-500">Halaman Utama - Paparan Stok</h2>
-            <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%]">
-                <h3 class="text-4xl font-semibold pb-[2%]">Maklumat Produk</h3>
+            <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%] max-lg:w-full">
+                <h3 class="text-4xl font-semibold pb-[2%]">Tambah Kuantiti Produk</h3>
                 <div class="flex justify-around">
     <table class="w-[40%]">
       <tr>
-        <img :src="product.Gambar" class="w-[200px] mx-auto mt-[8%] scale-125 shadow-2xl"/>
+        <img :src="product.Gambar" class="w-[200px] mx-auto mt-[8%] scale-125 shadow-2xl max-lg:scale-[1]"/>
       </tr>
     </table>
 
@@ -98,7 +98,7 @@
     </table>
   </div>
                 <div class="flex justify-center mt-6">
-                <button class="text-white bg-gradient-to-r w-[20%] from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[2%] mt-[2%]" @click="submitForm">Tambah</button>
+                <button class="text-white bg-gradient-to-r w-[20%] from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-[0_10px_20px_rgba(8,_112,_184,_0.7)] ml-[2%] mt-[2%] max-lg:px-10 max-lg:w-auto max-lg:mb-6" @click="submitForm">Tambah</button>
             </div>
             </div>
         </div>

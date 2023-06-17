@@ -42,6 +42,7 @@
     "vue-datepicker": "^1.3.0",
     "vue-horizontal-scroll": "^0.2.4",
     "vue-router": "^4.1.6",
+    "vuetify": "^3.3.3",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

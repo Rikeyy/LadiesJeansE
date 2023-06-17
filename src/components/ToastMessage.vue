@@ -1,6 +1,6 @@
 <template>
     <transition name="toast">
-     <div v-if="isVisible" class="fixed top-10 right-[40%] z-50 ">
+     <div v-if="isVisible " class="fixed top-10 right-[40%] flex justify-center z-50 max-lg:right-[30%] ">
          <div :class="toastClasses" class="w-full">
               <div class="flex items-center">
            <span class="mr-2">

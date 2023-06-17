@@ -5,7 +5,7 @@
 <template>
     <div class="bg-[#f0f0f0] h-screen w-full flex">
         <SidebarWorker/>
-        <div class="ml-[22%] mt-[2.7%] w-[75%] h-[90%]">
+        <div class="ml-[22%] mt-[2.7%] w-[75%] h-[90%] max-lg:w-full max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
             <div >
                 <h1 class="text-xl font-semibold">Halaman Utama</h1>
                 <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-400">Papan Pemuka</span></h2>
@@ -14,9 +14,9 @@
             <div class="flex justify-around mt-[2%] ">
 
                 <div  class="w-full h-60 bg-[#cbf0f4] rounded-lg shadow-lg flex justify-center">
-                    <img :src="workerData.GambarPekerja" class="h-[80%] rounded-xl shadow-md shadow-sky-500 ml-[3%] mt-[1.5%] mr-[4%]"/>
+                    <img :src="workerData.GambarPekerja" class="h-[80%] rounded-xl shadow-md shadow-sky-500 ml-[3%] mt-[1.5%] mr-[4%] max-lg:mt-[3%]"/>
                     <div>
-                        <table class="mt-[16%]">
+                        <table class="mt-[16%] max-lg:mt-[20%]">
                             <tr class="font-bold text-xl ">
                                 <td>
                                     {{ workerData.Nama_Pekerja }}
@@ -39,9 +39,9 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="h-52 w-1 bg-sky-300 my-auto ml-[2%]"></div>
+                    <div class="h-52 w-1 bg-sky-300 my-auto ml-[2%] max-lg:ml-[0%]"></div>
                     <div>
-                        <table class="ml-[5%] mt-[8%]">
+                        <table class="ml-[5%] mt-[8%] max-lg:mt-[15%]">
                             <tr>
                                 <td class="font-semibold text-md">
                                     Alamat:
@@ -68,12 +68,12 @@
        
             </div>
 
-            <div  class="mt-[3%] bg-white w-full h-[51%] px-[2%] pb-[3%] ">
+            <div  class="mt-[3%] bg-white w-full h-[51%] px-[2%] pb-[3%] max-lg:h-[65vh]">
                 <div class="p-5 text-[17px] font-semibold text-left bg-white ">
                     Promosi Produk
                     <p class="mt-1 font-normal text-sm text-gray-400">Sila fahamkan dan hafal promosi-promosi yang ada bagi tujuan jualan.</p>
                 </div>
-                <div class="relative overflow-y-auto shadow-xl min-h-[320px] m-auto ">
+                <div class="relative overflow-y-auto shadow-xl h-[320px] m-auto max-lg:h-[650px] max-lg:px-[1%] ">
             <table class="w-full text-[13px] text-left">
         
             <thead class="uppercase bg-sky-400 text-white text-center sticky top-0 z-10">

@@ -5,10 +5,10 @@
 <template>
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarWorker/>
-      <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
+      <div class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
         <h1 class="text-xl font-semibold">Rekod Jualan</h1>
         <h2 class="text-md text-gray-500"><span><RouterLink to="/pekerja/utama">Halaman Utama</RouterLink></span> - <span class="text-sky-500">Rekod Jualan</span></h2>
-        <div class="bg-white  w-[90%] mt-[2%] pb-[5%] pt-[3%] ">
+        <div class="bg-white  w-[90%] mt-[2%] pb-[5%] pt-[3%] max-lg:w-full">
           <h3 class="text-center text-lg pb-[2%]">Masukkan ID Produk untuk mencari produk.</h3>
           <div class="flex justify-center pb-[2%]">
             <div>
@@ -24,7 +24,7 @@
 
           <div class=" ml-[10%] w-[80%] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] py-5 px-5 mt-[2%]">
 
-          <table class="mx-auto">
+          <table class="mx-auto max-lg:mb-3">
             <div>
               
             </div>
@@ -100,8 +100,8 @@
                 <td class="text-md font-semibold py-3 px-6">Pilih Promosi</td>
                 <td class="text-md font-bold px-3">:</td>
                 <td >
-                    <select v-model="selectedPromo" class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[100%]">
-                        <option disabled>-- Select Promotion --</option>
+                    <select v-model="selectedPromo" class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[100%] ">
+                        <option value="">-- Select Promotion --</option>
                         <option v-for="promo in filteredPromoList" :key="promo.id" :value="promo.id">{{ promo.Nama_Promosi }}</option>
                     </select>
                 </td>
@@ -134,7 +134,7 @@
         </div>
         
         <div class="flex justify-center pt-[2%]">
-            <button class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200 ml-[2%] mt-[2%]" @click="addToCartAndContinue(quantity)">Tambah Ke Troli</button>
+            <button class="text-white bg-gradient-to-r from-sky-400 to-indigo-300 h-12 px-12 rounded-full shadow-md hover:scale-105 duration-200 ml-[2%] mt-[2%] max-lg:mt-[4%] max-lg:mb-[4%]" @click="addToCartAndContinue(quantity)">Tambah Ke Troli</button>
           </div>
           <p class="text-gray-500 text-right w-[88%] cursor-pointer" @click="navigateToCart">Lihat Troli <span><i class="fa-solid fa-arrow-right pl-3"></i></span></p>
 

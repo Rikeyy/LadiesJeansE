@@ -3,12 +3,12 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
+    <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarWorker/>
-        <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
+        <div class="ml-[22%] mt-[2.7%] w-full h-[90%] max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%] max-lg:overflow-hidden">
             <h1 class="text-xl font-semibold">Tambah Stok Produk</h1>
             <h2 class="text-md text-gray-500">Halaman Utama - Paparan Stok</h2>
-            <div class="bg-white mt-[2%] shadow-sm w-[90%] pt-[3%] pb-[5%]">
+            <div class="bg-white mt-[2%] shadow-sm w-[90%] pt-[3%] pb-[5%] max-lg:w-full">
                 <h3 class="text-center text-lg pb-[2%]">Masukkan ID Produk untuk mencari produk.</h3>
                 <div class="flex justify-center text-[15px] pb-[2%]">
                     <div class="pr-[2%]">
@@ -29,7 +29,7 @@
                     <!-- <button @click="searchProducts" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button> -->
 
                 </div>
-                <div class="h-[500px] shadow-xl relative overflow-y-auto w-[95%] m-auto">
+                <div class="h-[500px] shadow-xl relative overflow-y-auto w-[95%] m-auto max-lg:h-[75vh]">
                     <table class="m-auto text-[13px]  ">
                         <thead class=" text-gray-700 uppercase bg-sky-400 dark:text-white text-center sticky top-0 z-10">
                             <tr>
