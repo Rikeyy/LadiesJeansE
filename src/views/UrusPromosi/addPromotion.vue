@@ -105,7 +105,7 @@ export default {
   methods: {
     fetchKategoriData() {
       axios
-        .get('http://localhost:3001/kategori')
+        .get('https://lje-ms-backend.onrender.com/kategori')
         .then((response) => {
           this.kategoriList = response.data;
         })
@@ -115,7 +115,7 @@ export default {
     },
     async submitForm() {
       await axios
-        .get('http://localhost:3001/cekIDPromosi')
+        .get('https://lje-ms-backend.onrender.com/cekIDPromosi')
         .then((response) => {
           this.errors.existID = response.data;
           console.log(this.errors.existID);
@@ -123,7 +123,7 @@ export default {
         .catch((error) => console.log(error));
 
       await axios
-        .get('http://localhost:3001/cekNamaPromosi')
+        .get('https://lje-ms-backend.onrender.com/cekNamaPromosi')
         .then((response) => {
           this.errors.existNama = response.data;
           console.log(this.errors.existNama);
@@ -160,7 +160,7 @@ export default {
         this.errors.errorNamaPromosi = '';
 
         axios
-          .post('http://localhost:3001/promosi', formData)
+          .post('https://lje-ms-backend.onrender.com/promosi', formData)
           .then((response) => {
             console.log(response.data);
             this.IDPromosi = '';

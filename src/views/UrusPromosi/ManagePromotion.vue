@@ -65,7 +65,7 @@ export default {
   methods: {
     fetchPromotionData() {
       axios
-        .get('http://localhost:3001/promosi')
+        .get('https://lje-ms-backend.onrender.com/promosi')
         .then(response => {
           this.promosiList = response.data;
           console.log(this.promosiList);
@@ -76,7 +76,7 @@ export default {
     },
     fetchActivePromo() {
       axios
-        .get('http://localhost:3001/aktif')
+        .get('https://lje-ms-backend.onrender.com/aktif')
         .then(response => {
           this.activepromoList = response.data;
           console.log(this.activepromoList);
@@ -87,7 +87,7 @@ export default {
     },
     fetchPromotionStatus() {
       axios
-        .get('http://localhost:3001/status')
+        .get('https://lje-ms-backend.onrender.com/status')
         .then(response => {
           const promotionStatuses = response.data;
           const activePromotionCount = promotionStatuses.filter(status => status.Status_Promosi === 'Aktif').length;
@@ -136,7 +136,7 @@ export default {
       this.updateID = promosi_id;
       console.log(this.updateID);
       axios
-        .delete(`http://localhost:3001/promosi/${promosi_id}`)
+        .delete(`https://lje-ms-backend.onrender.com/promosi/${promosi_id}`)
         .then(response => {
           // Remove the deleted promotion from promosiList
           const index = this.promosiList.findIndex(p => p.id === promosi_id);

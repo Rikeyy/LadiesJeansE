@@ -128,7 +128,7 @@
             mounted() {
             this.fetchKategoriData();
             axios
-                .get('http://localhost:3001/barang/' + this.produkID)
+                .get('https://lje-ms-backend.onrender.com/barang/' + this.produkID)
                 .then(response => {
                 this.product = response.data;
                 console.log(this.product);
@@ -148,7 +148,7 @@
                 submitForm() {
                 this.product.kategoriProduk = this.selectedItem; // Assign the selected category to the product
                 axios
-                    .put('http://localhost:3001/produk/' + this.produkID, this.product)
+                    .put('https://lje-ms-backend.onrender.com/produk/' + this.produkID, this.product)
                     .then(response => {
                     // alert('Data updated successfully!');
                     // router.push('/urus-produk');
@@ -159,7 +159,7 @@
                     });
                 },
                 fetchKategoriData() {
-                axios.get('http://localhost:3001/kategori')
+                axios.get('https://lje-ms-backend.onrender.com/kategori')
                     .then(response => {
                     this.kategoriList = response.data;
                     //   console.log(this.kategoriList);

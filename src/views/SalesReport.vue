@@ -192,7 +192,7 @@ export default {
   methods: {
     fetchSalesData() {
       axios
-        .get('http://localhost:3001/jualan')
+        .get('https://lje-ms-backend.onrender.com/jualan')
         .then(response => {
           this.saleList = response.data;
           this.filterSales(); 
@@ -208,7 +208,7 @@ export default {
         price: ""
       };
       axios
-        .get(`http://localhost:3001/produk/${barcode}`)
+        .get(`https://lje-ms-backend.onrender.com/produk/${barcode}`)
         .then(response => {
           this.produk = response.data;
           console.log(this.produk);

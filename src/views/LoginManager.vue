@@ -12,7 +12,7 @@
                     <button type="submit" class="text-white bg-gradient-to-r w-[45%] from-sky-500 to-indigo-500 h-12 px-12 rounded-full my-auto shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">Log Masuk</button>
                 </form>
                 <div class="bg-[#fff] w-2/5 rounded-r-[50px] max-lg:hidden">
-                    <img class="w-4/5 h-full m-auto" src="../assets/undraw_co-working_re_w93t.svg">
+                    <img class="w-4/5 h-full m-auto" src="../../public/images/undraw_co-working_re_w93t.svg">
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@ export default {
       };
 
       axios
-        .post('http://localhost:3001/loginManager', credentials)
+        .post('https://lje-ms-backend.onrender.com/loginManager', credentials)
         .then(response => {
           const message = 'Log Masuk Berjaya';
           const status = 'Berjaya';
@@ -95,13 +95,13 @@ export default {
 
 <style>
 .back{
-    background-image: url("../assets/blob-scene-haikei.svg");
+    background-image: url("../../public/images/blob-scene-haikei.svg");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .hmm{
-    background-image: url("../assets/Visiwig-Dots.svg");
+    background-image: url("../../public/images/Visiwig-Dots.svg");
     background-repeat: no-repeat;
     background-size: cover;
 }

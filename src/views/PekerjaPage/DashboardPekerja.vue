@@ -174,7 +174,7 @@ export default {
   methods: {
     fetchPromotionData() {
       axios
-        .get('http://localhost:3001/promosi')
+        .get('https://lje-ms-backend.onrender.com/promosi')
         .then(response => {
           this.promosiList = response.data;
           console.log(this.promosiList);
@@ -188,7 +188,7 @@ export default {
       const stafID = sessionStorage.getItem('stafID');
 
       axios
-        .get(`http://localhost:3001/dash/${stafID}`)
+        .get(`https://lje-ms-backend.onrender.com/dash/${stafID}`)
         .then(response => {
           this.workerData = response.data;
           console.log(this.workerData);

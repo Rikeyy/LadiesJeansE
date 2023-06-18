@@ -236,7 +236,7 @@ export default {
         },
     async searchProducts() {
       try {
-        const response = await axios.get('http://localhost:3001/cari', {
+        const response = await axios.get('https://lje-ms-backend.onrender.com/cari', {
           params: {
             Produk_ID: this.searchId,
           },
@@ -270,7 +270,7 @@ export default {
     },
     fetchActivePromo() {
       axios
-        .get('http://localhost:3001/aktif')
+        .get('https://lje-ms-backend.onrender.com/aktif')
         .then((response) => {
           this.activePromoList = response.data;
           console.log(this.activePromoList);
@@ -328,7 +328,7 @@ export default {
     },
     async fetchProductQuantity(productID) {
       try {
-        const response = await axios.get('http://localhost:3001/bilangan');
+        const response = await axios.get('https://lje-ms-backend.onrender.com/bilangan');
         const productQuantities = response.data;
 
         const product = productQuantities.find((produk) => produk.Produk_ID === productID);

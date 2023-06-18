@@ -190,7 +190,7 @@ async navigateToPayment() {
   }
   
       try {
-        const response = await axios.post("http://localhost:3001/record-sales", {
+        const response = await axios.post("https://lje-ms-backend.onrender.com/record-sales", {
           cartItems: this.cartItems,
           totalCart: this.totalCart,
           moneyReceived: this.moneyReceived,
@@ -227,7 +227,7 @@ async navigateToPayment() {
     const productId = item.productData?.Produk_ID;
     const purchasedQuantity = item.kuantiti;
     try {
-      const response = await axios.post("http://localhost:3001/update-product-quantity", {
+      const response = await axios.post("https://lje-ms-backend.onrender.com/update-product-quantity", {
         productId,
         purchasedQuantity,
       });

@@ -185,7 +185,7 @@ export default {
   },
   methods: {
     fetchProductData() {
-      axios.get('http://localhost:3001/produk')
+      axios.get('https://lje-ms-backend.onrender.com/produk')
         .then(response => {
           this.produkList = response.data;
           console.log(this.produkList);
@@ -211,7 +211,7 @@ export default {
   }).then((result) => {
     if (result.isConfirmed) {
       axios
-        .delete(`http://localhost:3001/produk/${productId}`)
+        .delete(`https://lje-ms-backend.onrender.com/produk/${productId}`)
         .then((response) => {
           const index = this.produkList.findIndex((p) => p.Produk_ID === productId);
           if (index !== -1) {
@@ -234,7 +234,7 @@ export default {
 },
     fetchKategori() {
   axios
-    .get('http://localhost:3001/chart')
+    .get('https://lje-ms-backend.onrender.com/chart')
     .then(response => {
       const kategoriData = response.data.map(item => ({
         kategori: item.Kategori.Nama_Kategori,

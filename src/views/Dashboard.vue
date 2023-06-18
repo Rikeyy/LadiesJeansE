@@ -187,7 +187,7 @@ export default {
   methods: {
     fetchSalesData() {
       axios
-        .get('http://localhost:3001/amaran')
+        .get('https://lje-ms-backend.onrender.com/amaran')
         .then(response => {
             this.saleList = response.data;
             console.log(this.saleList);
@@ -199,7 +199,7 @@ export default {
     },
     fetchPromotionData() {
       axios
-        .get('http://localhost:3001/promosi')
+        .get('https://lje-ms-backend.onrender.com/promosi')
         .then(response => {
           this.promosiList = response.data;
           console.log(this.promosiList);
@@ -209,7 +209,7 @@ export default {
         });
     },
     fetchWorkerData() {
-      axios.get('http://localhost:3001/')
+      axios.get('https://lje-ms-backend.onrender.com/')
         .then(response => {
           this.workerList = response.data;
         })
@@ -218,7 +218,7 @@ export default {
         });
     },
     fetchProductData() {
-      axios.get('http://localhost:3001/produk')
+      axios.get('https://lje-ms-backend.onrender.com/produk')
         .then(response => {
           this.produkList = response.data;
         })
@@ -228,7 +228,7 @@ export default {
     },
     fetchrole() {
       axios
-        .get('http://localhost:3001/role')
+        .get('https://lje-ms-backend.onrender.com/role')
         .then(response => {
           const workerData = this.calculateWorkerRolePercentage(response.data);
           this.createWorkerChart(workerData);
@@ -282,7 +282,7 @@ export default {
     },
     fetchKategori() {
   axios
-    .get('http://localhost:3001/chart')
+    .get('https://lje-ms-backend.onrender.com/chart')
     .then(response => {
       const kategoriData = response.data.map(item => ({
         kategori: item.Kategori.Nama_Kategori,
@@ -350,7 +350,7 @@ createProdukChart(kategoriData) {
 },
 fetchStatuses() {
     axios
-      .get('http://localhost:3001/status')
+      .get('https://lje-ms-backend.onrender.com/status')
       .then(response => {
         const statusData = this.calculateStatusPercentage(response.data);
         this.createPromosiChart(statusData);

@@ -163,7 +163,7 @@ const selectedItem = ref('');
 
 async function fetchProdukData() {
   try {
-    const response = await axios.get('http://localhost:3001/produk');
+    const response = await axios.get('https://lje-ms-backend.onrender.com/produk');
     produkList.value = response.data;
     filteredProdukList.value = response.data;
     console.log(response.data);
@@ -174,7 +174,7 @@ async function fetchProdukData() {
 
 async function searchProducts() {
   try {
-    const response = await axios.get('http://localhost:3001/cari', {
+    const response = await axios.get('https://lje-ms-backend.onrender.com/cari', {
       params: {
         Produk_ID: searchId.value,
       },
@@ -197,7 +197,7 @@ const displayProdukList = computed(() => {
 
 async function filterProductsByCategory() {
     try {
-      const response = await axios.get('http://localhost:3001/cariKategori', {
+      const response = await axios.get('https://lje-ms-backend.onrender.com/cariKategori', {
         params: {
           kategoriId: selectedItem.value,
         },
@@ -241,7 +241,7 @@ export default {
   },
   methods: {
     fetchKategoriData() {
-      axios.get('http://localhost:3001/kategori')
+      axios.get('https://lje-ms-backend.onrender.com/kategori')
         .then(response => {
           this.kategoriList = response.data;
           console.log(this.kategoriList);

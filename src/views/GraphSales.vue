@@ -8,7 +8,7 @@
 
   onMounted(async () => {
     // Fetch sales data from the backend
-    const response = await fetch('http://localhost:3001/jualan');
+    const response = await fetch('https://lje-ms-backend.onrender.com/jualan');
     salesData.value = await response.json();
 
     // Sort sales data by the createdAt date (earliest date first)

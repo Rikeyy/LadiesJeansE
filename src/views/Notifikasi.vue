@@ -101,7 +101,7 @@ export default {
   methods: {
     async fetchProdukData() {
       try {
-        const response = await axios.get('http://localhost:3001/kuantiti');
+        const response = await axios.get('https://lje-ms-backend.onrender.com/kuantiti');
         this.filteredProdukList = response.data;
         console.log(response.data);
       } catch (error) {
@@ -124,7 +124,7 @@ export default {
     });
 
     if (confirmed.isConfirmed) {
-      const response = await axios.put(`http://localhost:3001/pangkah/${id}`, { Kuantiti_Tambahan: 0 });
+      const response = await axios.put(`https://lje-ms-backend.onrender.com/pangkah/${id}`, { Kuantiti_Tambahan: 0 });
       console.log(response.data);
       await this.fetchProdukData();
       const message = 'Batal Tambah Kuantiti Produk Berjaya';
@@ -138,7 +138,7 @@ export default {
 
     async onCheckButtonClick(id) {
       try {
-        const response = await axios.put(`http://localhost:3001/kuantiti/${id}`);
+        const response = await axios.put(`https://lje-ms-backend.onrender.com/kuantiti/${id}`);
         console.log(response.data);
         await this.fetchProdukData();
          const message = 'Tambah Kuantiti Produk Berjaya';

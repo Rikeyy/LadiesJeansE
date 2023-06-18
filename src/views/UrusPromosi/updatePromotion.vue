@@ -83,7 +83,7 @@
     mounted() {
       this.fetchKategoriData();
       axios
-        .get('http://localhost:3001/promosi/' + this.promosiID)
+        .get('https://lje-ms-backend.onrender.com/promosi/' + this.promosiID)
         .then(response => {
           this.promosi = response.data;
         })
@@ -96,7 +96,7 @@
     this.promosi.kategoriTerlibat = this.promosi.kategoriTerlibat; // Assign the selected kategori value
     
     axios
-      .put('http://localhost:3001/promosi/' + this.promosiID, this.promosi)
+      .put('https://lje-ms-backend.onrender.com/promosi/' + this.promosiID, this.promosi)
       .then(response => {
         const message ='Ubahsuai Maklumat Promosi Berjaya'
                         const status = 'Berjaya'
@@ -113,7 +113,7 @@
   },
       fetchKategoriData() {
         axios
-          .get('http://localhost:3001/kategori')
+          .get('https://lje-ms-backend.onrender.com/kategori')
           .then(response => {
             this.kategoriList = response.data;
           })

@@ -42,7 +42,7 @@
           };
       },
       mounted() {
-          axios.get('http://localhost:3001/kategori/' + this.kategoriID)
+          axios.get('https://lje-ms-backend.onrender.com/kategori/' + this.kategoriID)
               .then(response => {
                   this.kategori = response.data;
               })
@@ -50,7 +50,7 @@
       },
       methods: {
           submitForm() {
-              axios.put('http://localhost:3001/kategori/' + this.kategoriID, this.kategori)
+              axios.put('https://lje-ms-backend.onrender.com/kategori/' + this.kategoriID, this.kategori)
                   .then(response => {
                     const message ='Ubahsuai Maklumat Kategori Berjaya'
                     const status = 'Berjaya'

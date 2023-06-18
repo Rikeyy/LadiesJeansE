@@ -158,7 +158,7 @@
             mounted() {
             this.fetchKategoriData();
             axios
-                .get('http://localhost:3001/barang/' + this.produkID)
+                .get('https://lje-ms-backend.onrender.com/barang/' + this.produkID)
                 .then(response => {
                 this.product = response.data;
                 console.log(this.product);
@@ -170,7 +170,7 @@
                 submitForm() {
                     this.product.Kuantiti_Produk += parseInt(this.kuantiti);
                     axios
-                    .put('http://localhost:3001/tambahKuantiti/' + this.produkID, { kuantiti: this.kuantiti })
+                    .put('https://lje-ms-backend.onrender.com/tambahKuantiti/' + this.produkID, { kuantiti: this.kuantiti })
                     .then(response => {
                         const message = "tambah Produk Berjaya";
                         const status = "Berjaya";
@@ -202,7 +202,7 @@
                     //     },
                 
                 fetchKategoriData() {
-                axios.get('http://localhost:3001/kategori')
+                axios.get('https://lje-ms-backend.onrender.com/kategori')
                     .then(response => {
                     this.kategoriList = response.data;
                     })

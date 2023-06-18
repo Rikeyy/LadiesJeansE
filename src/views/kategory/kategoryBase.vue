@@ -95,7 +95,7 @@
     methods: {
       fetchKategoriData() {
         axios
-          .get('http://localhost:3001/kategori')
+          .get('https://lje-ms-backend.onrender.com/kategori')
           .then(response => {
             this.kategoriList = response.data;
             // console.log(this.kategoriList);
@@ -121,7 +121,7 @@
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`http://localhost:3001/kategori/` + kategoriID)
+            .delete(`https://lje-ms-backend.onrender.com/kategori/` + kategoriID)
             .then((response) => {
               // Remove the deleted product from the kategoriList
               const index = this.kategoriList.findIndex((k) => k.id === kategoriID);

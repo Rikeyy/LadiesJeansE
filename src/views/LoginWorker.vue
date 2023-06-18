@@ -12,7 +12,7 @@
             <button type="submit" class="text-white bg-gradient-to-r w-[45%] from-sky-500 to-indigo-500 h-12 px-12 rounded-full my-auto shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">Log Masuk</button>
           </form>
           <div class="bg-[#fff] w-2/5 rounded-r-[50px] max-lg:hidden">
-            <img class="w-3/5 h-full m-auto max-lg:hidden" src="../assets/undraw_ideas_flow_re_bmea.svg">
+            <img class="w-3/5 h-full m-auto max-lg:hidden" src="../../public/images/undraw_ideas_flow_re_bmea.svg">
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@ export default {
       };
 
       axios
-        .post('http://localhost:3001/login', credentials)
+        .post('https://lje-ms-backend.onrender.com/login', credentials)
         .then(response => {
           // Store user's name in session storage
           sessionStorage.setItem('stafID', this.idPekerja);
@@ -112,13 +112,13 @@ export default {
 
 <style>
 .back{
-    background-image: url("../assets/blob-scene-haikei.svg");
+    background-image: url("../../public/images/blob-scene-haikei.svg");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .hmm{
-    background-image: url("../assets/Visiwig-Dots.svg");
+    background-image: url("../../public/images/Visiwig-Dots.svg");
     background-repeat: no-repeat;
     background-size: cover;
 }

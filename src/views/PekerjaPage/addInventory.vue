@@ -171,7 +171,7 @@ export default {
         },
     async fetchProdukData() {
       try {
-        const response = await axios.get('http://localhost:3001/produk');
+        const response = await axios.get('https://lje-ms-backend.onrender.com/produk');
         this.produkList = response.data;
         this.filteredProdukList = response.data;
         console.log(response.data);
@@ -181,7 +181,7 @@ export default {
     },
     async searchProducts() {
       try {
-        const response = await axios.get('http://localhost:3001/cari', {
+        const response = await axios.get('https://lje-ms-backend.onrender.com/cari', {
           params: {
             Produk_ID: this.searchId,
           },
@@ -193,7 +193,7 @@ export default {
       }
     },
     fetchKategoriData() {
-      axios.get('http://localhost:3001/kategori')
+      axios.get('https://lje-ms-backend.onrender.com/kategori')
         .then(response => {
           this.kategoriList = response.data;
           console.log(this.kategoriList);

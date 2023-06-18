@@ -2,7 +2,7 @@
     <div class="xl:hidden max-lg:show">
         <div class="fixed mt-[10%]" :class="{ 'w-[10%]': sidebarVisible, 'w-[1.5%]': !sidebarVisible }" :style="{ left: sidebarVisible ? '2%' : '0' }">
         <div class="tepiKecik shadow-sm h-full">
-          <img src="../assets/lJE__3_-removebg-preview.png" class="mx-auto px-2 py-7" :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }" alt="">
+          <img src="../../public/images/lJE__3_-removebg-preview.png" class="mx-auto px-2 py-7" :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }" alt="">
 
           <div class="h-[2px] w-[80%] mx-auto bg-blue-600 mb-12"></div>
   
@@ -33,7 +33,7 @@
     <div class="max-lg:hidden min-xl:show">
         <div class="fixed h-[90vh] mt-[2.5%]" :class="{ 'w-[17%]': sidebarVisible, 'w-[1.5%]': !sidebarVisible }" :style="{ left: sidebarVisible ? '2%' : '0' }">
         <div class="tepi h-full">
-          <img src="../assets/lJE__3_-removebg-preview.png" class="mx-auto w-[60%]" :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }" alt="">
+          <img src="../../public/images/lJE__3_-removebg-preview.png" class="mx-auto w-[60%]" :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }" alt="">
   
           <div class="font-normal text-md ml-[18%] mt-[80%] "  :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }">
             <div class="flex mb-6">

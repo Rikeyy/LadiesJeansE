@@ -49,7 +49,7 @@ export default {
   methods: {
     async submitForm() {
       try {
-        const response = await axios.get('http://localhost:3001/cekKategori');
+        const response = await axios.get('https://lje-ms-backend.onrender.com/cekKategori');
         const existingKategori = response.data.find((kategori) => kategori.Nama_Kategori === this.NamaKategori);
 
         if (existingKategori) {
@@ -82,7 +82,7 @@ export default {
         };
 
         axios
-          .post('http://localhost:3001/kategori', formData)
+          .post('https://lje-ms-backend.onrender.com/kategori', formData)
           .then((response) => {
             console.log(response.data);
             this.NamaKategori = '';

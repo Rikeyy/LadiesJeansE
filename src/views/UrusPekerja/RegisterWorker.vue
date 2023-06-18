@@ -203,16 +203,16 @@ window.togglePasswordVisibility = this.togglePasswordVisibility;
     },
     async checkExistingData() {
       try {
-        const responseKP = await axios.get(`http://localhost:3001/noKP?nokp=${this.nokp}`);
+        const responseKP = await axios.get(`https://lje-ms-backend.onrender.com/noKP?nokp=${this.nokp}`);
         this.errors.existKP = responseKP.data.length > 0;
 
-        const responseEmel = await axios.get(`http://localhost:3001/emel?emel=${this.emel}`);
+        const responseEmel = await axios.get(`https://lje-ms-backend.onrender.com/emel?emel=${this.emel}`);
         this.errors.existEmel = responseEmel.data.length > 0;
 
-        const responseTel = await axios.get(`http://localhost:3001/telefon?telefon=${this.telefon}`);
+        const responseTel = await axios.get(`https://lje-ms-backend.onrender.com/telefon?telefon=${this.telefon}`);
         this.errors.existTel = responseTel.data.length > 0;
 
-        const responseID = await axios.get(`http://localhost:3001/stafID?idpekerja=${this.idpekerja}`);
+        const responseID = await axios.get(`https://lje-ms-backend.onrender.com/stafID?idpekerja=${this.idpekerja}`);
         this.errors.existID = responseID.data.length > 0;
 
         console.log(this.errors.existKP);
@@ -278,7 +278,7 @@ window.togglePasswordVisibility = this.togglePasswordVisibility;
           };
 
           axios
-            .post('http://localhost:3001/', formData)
+            .post('https://lje-ms-backend.onrender.com/', formData)
             .then((response) => {
               console.log(response.data);
               this.namapenuh = '';

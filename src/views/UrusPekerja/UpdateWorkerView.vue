@@ -129,7 +129,7 @@
                 };
             },
             mounted() {
-                axios.get('http://localhost:3001/' + this.workerId)
+                axios.get('https://lje-ms-backend.onrender.com/' + this.workerId)
                     .then(response => {
                         this.worker = response.data;
                     })
@@ -153,7 +153,7 @@
                 },
                 submitForm() {
                     this.worker.GambarPekerja = this.link;
-                    axios.put('http://localhost:3001/' + this.workerId, this.worker)
+                    axios.put('https://lje-ms-backend.onrender.com/' + this.workerId, this.worker)
                         .then(response => {
                             const message ='Ubahsuai Maklumat Pekerja Berjaya'
                             const status = 'Berjaya'

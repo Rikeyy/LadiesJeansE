@@ -113,7 +113,7 @@
             },
             mounted() {
                 this.fetchKategoriData();
-                axios.get('http://localhost:3001/produk/' + this.produkID)
+                axios.get('https://lje-ms-backend.onrender.com/produk/' + this.produkID)
                     .then(response => {
                         this.product = response.data;
                         console.log(this.product)
@@ -130,7 +130,7 @@
                 this.product.Gambar = this.link;
                 this.product.kategoriProduk = this.product.kategoriProduk;
                 axios
-                    .put('http://localhost:3001/produk/' + this.produkID, this.product)
+                    .put('https://lje-ms-backend.onrender.com/produk/' + this.produkID, this.product)
                     .then(response => {
                         console.log(this.product);
 
@@ -151,7 +151,7 @@
                     
                 },
                 fetchKategoriData() {
-                axios.get('http://localhost:3001/kategori')
+                axios.get('https://lje-ms-backend.onrender.com/kategori')
                     .then(response => {
                     this.kategoriList = response.data;
                     })

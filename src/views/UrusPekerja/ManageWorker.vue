@@ -224,7 +224,7 @@ export default {
   },
   methods: {
     fetchWorkerData() {
-      axios.get('http://localhost:3001/')
+      axios.get('https://lje-ms-backend.onrender.com/')
         .then(response => {
           this.workerList = response.data;
           this.sortWorkerList();
@@ -253,7 +253,7 @@ export default {
   }).then((result) => {
     if (result.isConfirmed) {
       axios
-        .delete(`http://localhost:3001/` + worker)
+        .delete(`https://lje-ms-backend.onrender.com/` + worker)
         .then(response => {
           const index = this.workerList.findIndex(w => w.id === worker);
           if (index !== -1) {
@@ -273,7 +273,7 @@ export default {
 },
     fetchrole() {
       axios
-        .get('http://localhost:3001/role')
+        .get('https://lje-ms-backend.onrender.com/role')
         .then(response => {
           const workerData = this.calculateWorkerRolePercentage(response.data);
           this.createPieChart(workerData);

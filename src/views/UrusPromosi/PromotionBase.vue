@@ -140,7 +140,7 @@ export default {
   methods: {
     fetchPromotionData() {
       axios
-        .get('http://localhost:3001/promosi')
+        .get('https://lje-ms-backend.onrender.com/promosi')
         .then(response => {
           this.promosiList = response.data;
           console.log(this.promosiList);
@@ -166,7 +166,7 @@ export default {
   }).then((result) => {
     if (result.isConfirmed) {
       axios
-        .delete(`http://localhost:3001/promosi/${promosi_id}`)
+        .delete(`https://lje-ms-backend.onrender.com/promosi/${promosi_id}`)
         .then((response) => {
           const index = this.promosiList.findIndex((p) => p.id === promosi_id);
           if (index !== -1) {
