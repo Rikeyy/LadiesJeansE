@@ -1,13 +1,13 @@
 <template>
     <div class="section">
-        <div id="qr-code-full-region"></div>
+      <div id="qr-code-full-region"></div>
     </div>
-</template>
-
-<script>
-import { Html5QrcodeScanner } from "html5-qrcode";
-
-export default {
+  </template>
+  
+  <script>
+  import { Html5QrcodeScanner } from "html5-qrcode";
+  
+  export default {
     props: {
         qrbox: Number,
         fps: Number,
@@ -36,4 +36,6 @@ export default {
         html5QrcodeScanner.render(onScanSuccess);
     },
 };
-</script>
+  </script>
+  
+  

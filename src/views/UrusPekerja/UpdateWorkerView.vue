@@ -52,10 +52,23 @@
                         </div>
                             </div>
                             <div class="flex justify-between">
-                            <div class="relative z-0 w-[45%] mb-6 group">
-                                <input type="password" name="floating_password"  v-model="worker.KataLaluan_Pekerja" id="floating_password" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                                <label for="floating_password" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kata Laluan</label>
-                            </div>
+                                <div class="relative z-0 w-[45%] mb-6 group">
+                            <input
+                              type="password"
+                              name="floating_password"
+                              v-model="worker.KataLaluan_Pekerja"
+                              id="floating_password"
+                              class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                            />
+                            <label
+                              for="floating_password"
+                              class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                              Kata Laluan
+                            </label>
+                            <i :class="['fa-solid', 'fa-eye', 'text-lg', {'text-blue-500': showPassword, 'text-gray-500': !showPassword}, 'cursor-pointer', 'absolute', 'top-3', 'right-2', 'scale-105']" @click="togglePasswordVisibility()"></i>
+                          </div>
                             <div class="relative z-0 w-[45%] mb-6 group">
                                 <input type="number" name="floating_gaji" id="floating_gaji"  v-model="worker.Gaji_Pekerja" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                                 <label for="floating_gaji" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Gaji Pekerja</label>
@@ -110,6 +123,7 @@
             },
             data() {
                 return {
+                    showPassword: false,
                     workerId: router.currentRoute.value.params.id,
                     worker: ""
                 };
@@ -125,8 +139,18 @@
                         this.link=dataUpload.cdnUrl + dataUpload.name;
                         console.log(this.link);
                     });
+                    window.togglePasswordVisibility = this.togglePasswordVisibility;
             },
             methods: {
+                 togglePasswordVisibility() {
+                    this.showPassword = !this.showPassword;
+                    var passwordInput = document.getElementById("floating_password");
+                    if (passwordInput.type === "password") {
+                        passwordInput.type = "text";
+                    } else {
+                        passwordInput.type = "password";
+                    }
+                },
                 submitForm() {
                     this.worker.GambarPekerja = this.link;
                     axios.put('http://localhost:3001/' + this.workerId, this.worker)

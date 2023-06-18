@@ -64,17 +64,30 @@
                           </div>
                         </div>
                         <div class="flex justify-between">
-                        <div class="relative z-0 w-[45%] mb-6 group">
-                            <input type="password" name="floating_password"  v-model="password" id="floating_password" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
-                            <label for="floating_password" class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kata Laluan</label>
+                          <div class="relative z-0 w-[45%] mb-6 group">
+                            <input
+                              type="password"
+                              name="floating_password"
+                              v-model="password"
+                              id="floating_password"
+                              class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                              placeholder=" "
+                            />
+                            <label
+                              for="floating_password"
+                              class="peer-focus:font-medium absolute text-md text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            >
+                              Kata Laluan
+                            </label>
                             <label class="text-red-600 font-medium text-xs" for="errorps" id="errorps">{{ errors.password }}</label>
+                            <i :class="['fa-solid', 'fa-eye', 'text-lg', {'text-blue-500': showPassword, 'text-gray-500': !showPassword}, 'cursor-pointer', 'absolute', 'top-3', 'right-2', 'scale-105']" @click="togglePasswordVisibility()"></i>
                           </div>
                         <div class="relative z-0 w-[45%] mt-3 group">
                           <div class="flex flex-col">
                             <div>
                               <label for="peranan" class="mr-[5%]">Peranan:</label>
                                 <select id="peranan" v-model="peranan" class=" appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                  <option disabled>-- Sila Pilih Peranan</option>
+                                  <option disabled>-- Sila Pilih Peranan --</option>
                                   <option value="Pekerja">Pekerja</option>
                                   <option value="Pengurus">Pengurus</option>
                                 </select>
@@ -127,6 +140,7 @@ import ToastMessage from '../../components/ToastMessage.vue';
 import * as LR from "@uploadcare/blocks";
 
 LR.registerBlocks(LR);
+ 
 
 export default {
   components:{
@@ -134,6 +148,7 @@ export default {
   },
   data() {
     return {
+      showPassword: false,
       namapenuh: '',
       nokp: '',
       telefon: '',
@@ -172,8 +187,20 @@ export default {
     console.log(this.link);
     
 });
+
+window.togglePasswordVisibility = this.togglePasswordVisibility;
+
   },
   methods: {
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+      var passwordInput = document.getElementById("floating_password");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+      } else {
+        passwordInput.type = "password";
+      }
+    },
     async checkExistingData() {
       try {
         const responseKP = await axios.get(`http://localhost:3001/noKP?nokp=${this.nokp}`);

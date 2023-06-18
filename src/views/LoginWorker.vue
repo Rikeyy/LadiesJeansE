@@ -32,10 +32,49 @@ export default {
     return {
       idPekerja: '',
       password: '',
+      accountAttempts: {},
+      lockedAccounts: {},
     };
+  },
+  watch: {
+    accountAttempts: {
+      deep: true,
+      handler(newAttempts) {
+        Object.keys(newAttempts).forEach(accountId => {
+          if (newAttempts[accountId] >= 3) {
+            const currentTime = Date.now();
+            this.lockedAccounts[accountId] = currentTime + 120000; // 2 minutes in milliseconds
+            const message = `Maaf, akaun ini dikunci selama 2 minit.`;
+            const status = 'Gagal';
+            this.$refs.toast.toast(message, status, 'error');
+            console.log(`Account ${accountId} locked.`);
+          }
+        });
+      },
+    },
+  },
+  computed: {
+    isAccountLocked() {
+      const unlockTime = this.lockedAccounts[this.idPekerja];
+      const currentTime = Date.now();
+      return unlockTime && unlockTime > currentTime;
+    },
   },
   methods: {
     submitForm() {
+      if (this.isAccountLocked) {
+        const remainingTime = Math.ceil((this.lockedAccounts[this.idPekerja] - Date.now()) / 1000); // Remaining time in seconds
+        const message = `Maaf, akaun ini dikunci selama ${remainingTime} saat.`;
+        const status = 'Gagal';
+        this.$refs.toast.toast(message, status, 'error');
+        console.log(`Account ${this.idPekerja} login attempt failed. Account locked.`);
+        return;
+      }
+
+      const attempts = this.accountAttempts[this.idPekerja] || 0;
+      this.accountAttempts[this.idPekerja] = attempts + 1;
+      console.log(`Account ${this.idPekerja} login attempt: ${this.accountAttempts[this.idPekerja]}`);
+
       const credentials = {
         idPekerja: this.idPekerja,
         password: this.password,
@@ -51,20 +90,18 @@ export default {
           }, 2000);
           const message = 'Log Masuk Berjaya';
           const status = 'Berjaya';
-
           this.$refs.toast.toast(message, status, 'success');
         })
         .catch(error => {
           console.log('Login failed:', error.message);
-          if (error.response && error.response.status === 403) {
-            const message = 'Maaf Hanya Pekerja Yang Boleh Log Masuk';
-            const status = 'Gagal';
 
+          if (error.response && error.response.status === 403) {
+            const message = 'Maaf, hanya pekerja yang boleh log masuk';
+            const status = 'Gagal';
             this.$refs.toast.toast(message, status, 'error');
           } else {
             const message = 'ID Pekerja atau Kata Laluan Salah';
             const status = 'Gagal';
-
             this.$refs.toast.toast(message, status, 'error');
           }
         });

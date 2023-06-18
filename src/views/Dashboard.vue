@@ -84,7 +84,7 @@
                                    </th>
                                </tr>
                            </thead>
-                           <tbody>
+                           <tbody v-if="saleList.length>0">
                                <tr class="bg-red-100 border-b border-gray-500 text-center" v-for="(sale,index) in saleList">
                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap w-[3%]">
                                        {{ index + 1 }}
@@ -113,6 +113,11 @@
                                     </div>
                                    </td>
                                </tr>          
+                           </tbody>
+                           <tbody v-else>
+                            <tr>
+                              <td colspan="8" class="text-center">Tiada notifikasi atau amaran stok untuk masa ini.</td>
+                            </tr>
                            </tbody>
                        </table>
                     </div>

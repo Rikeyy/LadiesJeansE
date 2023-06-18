@@ -6,6 +6,11 @@
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarWorker/>
       <div class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
+        
+      <div v-if="showBarcodeScannerOverlay" class="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+        <barcode-scanner @scan-success="handleBarcodeScan"></barcode-scanner>
+      </div>
+  
         <h1 class="text-xl font-semibold">Rekod Jualan</h1>
         <h2 class="text-md text-gray-500"><span><RouterLink to="/pekerja/utama">Halaman Utama</RouterLink></span> - <span class="text-sky-500">Rekod Jualan</span></h2>
         <div class="bg-white  w-[90%] mt-[2%] pb-[5%] pt-[3%] max-lg:w-full">
@@ -19,6 +24,9 @@
                 class="mt-2 appearance-none text-[15px] bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 placeholder="ID Produk"
               >
+          <button class="ml-2 bg-gray-200 text-gray-700 py-2 px-4 rounded focus:outline-none" @click="openBarcodeScanner">
+            <i class="fa-solid fa-barcode"></i>
+          </button>
             </div>
           </div>
 
@@ -162,7 +170,7 @@ export default {
   data() {
     return {
       searchId: '',
-      // phoneScanner: false,
+      showBarcodeScannerOverlay: false,
       productData: null,
       quantity: 0,
       selectedPromo: '',
