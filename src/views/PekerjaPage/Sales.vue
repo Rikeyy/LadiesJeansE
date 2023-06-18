@@ -6,11 +6,6 @@
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarWorker/>
       <div class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
-        
-      <div v-if="showBarcodeScannerOverlay" class="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
-        <barcode-scanner @scan-success="handleBarcodeScan"></barcode-scanner>
-      </div>
-  
         <h1 class="text-xl font-semibold">Rekod Jualan</h1>
         <h2 class="text-md text-gray-500"><span><RouterLink to="/pekerja/utama">Halaman Utama</RouterLink></span> - <span class="text-sky-500">Rekod Jualan</span></h2>
         <div class="bg-white  w-[90%] mt-[2%] pb-[5%] pt-[3%] max-lg:w-full">
@@ -24,7 +19,7 @@
                 class="mt-2 appearance-none text-[15px] bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 placeholder="ID Produk"
               >
-          <button class="ml-2 bg-gray-200 text-gray-700 py-2 px-4 rounded focus:outline-none" @click="openBarcodeScanner">
+          <button class="ml-2 bg-gray-200 text-gray-700 py-2 px-4 rounded focus:outline-none" @click="camScanner()">
             <i class="fa-solid fa-barcode"></i>
           </button>
             </div>
@@ -150,6 +145,26 @@
 
     </div>
 
+    <div id="overlay" class="fixed z-40 w-screen h-screen inset-0 bg-gray-900 bg-opacity-50" v-bind:class="{'hidden': !phoneScanner}"></div>
+    <dialog class="w-[45%] mx-auto shadow-product rounded-2xl fixed mt-[5%] py-[1%] z-50 max-lg:w-[70%] max-lg:mt-[30%]" v-bind:open="phoneScanner">
+        <div >
+            <div class="justify-center text-center">
+                <div class="flex flex-col items-center my-4">
+                    <div class="section mx-auto w-[90%] text-xs">
+                        <BarcodeScanner
+                            v-bind:qrbox="500"
+                            v-bind:fps="60"
+                            @scan-success="scanBarcode"
+                            class="mx-auto"
+                        />
+                    </div>
+                </div>
+                <div>
+                    <button class="text-white w-fit text-md bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200" @click="camScanner()">Batal</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
 
       </div>
     <ToastMessage ref="toast"/>
@@ -162,6 +177,7 @@
 import { ref, computed, watch } from 'vue';
 import axios from 'axios';
 import ToastMessage from '../../components/ToastMessage.vue';
+import BarcodeScanner from '../../components/BarcodeScanner.vue';
 
 export default {
   components: {
@@ -170,7 +186,7 @@ export default {
   data() {
     return {
       searchId: '',
-      showBarcodeScannerOverlay: false,
+      phoneScanner:false,
       productData: null,
       quantity: 0,
       selectedPromo: '',
@@ -203,6 +219,21 @@ export default {
     },
   },
   methods: {
+    camScanner()
+        {
+            this.phoneScanner = !this.phoneScanner; // Toggle the isOpen property
+        },
+        scanBarcode(decodedText)
+        {
+            if(decodedText.trim() !== '')
+            {
+                this.searchId = decodedText;
+                console.log(this.searchId)
+                setTimeout(()=>{
+                    this.phoneScanner=false
+                },500)
+            }
+        },
     async searchProducts() {
       try {
         const response = await axios.get('http://localhost:3001/cari', {

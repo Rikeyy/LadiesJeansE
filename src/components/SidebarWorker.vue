@@ -35,7 +35,7 @@
         <div class="tepi h-full">
           <img src="../assets/lJE__3_-removebg-preview.png" class="mx-auto w-[60%]" :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }" alt="">
   
-          <div class="font-normal text-md ml-[18%] mt-[70%] "  :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }">
+          <div class="font-normal text-md ml-[18%] mt-[80%] "  :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }">
             <div class="flex mb-6">
               <RouterLink to="/pekerja/utama" exact-active-class="active-link">
                 <div class="hover:text-blue-300 cursor-pointer">Halaman Utama</div>
@@ -53,8 +53,8 @@
             </div>
           </div>
   
-          <div class="flex justify-around mt-[130%]" :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }">
-            <i class="fa-solid fa-right-from-bracket scale-[2] text-center mt-[5.6%] bg-gradient-to-r from-sky-400 to-indigo-300 w-[45%] py-[1%] rounded-lg shadow-md hover:scale-[2.1] duration-200" style="color: #fff;" @click="logout"></i>
+          <div class="flex justify-around mt-[90%]" :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }">
+            <i class="fa-solid fa-right-from-bracket scale-[2] text-center bg-gradient-to-r from-sky-400 to-indigo-300 w-[45%] py-[1%] rounded-lg shadow-md hover:scale-[2.1] duration-200" style="color: #fff;" @click="logout"></i>
           </div>
         </div>
         <div class="sidebar-toggle" @click="toggleSidebar">

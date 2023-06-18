@@ -32,7 +32,6 @@
 
         <div class="flex mt-[60%] justify-around">
             <i  class="fa-solid fa-right-from-bracket scale-[2] text-center bg-gradient-to-r from-sky-400 to-indigo-300 w-[45%] py-[1%] rounded-lg shadow-md hover:scale-[2.1] duration-200" style="color: #fff;" @click="logout"></i>
-            
         </div>
     </div>
     <ToastMessage ref="toast"/>

@@ -18,15 +18,11 @@
                             type="search"
                             class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                             placeholder="ID Produk"
-                        >                    </div>
-                    <!-- <div class="pl-[2%]">
-                        <label class="">Kategori : </label>
-                        <select id="items" v-model="selectedItem" placeholder="Select Item" class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"> 
-                            <option >-- Select Item --</option>
-                            <option  v-for="kategori in kategoriList" :key="kategori.Nama_Kategori" :value="kategori.id" >{{ kategori.Nama_Kategori }}</option>
-                        </select>
-                    </div> -->
-                    <!-- <button @click="searchProducts" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button> -->
+                        >                   
+                        <button class="ml-2 bg-gray-200 text-gray-700 py-2 px-4 rounded focus:outline-none" @click="camScanner()">
+                            <i class="fa-solid fa-barcode"></i>
+                        </button>
+                    </div>
 
                 </div>
                 <div class="h-[500px] shadow-xl relative overflow-y-auto w-[95%] m-auto max-lg:h-[75vh]">
@@ -106,68 +102,96 @@
                 
             </div>
         </div>
+
+        <div id="overlay" class="fixed z-40 w-screen h-screen inset-0 bg-gray-900 bg-opacity-50" v-bind:class="{'hidden': !phoneScanner}"></div>
+    <dialog class="w-[45%] mx-auto shadow-product rounded-2xl fixed mt-[5%] py-[1%] z-50 max-lg:w-[70%] max-lg:mt-[30%]" v-bind:open="phoneScanner">
+        <div >
+            <div class="justify-center text-center">
+                <div class="flex flex-col items-center my-4">
+                    <div class="section mx-auto w-[90%] text-xs">
+                        <BarcodeScanner
+                            v-bind:qrbox="500"
+                            v-bind:fps="60"
+                            @scan-success="scanBarcode"
+                            class="mx-auto"
+                        />
+                    </div>
+                </div>
+                <div>
+                    <button class="text-white w-fit text-md bg-gradient-to-r from-red-400 to-red-300 h-12 px-12 rounded-full shadow-xl hover:scale-105 duration-200" @click="camScanner()">Batal</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
     </div>
 </template>
 
 <script>
 import { ref, computed, watch } from 'vue';
 import axios from 'axios';
-
-const searchId = ref('');
-const produkList = ref([]);
-const filteredProdukList = ref([]);
-
-async function fetchProdukData() {
-  try {
-    const response = await axios.get('http://localhost:3001/produk');
-    produkList.value = response.data;
-    filteredProdukList.value = response.data;
-    console.log(response.data);
-  } catch (error) {
-    console.error('Error fetching product data:', error);
-  }
-}
-
-async function searchProducts() {
-  try {
-    const response = await axios.get('http://localhost:3001/cari', {
-      params: {
-        Produk_ID: searchId.value,
-      },
-    });
-    filteredProdukList.value = response.data;
-    console.log(response.data);
-  } catch (error) {
-    console.error('Error searching products:', error);
-  }
-}
-
-watch(searchId, () => {
-  searchProducts();
-});
-
-// Compute the display list based on whether search is performed or not
-const displayProdukList = computed(() => {
-  return searchId.value ? filteredProdukList.value : produkList.value;
-});
-
-fetchProdukData();
+import BarcodeScanner from '../../components/BarcodeScanner.vue';
 
 export default {
-    data() {
+  data() {
     return {
       kategoriList: [],
       selectedItem: null,
-      viewID : "",
+      viewID: "",
+      phoneScanner:false,
+      searchId: ref(''),
+      produkList: ref([]),
+      filteredProdukList: ref([])
     };
   },
   mounted() {
+    this.fetchProdukData();
     this.fetchKategoriData();
   },
   computed: {
-    displayProdukList,
+    displayProdukList() {
+      return this.searchId ? this.filteredProdukList : this.produkList;
+    },
   },
   methods: {
+    camScanner()
+        {
+            this.phoneScanner = !this.phoneScanner; // Toggle the isOpen property
+        },
+        scanBarcode(decodedText)
+        {
+            if(decodedText.trim() !== '')
+            {
+                this.searchId = decodedText;
+                console.log(this.searchId)
+                setTimeout(()=>{
+                    this.phoneScanner=false
+                },500)
+            }
+        },
+    async fetchProdukData() {
+      try {
+        const response = await axios.get('http://localhost:3001/produk');
+        this.produkList = response.data;
+        this.filteredProdukList = response.data;
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+      }
+    },
+    async searchProducts() {
+      try {
+        const response = await axios.get('http://localhost:3001/cari', {
+          params: {
+            Produk_ID: this.searchId,
+          },
+        });
+        this.filteredProdukList = response.data;
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error searching products:', error);
+      }
+    },
     fetchKategoriData() {
       axios.get('http://localhost:3001/kategori')
         .then(response => {
@@ -178,9 +202,14 @@ export default {
           console.error('Error fetching kategori data:', error);
         });
     },
-}
-
+  },
+  watch: {
+    searchId() {
+      this.searchProducts();
+    },
+  },
 };
+
 </script>
 
 <style>
