@@ -1,6 +1,6 @@
 <template>
     <div class="fixed h-[90vh] bg-gray-100 w-[17%] left-[2%] top-[5%] tepi">
-        <img src="../../public/images/lJE__3_-removebg-preview.png" class="mx-auto w-[60%]" alt="">
+        <img src="/lJE__3_-removebg-preview.png" class="mx-auto w-[60%]" alt="">
         
         <div class="font-normal text-md ml-[18%] mt-[50%]">
             <div class="flex mb-6">
