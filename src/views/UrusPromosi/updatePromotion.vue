@@ -2,7 +2,12 @@
     <h1 class="text-2xl font-semibold text-center pt-[2%] pb-[1%]">Tambah Kategori</h1>
     <p class="text-center text-lg pb-[2%]">Sila masukkan maklumat kategori di dalam ruangan yang disediakan</p>
 
-    <form class="w-[80%] m-auto" @submit.prevent="submitForm">
+    <div v-if="loading" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50">
+            <div class="loader">
+          </div>
+        </div>
+
+    <form v-else class="w-[80%] m-auto" @submit.prevent="submitForm">
         <div class="flex justify-around">
             <div class="relative z-0 w-[45%] mb-6 group m-auto">
                 <input type="text" name="floating_IDPromosi" v-model="promosi.ID_Promosi" id="floating_IDPromosi" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
@@ -68,6 +73,7 @@
     data() {
       return {
         promosiID: router.currentRoute.value.params.id,
+        loading: false,
         promosi: {
           ID_Promosi: '',
           Nama_Promosi: '',
@@ -91,6 +97,7 @@
     },
     methods: {
   submitForm() {
+    this.loading = true; 
     // Convert Harga_Promosi to an integer using parseInt
     this.promosi.Harga_Promosi = parseInt(this.promosi.Harga_Promosi);
     this.promosi.kategoriTerlibat = this.promosi.kategoriTerlibat; // Assign the selected kategori value
@@ -109,7 +116,10 @@
                     const status = 'Gagal'
                     
                     this.$refs.toast.toast(message,status,'error')
-      });
+      })
+      .finally(() => {
+              this.loading = false; 
+            });
   },
       fetchKategoriData() {
         axios

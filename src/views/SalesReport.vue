@@ -5,7 +5,13 @@
 <template>
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
-        <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
+
+        <div v-if="loading" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50">
+            <div class="loader">
+          </div>
+        </div>
+
+        <div v-else class="ml-[22%] mt-[2.7%] w-full h-[90%]">
             <h1 class="text-xl font-semibold">Laporan Jualan</h1>
             <h2 class="text-md text-gray-500"><span><RouterLink to="/main">Halaman Utama</RouterLink></span> - <span class="text-sky-400">Laporan Jualan</span></h2>
             <div class="bg-white text-[15px] w-[90%] mt-[2%] py-[3%]">
@@ -167,6 +173,7 @@ export default {
       produk: {},
       saleList: [],
       filteredSaleList: [],
+      loading: false,
       selectedDay: '',
       selectedMonth: '',
       days: Array.from({ length: 31 }, (_, i) => i + 1), 
@@ -191,6 +198,8 @@ export default {
   },
   methods: {
     fetchSalesData() {
+      this.loading = true; 
+
       axios
         .get('https://lje-ms-backend.onrender.com/jualan')
         .then(response => {
@@ -200,6 +209,9 @@ export default {
         })
         .catch(error => {
           console.error('Error fetching promotion data:', error);
+        })
+        .finally(() => {
+          this.loading = false; 
         });
     },
     getProductDetails(barcode) {
@@ -221,11 +233,7 @@ export default {
         .catch(error => {
           console.error('Error fetching promotion data:', error);
         });
-
-
-
-              return prodNamePrice;
-
+      return prodNamePrice;
     },
     generatePDF() {
   const doc = new jsPDF();

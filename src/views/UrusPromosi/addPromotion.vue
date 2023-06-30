@@ -2,7 +2,12 @@
     <h1 class="text-2xl font-semibold text-center pt-[2%] pb-[1%]">Tambah Kategori</h1>
     <p class="text-center text-lg pb-[2%]">Sila masukkan maklumat kategori di dalam ruangan yang disediakan</p>
 
-    <form class="w-[80%] m-auto" @submit.prevent="submitForm">
+    <div v-if="loading" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50">
+            <div class="loader">
+          </div>
+        </div>
+
+    <form v-else class="w-[80%] m-auto" @submit.prevent="submitForm">
         <div class="flex justify-around">
             <div class="relative z-0 w-[45%] mb-6 group m-auto">
                 <input type="text" name="floating_IDPromosi" v-model="IDPromosi" id="floating_IDPromosi" class="block py-2.5 px-0 w-full text-md text-black bg-transparent border-0 border-b-2 border-black appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
@@ -81,6 +86,7 @@ export default {
       selectedItem: null,
       selectedStatus: null,
       IDPromosi: '',
+      loading: false,
       NamaPromosi: '',
       DeskripsiPromosi: '',
       HargaPromosi: '',
@@ -114,6 +120,8 @@ export default {
         });
     },
     async submitForm() {
+      this.loading = true; 
+
       await axios
         .get('https://lje-ms-backend.onrender.com/cekIDPromosi')
         .then((response) => {
@@ -178,7 +186,10 @@ export default {
           })
           .catch((error) => {
             console.error(error);
-          });
+          })
+          .finally(() => {
+              this.loading = false; 
+            });
       } else {
         if (existingIDPromosi && this.IDPromosi !== '') {
           this.errors.errorIDPromosi = '*ID Promosi Sudah Terdaftar';
@@ -228,7 +239,55 @@ export default {
           this.errors.selectedStatus = '';
         }
       }
+      this.loading = false; 
     },
   },
 };
 </script>
+
+<style>
+ .loader {
+    position: relative;
+    width: 120px;
+    height: 140px;
+    background-image: radial-gradient(circle 30px, #fff 100%, transparent 0),
+    radial-gradient(circle 5px, #fff 100%, transparent 0),
+    radial-gradient(circle 5px, #fff 100%, transparent 0),
+    linear-gradient(#FFF 20px, transparent 0);
+    background-position: center 127px , 94px 102px , 16px 18px, center 114px;
+    background-size: 60px 60px, 10px 10px , 10px 10px , 4px 14px;
+    background-repeat: no-repeat;
+    z-index: 10;
+    perspective: 500px;
+  }
+  .loader::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius:50%;
+    border: 3px solid #fff;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%) rotate(-45deg);
+    border-right-color: transparent;
+    box-sizing: border-box;
+}
+  .loader::after {
+    content: '';
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    transform: translate(-50%, -55%) rotate(-45deg) rotateY(0deg) ;
+    left: 50%;
+    top: 50%;
+    box-sizing: border-box;
+    border: 7px solid #0ea5e9;
+    border-radius:50%;
+    animation: rotate 0.5s linear infinite;
+  }
+
+@keyframes rotate {
+  to{transform: translate(-50%, -55%) rotate(-45deg) rotateY(360deg)   }
+}
+</style>

@@ -5,6 +5,12 @@
 <template>
   <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
     <SidebarManager/>
+
+    <div v-if="loading" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50">
+            <div class="loader">
+          </div>
+        </div>
+
     <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
       <h1 class="text-xl font-semibold">Notifikasi Stok</h1>
       <h2 class="text-md text-gray-500"><span><RouterLink to="/main">Halaman Utama</RouterLink></span> - <span class="text-sky-400">Notifikasi Tambahan Stok</span></h2>
@@ -80,6 +86,50 @@
   .swal2-confirm:focus {
     box-shadow: 0 0 0 3px red !important;
   }
+   .loader {
+    position: relative;
+    width: 120px;
+    height: 140px;
+    background-image: radial-gradient(circle 30px, #fff 100%, transparent 0),
+    radial-gradient(circle 5px, #fff 100%, transparent 0),
+    radial-gradient(circle 5px, #fff 100%, transparent 0),
+    linear-gradient(#FFF 20px, transparent 0);
+    background-position: center 127px , 94px 102px , 16px 18px, center 114px;
+    background-size: 60px 60px, 10px 10px , 10px 10px , 4px 14px;
+    background-repeat: no-repeat;
+    z-index: 10;
+    perspective: 500px;
+  }
+  .loader::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius:50%;
+    border: 3px solid #fff;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%) rotate(-45deg);
+    border-right-color: transparent;
+    box-sizing: border-box;
+}
+  .loader::after {
+    content: '';
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    transform: translate(-50%, -55%) rotate(-45deg) rotateY(0deg) ;
+    left: 50%;
+    top: 50%;
+    box-sizing: border-box;
+    border: 7px solid #0ea5e9;
+    border-radius:50%;
+    animation: rotate 0.5s linear infinite;
+  }
+
+@keyframes rotate {
+  to{transform: translate(-50%, -55%) rotate(-45deg) rotateY(360deg)   }
+}
 </style>
 
 <script>
@@ -93,6 +143,7 @@ export default {
   data() {
     return {
       filteredProdukList: [],
+      loading: false,
     };
   },
   async mounted() {
@@ -100,6 +151,7 @@ export default {
   },
   methods: {
     async fetchProdukData() {
+      this.loading = true; 
       try {
         const response = await axios.get('https://lje-ms-backend.onrender.com/kuantiti');
         this.filteredProdukList = response.data;
@@ -107,6 +159,9 @@ export default {
       } catch (error) {
         console.error('Error fetching product data:', error);
       }
+      finally {
+          this.loading = false; 
+        };
     },
     async onCrossButtonClick(id) {
   try {
@@ -124,6 +179,7 @@ export default {
     });
 
     if (confirmed.isConfirmed) {
+      this.loading = true; 
       const response = await axios.put(`https://lje-ms-backend.onrender.com/pangkah/${id}`, { Kuantiti_Tambahan: 0 });
       console.log(response.data);
       await this.fetchProdukData();
@@ -134,10 +190,15 @@ export default {
   } catch (error) {
     console.error('Error updating produk:', error);
   }
+  finally {
+          this.loading = false; 
+        };
 },
 
     async onCheckButtonClick(id) {
       try {
+              this.loading = true; 
+
         const response = await axios.put(`https://lje-ms-backend.onrender.com/kuantiti/${id}`);
         console.log(response.data);
         await this.fetchProdukData();
@@ -147,6 +208,9 @@ export default {
       } catch (error) {
         console.error('Error updating produk:', error);
       }
+      finally {
+          this.loading = false; 
+        };
     },
   },
 };

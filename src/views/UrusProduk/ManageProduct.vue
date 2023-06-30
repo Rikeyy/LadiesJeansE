@@ -6,7 +6,12 @@
 <template>
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
-        <div class="ml-[22%] mt-[2.7%] w-[75%] h-[90%]">
+        <div v-if="loading" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50">
+            <div class="loader">
+          </div>
+        </div>
+
+        <div v-else class="ml-[22%] mt-[2.7%] w-[75%] h-[90%]">
             <div>
                 <h1 class="text-xl font-semibold">Pengurusan Inventori</h1>
                 <h2 class="text-md text-gray-500"><span><RouterLink to="/main">Halaman Utama</RouterLink></span> - <span class="text-sky-400">Pengurusan Inventori</span></h2>
@@ -176,6 +181,7 @@ export default {
       data2: [],
       selectedProduct: null,
       updateID: "",
+      loading: false,
       chart: null,
     };
   },
@@ -185,13 +191,16 @@ export default {
   },
   methods: {
     fetchProductData() {
+      this.loading = true; 
       axios.get('https://lje-ms-backend.onrender.com/produk')
         .then(response => {
           this.produkList = response.data;
           console.log(this.produkList);
+          this.loading = false; 
         })
         .catch(error => {
           console.error('Error fetching product data:', error);
+          this.loading = false; 
         });
     },
     deleteProduct(productId) {
@@ -210,6 +219,7 @@ export default {
   confirmButtonColor: '#e53e3e', // Set the confirm button color to red
   }).then((result) => {
     if (result.isConfirmed) {
+      this.loading = true; 
       axios
         .delete(`https://lje-ms-backend.onrender.com/produk/${productId}`)
         .then((response) => {
@@ -227,12 +237,14 @@ export default {
           this.$refs.toast.toast(message, status, 'error');
         })
         .finally(() => {
+          this.loading = false; 
           this.fetchProdukList(); // Refresh the data after deletion
         });
     }
   });
 },
     fetchKategori() {
+
   axios
     .get('https://lje-ms-backend.onrender.com/chart')
     .then(response => {

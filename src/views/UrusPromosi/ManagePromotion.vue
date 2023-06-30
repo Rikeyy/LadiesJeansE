@@ -6,6 +6,12 @@
 <template>
   <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
     <SidebarManager/>
+
+          <div v-if="loading" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50">
+            <div class="loader">
+          </div>
+        </div>
+
     <div class="ml-[22%] pt-[2.7%] w-[75%] h-[90%]">
       <div>
         <h1 class="text-xl font-semibold">Pengurusan Promosi</h1>
@@ -31,6 +37,7 @@
           </div>
         </div>
       </div>
+      
 
       <div class="mt-[3%] bg-white w-[full] pt-[0.7%] pb-[4%] ">
         <RouterView :key="$route.fullPath"></RouterView>
@@ -52,6 +59,7 @@ export default {
       promosiList: [],
       activepromoList: [],
       data2: [],
+      loading: false,
       selectedPromosi: null,
       updateID: '',
       chart: null,
@@ -64,25 +72,32 @@ export default {
   },
   methods: {
     fetchPromotionData() {
+      this.loading = true; 
+
       axios
         .get('https://lje-ms-backend.onrender.com/promosi')
         .then(response => {
           this.promosiList = response.data;
           console.log(this.promosiList);
+          this.loading = false; 
         })
         .catch(error => {
           console.error('Error fetching promotion data:', error);
+          this.loading = false; 
         });
     },
     fetchActivePromo() {
+      this.loading = true; 
       axios
         .get('https://lje-ms-backend.onrender.com/aktif')
         .then(response => {
           this.activepromoList = response.data;
           console.log(this.activepromoList);
+          this.loading = false; 
         })
         .catch(error => {
           console.error('Error fetching active promotion data:', error);
+          this.loading = false; 
         });
     },
     fetchPromotionStatus() {
@@ -152,3 +167,49 @@ export default {
   },
 };
 </script>
+
+<style>
+ .loader {
+    position: relative;
+    width: 120px;
+    height: 140px;
+    background-image: radial-gradient(circle 30px, #fff 100%, transparent 0),
+    radial-gradient(circle 5px, #fff 100%, transparent 0),
+    radial-gradient(circle 5px, #fff 100%, transparent 0),
+    linear-gradient(#FFF 20px, transparent 0);
+    background-position: center 127px , 94px 102px , 16px 18px, center 114px;
+    background-size: 60px 60px, 10px 10px , 10px 10px , 4px 14px;
+    background-repeat: no-repeat;
+    z-index: 10;
+    perspective: 500px;
+  }
+  .loader::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius:50%;
+    border: 3px solid #fff;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%) rotate(-45deg);
+    border-right-color: transparent;
+    box-sizing: border-box;
+}
+  .loader::after {
+    content: '';
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    transform: translate(-50%, -55%) rotate(-45deg) rotateY(0deg) ;
+    left: 50%;
+    top: 50%;
+    box-sizing: border-box;
+    border: 7px solid #0ea5e9;
+    border-radius:50%;
+    animation: rotate 0.5s linear infinite;
+  }
+
+@keyframes rotate {
+  to{transform: translate(-50%, -55%) rotate(-45deg) rotateY(360deg)   }
+}</style>

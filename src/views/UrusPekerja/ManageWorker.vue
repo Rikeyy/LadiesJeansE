@@ -6,7 +6,13 @@
 <template>
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
-        <div class="ml-[22%] pt-[2.7%] w-[75%] h-[90%]">
+
+        <div v-if="loading" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50">
+            <div class="loader">
+          </div>
+        </div>
+
+        <div v-else class="ml-[22%] pt-[2.7%] w-[75%] h-[90%]">
             <div >
                 <h1 class="text-xl font-semibold">Pengurusan Pekerja</h1>
                 <h2 class="text-md text-gray-500"><span><RouterLink to="/main">Halaman Utama</RouterLink></span> - <span class="text-sky-400">Pengurusan Pekerja</span></h2>
@@ -31,7 +37,7 @@
                     <div class="h-full w-full bg-white shadow-sm overflow-y-auto">
                         <h2 class="py-5 pl-[5%] text-md font-semibold text-left bg-white ">Senarai Gaji Pekerja</h2>
                         <div class="h-[75%] ml-[5%] overflow-y-auto relative w-[90%] shadow-xl">
-                        <table class="w-full text-[13px] text-left mx-auto">
+                        <table  class="w-full text-[13px] text-left mx-auto">
                             <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-sky-400 dark:text-white text-center sticky top-0 z-10">
                             <tr>
                                 <th scope="col" class="px-4 py-3">
@@ -214,6 +220,7 @@ export default {
       pekerja: [],
       selectedWorker: null,
       updateID: "",
+      loading: false,
       chart: null
     };
   },
@@ -224,14 +231,19 @@ export default {
   },
   methods: {
     fetchWorkerData() {
-      axios.get('https://lje-ms-backend.onrender.com/')
+      this.loading = true; 
+      axios
+        .get('https://lje-ms-backend.onrender.com/')
         .then(response => {
           this.workerList = response.data;
           this.sortWorkerList();
+          this.loading = false; 
         })
         .catch(error => {
           console.error('Error fetching worker data:', error);
+          this.loading = false; 
         });
+
     },
     sortWorkerList() {
       this.workerList.sort((a, b) => a.Nama_Pekerja.localeCompare(b.Nama_Pekerja));
@@ -252,6 +264,7 @@ export default {
   confirmButtonColor: '#e53e3e', // Set the confirm button color to red
   }).then((result) => {
     if (result.isConfirmed) {
+      this.loading = true; 
       axios
         .delete(`https://lje-ms-backend.onrender.com/` + worker)
         .then(response => {
@@ -264,9 +277,13 @@ export default {
           const message = 'Maklumat Pekerja Berjaya Di Padam';
           const status = 'Berjaya';
           this.$refs.toast.toast(message, status, 'success');
+          
         })
         .catch(error => {
           console.error('Error deleting worker:', error);
+        })
+        .finally(() => {
+          this.loading = false; 
         });
     }
   });
@@ -280,7 +297,7 @@ export default {
         })
         .catch(error => {
           console.error('Error fetching worker data:', error);
-        });
+        })
     },
     calculateWorkerRolePercentage(workerData) {
       const roles = ['Pengurus', 'Pekerja'];
@@ -331,4 +348,50 @@ export default {
   .swal2-confirm:focus {
     box-shadow: 0 0 0 3px red !important;
   }
+
+  .loader {
+    position: relative;
+    width: 120px;
+    height: 140px;
+    background-image: radial-gradient(circle 30px, #fff 100%, transparent 0),
+    radial-gradient(circle 5px, #fff 100%, transparent 0),
+    radial-gradient(circle 5px, #fff 100%, transparent 0),
+    linear-gradient(#FFF 20px, transparent 0);
+    background-position: center 127px , 94px 102px , 16px 18px, center 114px;
+    background-size: 60px 60px, 10px 10px , 10px 10px , 4px 14px;
+    background-repeat: no-repeat;
+    z-index: 10;
+    perspective: 500px;
+  }
+  .loader::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius:50%;
+    border: 3px solid #fff;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%) rotate(-45deg);
+    border-right-color: transparent;
+    box-sizing: border-box;
+}
+  .loader::after {
+    content: '';
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    transform: translate(-50%, -55%) rotate(-45deg) rotateY(0deg) ;
+    left: 50%;
+    top: 50%;
+    box-sizing: border-box;
+    border: 7px solid #0ea5e9;
+    border-radius:50%;
+    animation: rotate 0.5s linear infinite;
+  }
+
+@keyframes rotate {
+  to{transform: translate(-50%, -55%) rotate(-45deg) rotateY(360deg)   }
+}
+      
 </style>

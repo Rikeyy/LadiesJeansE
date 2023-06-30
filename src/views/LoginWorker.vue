@@ -80,8 +80,7 @@ export default {
         password: this.password,
       };
 
-      axios
-        .post('https://lje-ms-backend.onrender.com/login', credentials)
+      axios.post('https://lje-ms-backend.onrender.com/login', credentials)
         .then(response => {
           // Store user's name in session storage
           sessionStorage.setItem('stafID', this.idPekerja);

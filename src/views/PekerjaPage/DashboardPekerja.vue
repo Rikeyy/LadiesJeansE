@@ -5,7 +5,13 @@
 <template>
     <div class="bg-[#f0f0f0] h-screen w-full flex">
         <SidebarWorker/>
-        <div class="ml-[22%] mt-[2.7%] w-[75%] h-[90%] max-lg:w-full max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
+
+        <div v-if="loading" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50">
+            <div class="loader">
+          </div>
+        </div>
+
+        <div v-else class="ml-[22%] mt-[2.7%] w-[75%] h-[90%] max-lg:w-full max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
             <div >
                 <h1 class="text-xl font-semibold">Halaman Utama</h1>
                 <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-400">Papan Pemuka</span></h2>
@@ -164,6 +170,7 @@ export default {
       data2 : [],
       selectedPromosi: null,
       updateID: "",
+      loading: false,
       workerData: "",
     };
   },
@@ -173,6 +180,7 @@ export default {
   },
   methods: {
     fetchPromotionData() {
+        this.loading = true; 
       axios
         .get('https://lje-ms-backend.onrender.com/promosi')
         .then(response => {
@@ -181,9 +189,14 @@ export default {
         })
         .catch(error => {
           console.error('Error fetching promotion data:', error);
+        })
+        .finally(() => {
+          this.loading = false; 
         });
     },
     fetchWorkerData() {
+        this.loading = true; 
+
       // Fetch worker data based on stafID from session storage
       const stafID = sessionStorage.getItem('stafID');
 
@@ -195,10 +208,66 @@ export default {
         })
         .catch(error => {
           console.error('Error fetching worker data:', error);
+        })
+        .finally(() => {
+          this.loading = false; 
         });
     },
 
   },
 };
 </script>
+
+<style>
+  /* Override the default styles */
+  .swal2-confirm:focus {
+    box-shadow: 0 0 0 3px red !important;
+  }
+
+  .loader {
+    position: relative;
+    width: 120px;
+    height: 140px;
+    background-image: radial-gradient(circle 30px, #fff 100%, transparent 0),
+    radial-gradient(circle 5px, #fff 100%, transparent 0),
+    radial-gradient(circle 5px, #fff 100%, transparent 0),
+    linear-gradient(#FFF 20px, transparent 0);
+    background-position: center 127px , 94px 102px , 16px 18px, center 114px;
+    background-size: 60px 60px, 10px 10px , 10px 10px , 4px 14px;
+    background-repeat: no-repeat;
+    z-index: 10;
+    perspective: 500px;
+  }
+  .loader::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius:50%;
+    border: 3px solid #fff;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%) rotate(-45deg);
+    border-right-color: transparent;
+    box-sizing: border-box;
+}
+  .loader::after {
+    content: '';
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    transform: translate(-50%, -55%) rotate(-45deg) rotateY(0deg) ;
+    left: 50%;
+    top: 50%;
+    box-sizing: border-box;
+    border: 7px solid #0ea5e9;
+    border-radius:50%;
+    animation: rotate 0.5s linear infinite;
+  }
+
+@keyframes rotate {
+  to{transform: translate(-50%, -55%) rotate(-45deg) rotateY(360deg)   }
+}
+      
+</style>
 
