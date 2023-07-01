@@ -156,7 +156,7 @@
                 <div class="flex flex-col items-center my-4">
                     <div class="section mx-auto w-[90%] text-xs">
                         <BarcodeScanner
-                            v-bind:qrbox="150"
+                            v-bind:qrbox="200"
                             v-bind:fps="60"
                             @scan-success="scanBarcode"
                             class="mx-auto"
