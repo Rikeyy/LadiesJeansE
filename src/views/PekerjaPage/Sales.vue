@@ -16,7 +16,7 @@
               <input
                 v-model="searchId"
                 type="search"
-                class="mt-2 appearance-none text-[15px] max-md:text-sm bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 max-md:px-2 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class="mt-2 appearance-none text-[15px] max-md:text-sm bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 max-md:px-2 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 max-md:w-40"
                 placeholder="ID Produk"
               >
           <button class="ml-2 bg-gray-200 text-gray-700 py-2 px-4 rounded focus:outline-none" @click="camScanner()">
