@@ -59,7 +59,6 @@ export default {
       promosiList: [],
       activepromoList: [],
       data2: [],
-      loading: false,
       selectedPromosi: null,
       updateID: '',
       chart: null,
@@ -72,32 +71,26 @@ export default {
   },
   methods: {
     fetchPromotionData() {
-      this.loading = true; 
 
       axios
         .get('https://lje-ms-backend.onrender.com/promosi')
         .then(response => {
           this.promosiList = response.data;
           console.log(this.promosiList);
-          this.loading = false; 
         })
         .catch(error => {
           console.error('Error fetching promotion data:', error);
-          this.loading = false; 
         });
     },
     fetchActivePromo() {
-      this.loading = true; 
       axios
         .get('https://lje-ms-backend.onrender.com/aktif')
         .then(response => {
           this.activepromoList = response.data;
           console.log(this.activepromoList);
-          this.loading = false; 
         })
         .catch(error => {
           console.error('Error fetching active promotion data:', error);
-          this.loading = false; 
         });
     },
     fetchPromotionStatus() {

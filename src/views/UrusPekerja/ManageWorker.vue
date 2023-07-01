@@ -231,17 +231,14 @@ export default {
   },
   methods: {
     fetchWorkerData() {
-      this.loading = true; 
       axios
         .get('https://lje-ms-backend.onrender.com/')
         .then(response => {
           this.workerList = response.data;
           this.sortWorkerList();
-          this.loading = false; 
         })
         .catch(error => {
           console.error('Error fetching worker data:', error);
-          this.loading = false; 
         });
 
     },

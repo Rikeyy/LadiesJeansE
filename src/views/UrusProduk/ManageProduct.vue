@@ -191,16 +191,13 @@ export default {
   },
   methods: {
     fetchProductData() {
-      this.loading = true; 
       axios.get('https://lje-ms-backend.onrender.com/produk')
         .then(response => {
           this.produkList = response.data;
           console.log(this.produkList);
-          this.loading = false; 
         })
         .catch(error => {
           console.error('Error fetching product data:', error);
-          this.loading = false; 
         });
     },
     deleteProduct(productId) {
