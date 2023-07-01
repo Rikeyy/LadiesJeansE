@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%] ">
+    <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%] ">
         <SidebarWorker/>
       <div class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%] max-md:mt-[18%] max-md:ml-0">
         <h1 class="text-xl font-semibold">Troli</h1>
