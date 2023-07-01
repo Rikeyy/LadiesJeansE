@@ -1,36 +1,31 @@
 <template>
     <div class="xl:hidden max-lg:show">
-        <div class="fixed mt-[10%]" :class="{ 'w-[10%]': sidebarVisible, 'w-[1.5%]': !sidebarVisible }" :style="{ left: sidebarVisible ? '2%' : '0' }">
-        <div class="tepiKecik shadow-sm h-full">
-          <img src="/lJE__3_-removebg-preview.png" class="mx-auto px-2 py-7" :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }" alt="">
-
-          <div class="h-[2px] w-[80%] mx-auto bg-blue-600 mb-12"></div>
-  
-          <div class="font-normal text-md "  :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }">
-            <div class="flex mb-6 justify-center ">
-              <RouterLink to="/pekerja/utama" exact-active-class="active-kecik">
-                <i class="fa-solid fa-house hover:bg-sky-500 hover:text-white hover:duration-150 px-5 py-[18px] rounded-xl text-xl text-sky-500  "></i></RouterLink>
-            </div>
-            <div class="flex mb-6 justify-center">
-              <RouterLink to="/pekerja/jualan" exact-active-class="active-kecik">
-                <i class="fa-solid fa-cash-register hover:bg-sky-500 hover:text-white hover:duration-150 px-5 py-[18px] rounded-xl text-xl text-sky-500"></i></RouterLink>
-            </div>
-            <div class="flex mb-6 justify-center">
-              <RouterLink to="/pekerja/tambah-produk" exact-active-class="active-kecik">
-                <i class="fa-sharp fa-solid fa-box hover:bg-sky-500 hover:text-white hover:duration-150 px-5 py-[18px] rounded-xl text-xl text-sky-500"></i></RouterLink>
-            </div>
-          </div>
-
-          <div class="h-[2px] w-[80%] mx-auto bg-blue-600 mb-12"></div>
-  
-          <div class="flex justify-center" :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }">
-            <i class="fa-sharp fa-solid fa-right-from-bracket text-red-500 pb-10 text-2xl"  @click="logout"></i>
-          </div>
-        </div>
+      <div class="fixed top-0 left-0 w-full bg-white shadow-sm z-50">
+    <div class="flex justify-between items-center px-4 py-2">
+      <div>
+        <img src="/lJE__3_-removebg-preview.png" class="h-10 scale-150 pl-3" alt="">
+      </div>
+      
+      <div class="flex space-x-4">
+        <RouterLink to="/pekerja/utama" exact-active-class="active">
+          <i class="fa-solid fa-house text-xl text-sky-500 hover:text-sky-600 transition duration-150 pr-2"></i>
+        </RouterLink>
+        
+        <RouterLink to="/pekerja/jualan" exact-active-class="active">
+          <i class="fa-solid fa-cash-register text-xl text-sky-500 hover:text-sky-600 transition duration-150 pr-2"></i>
+        </RouterLink>
+        
+        <RouterLink to="/pekerja/tambah-produk" exact-active-class="active">
+          <i class="fa-sharp fa-solid fa-box text-xl text-sky-500 hover:text-sky-600 transition duration-150 pr-2"></i>
+        </RouterLink>
+        
+        <i class="fa-sharp fa-solid fa-right-from-bracket text-red-500 text-2xl cursor-pointer" @click="logout"></i>
       </div>
     </div>
+  </div>
+    </div>
 
-    <div class="max-lg:hidden min-xl:show">
+    <div class="max-lg:hidden min-xl:show ">
         <div class="fixed h-[90vh] mt-[2.5%]" :class="{ 'w-[17%]': sidebarVisible, 'w-[1.5%]': !sidebarVisible }" :style="{ left: sidebarVisible ? '2%' : '0' }">
         <div class="tepi h-full">
           <img src="/lJE__3_-removebg-preview.png" class="mx-auto w-[60%]" :class="{ 'show': sidebarVisible, 'hidden': !sidebarVisible }" alt="">

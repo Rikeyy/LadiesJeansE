@@ -5,18 +5,18 @@
 <template>
     <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarWorker/>
-      <div class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
+      <div class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%] max-md:ml-0 max-md:mt-[18%]">
         <h1 class="text-xl font-semibold">Rekod Jualan</h1>
         <h2 class="text-md text-gray-500"><span><RouterLink to="/pekerja/utama">Halaman Utama</RouterLink></span> - <span class="text-sky-500">Rekod Jualan</span></h2>
         <div class="bg-white  w-[90%] mt-[2%] pb-[5%] pt-[3%] max-lg:w-full">
-          <h3 class="text-center text-lg pb-[2%]">Masukkan ID Produk untuk mencari produk.</h3>
+          <h3 class="text-center text-lg max-md:text-sm pb-[2%]">Masukkan ID Produk untuk mencari produk.</h3>
           <div class="flex justify-center pb-[2%]">
             <div>
-              <label class="text-[15px]">ID Produk : </label>
+              <label class="text-[15px]  max-md:text-sm">ID Produk : </label>
               <input
                 v-model="searchId"
                 type="search"
-                class="mt-2 appearance-none text-[15px] bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                class="mt-2 appearance-none text-[15px] max-md:text-sm bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 max-md:px-2 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 placeholder="ID Produk"
               >
           <button class="ml-2 bg-gray-200 text-gray-700 py-2 px-4 rounded focus:outline-none" @click="camScanner()">
@@ -25,20 +25,24 @@
             </div>
           </div>
 
-          <div class=" ml-[10%] w-[80%] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] py-5 px-5 mt-[2%]">
+          <div class=" ml-[10%] w-[80%] max-md:w-[95%] max-md:ml-[2.5%] shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] py-5 px-5 mt-[2%]">
 
           <table class="mx-auto max-lg:mb-3">
             <div>
               
             </div>
             <tr>
-              <td rowspan="6">
+              <td rowspan="6" class="max-md:hidden">
                 <img v-if="!isSearchEmpty && productData" :src="productData.Gambar" class="w-[160px] h-[200px]"/>
                 <p v-else class="w-[160px] h-[200px] border-black border-2 text-center">Gambar</p>
               </td>
+              <td class="max-md:show xl:hidden ">
+                <img v-if="!isSearchEmpty && productData" :src="productData.Gambar" class="w-[160px] h-[200px] "/>
+                <p v-else class="w-[160px] h-[200px] max-md:w-[120px] max-md:h-[150px] border-black border-2  text-center">Gambar</p>
+              </td>
             </tr>
             <tr>
-                <td class="text-md font-semibold py-3 px-6 w-[40%]">
+                <td class="text-md font-semibold py-3 px-6 w-[40%] max-md:px-0">
                     ID Produk
                 </td>
                 <td class="text-md font-bold ">
@@ -50,7 +54,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-md font-semibold py-3 px-6 w-[40%]">
+                <td class="text-md font-semibold py-3 px-6 w-[40%] max-md:px-0">
                     Nama Produk
                 </td>
                 <td class="text-md font-bold ">
@@ -62,7 +66,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-md font-semibold py-3 px-6">
+                <td class="text-md font-semibold py-3 px-6 max-md:px-0">
                     Harga Produk
                 </td>
                 <td class="text-md font-bold ">
@@ -74,7 +78,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-md font-semibold py-3 px-6">
+                <td class="text-md font-semibold py-3 px-6 max-md:px-0">
                     Saiz Produk
                 </td>
                 <td class="text-md font-bold ">
@@ -86,7 +90,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="text-md font-semibold py-3 px-6">
+                <td class="text-md font-semibold py-3 px-6 max-md:px-0">
                     Kategori
                 </td>
                 <td class="text-md font-bold ">
@@ -100,35 +104,35 @@
           </table>
           <table class="m-auto">
             <tr>
-                <td class="text-md font-semibold py-3 px-6">Pilih Promosi</td>
+                <td class="text-md font-semibold py-3 px-6 max-md:px-0">Pilih Promosi</td>
                 <td class="text-md font-bold px-3">:</td>
                 <td >
-                    <select v-model="selectedPromo" class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[100%] ">
+                    <select v-model="selectedPromo" class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 max-md:px-0 max-md:pr-0 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 w-[100%] ">
                         <option value="">-- Select Promotion --</option>
                         <option v-for="promo in filteredPromoList" :key="promo.id" :value="promo.id">{{ promo.Nama_Promosi }}</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="text-md font-semibold py-3 px-6">Quantiti</td>
+                <td class="text-md font-semibold py-3 px-6 max-md:px-0">Quantiti</td>
                 <td class="text-md font-bold px-3">:</td>
                 <td>
                     <input
                         v-model="quantity"
                         type="number"
-                        class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 max-md:px-0 max-md:pr-0 max-md:w-44 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         placeholder="Quantity"
                         required
                     >
                 </td>
             </tr>
             <tr>
-                <td class="text-md font-semibold py-3 px-6">Jumlah Harga</td>
+                <td class="text-md font-semibold py-3 px-6 max-md:px-0">Jumlah Harga</td>
                 <td class="text-md font-bold px-3">:</td>
                 <td class="text-md pl-2">RM {{ totalPrice }}.00</td>
             </tr>
             <tr>
-                <td class="text-md font-semibold py-3 px-6">Jumlah Harga Selepas Promosi</td>
+                <td class="text-md font-semibold py-3 px-6 max-md:px-0">Jumlah Harga Selepas Promosi</td>
                 <td class="text-md font-bold px-3">:</td>
                 <td class="text-md pl-2">RM {{ totalPricePromo }}.00</td>
             </tr>

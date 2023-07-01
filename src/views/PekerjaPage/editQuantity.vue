@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
+    <div class="bg-[#f0f0f0] min-h-screenh-screen w-full flex pb-[3%]">
         <SidebarWorker/>
 
         <div v-if="loading" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50">
@@ -11,12 +11,12 @@
           </div>
         </div>
 
-        <div v-else class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
+        <div v-else class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%] max-md:mt-[18%] max-md:ml-0">
             <h1 class="text-xl font-semibold">Tambah Stok Produk</h1>
             <h2 class="text-md text-gray-500">Halaman Utama - Paparan Stok</h2>
-            <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%] max-lg:w-full">
-                <h3 class="text-4xl font-semibold pb-[2%]">Tambah Kuantiti Produk</h3>
-                <div class="flex justify-around">
+            <div class="bg-white w-[90%] mt-[2%] pb-[3%] px-[2%] pt-[2%] max-lg:w-full max-md:h-auto">
+                <h3 class="text-4xl max-md:text-xl font-semibold pb-[2%]">Tambah Kuantiti Produk</h3>
+                <div class="flex justify-around max-md:flex-col">
     <table class="w-[40%]">
       <tr>
         <img :src="product.Gambar" class="w-[200px] mx-auto mt-[8%] scale-125 shadow-2xl max-lg:scale-[1]"/>
@@ -28,7 +28,7 @@
         <td class="text-md font-semibold py-3 px-6">
           Nama Produk
         </td>
-        <td class="text-md font-bold px-3">
+        <td class="text-md font-bold px-3 max-md:px-0">
           :
         </td>
         <td class="text-md pl-2">
@@ -39,7 +39,7 @@
         <td class="text-md font-semibold py-3 px-6">
           ID Produk
         </td>
-        <td class="text-md font-bold px-3">
+        <td class="text-md font-bold px-3 max-md:px-0">
           :
         </td>
         <td class="text-md pl-2">
@@ -50,7 +50,7 @@
         <td class="text-md font-semibold py-3 px-6">
           Deskripsi Produk
         </td>
-        <td class="text-md font-bold px-3">
+        <td class="text-md font-bold px-3 max-md:px-0">
           :
         </td>
         <td class="text-md pl-2">
@@ -61,7 +61,7 @@
         <td class="text-md font-semibold py-3 px-6">
           Harga Produk
         </td>
-        <td class="text-md font-bold px-3">
+        <td class="text-md font-bold px-3 max-md:px-0">
           :
         </td>
         <td class="text-md pl-2">
@@ -72,7 +72,7 @@
         <td class="text-md font-semibold py-3 px-6">
           Kategori Produk
         </td>
-        <td class="text-md font-bold px-3">
+        <td class="text-md font-bold px-3 max-md:px-0">
           :
         </td>
         <td class="text-md pl-2" v-if="product.Kategori">
@@ -83,7 +83,7 @@
         <td class="text-md font-semibold py-3 px-6">
           Saiz Produk
         </td>
-        <td class="text-md font-bold px-3">
+        <td class="text-md font-bold px-3 max-md:px-0">
           :
         </td>
         <td class="text-md pl-2">
@@ -91,14 +91,14 @@
         </td>
       </tr>
       <tr>
-        <td class="text-md font-semibold py-3 px-6">
+        <td class="text-md font-semibold py-3 px-6 ">
           Kuantiti Produk
         </td>
-        <td class="text-md font-bold px-3">
+        <td class="text-md font-bold px-3 max-md:px-0">
           :
         </td>
         <td class="text-md pl-2"> 
-          <input type="number" class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" v-model="kuantiti" />
+          <input type="number" class="mt-2 appearance-none bg-gray-200 border border-gray-200 text-gray-700 py-[6PX] px-4 pr-8 max-md:px-0 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" v-model="kuantiti" />
         </td>
       </tr>
     </table>

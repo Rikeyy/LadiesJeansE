@@ -5,7 +5,7 @@
 <template>
     <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%] ">
         <SidebarWorker/>
-      <div class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
+      <div class="ml-[22%] mt-[2.7%] w-full h-[90%]  max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%] max-md:mt-[18%] max-md:ml-0">
         <h1 class="text-xl font-semibold">Troli</h1>
         <h2 class="text-md text-gray-500">Halaman Utama - Rekod Jualan - <span class="text-sky-500">Troli</span></h2>
   <div class="bg-white shadow-sm  w-[90%] mt-[2%] pb-[4%] px-[2%] pt-[2%] h-[90%] max-lg:w-full max-lg:h-fit">
@@ -14,10 +14,10 @@
         Jumlah barang di dalam troli : <span class="text-blue-600 font-bold text-xl">{{ totalCartQuantity }}</span>
       </div>
       <div>
-        <p @click="clearCart" class="text-red-500 text-right cursor-pointer">Kosongkan Troli <i class="fa-solid fa-eraser text-xl"></i></p>
+        <p @click="clearCart" class="text-red-500 text-right cursor-pointer" >Kosongkan Troli <i class="fa-solid fa-eraser text-xl"></i></p>
       </div>
     </div>
-    <div class="h-[500px] shadow-xl text-[13px] w-[95%] m-auto my-[2%] overflow-auto ">
+    <div class="h-[500px] shadow-xl text-[13px] w-[95%] m-auto my-[2%] overflow-auto max-md:h-[400px]">
       <table class=" m-auto">
         <thead  class=" uppercase bg-sky-400 text-white text-center w-[500px] sticky top-0 z-10">
           <tr>

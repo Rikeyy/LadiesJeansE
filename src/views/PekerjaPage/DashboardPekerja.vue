@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-screen w-full flex">
+    <div class="bg-[#f0f0f0] min-h-screen max-md:pb-5 w-full flex">
         <SidebarWorker/>
 
         <div v-if="loading" class="fixed inset-0 flex items-center bg-black bg-opacity-50 justify-center z-50">
@@ -11,18 +11,18 @@
           </div>
         </div>
 
-        <div v-else class="ml-[22%] mt-[2.7%] w-[75%] h-[90%] max-lg:w-full max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%]">
+        <div v-else class="ml-[22%] mt-[2.7%] w-[75%] h-[90%] max-lg:w-full max-lg:ml-[10%] max-lg:px-[5%] max-lg:mt-[5%] max-md:mt-[18%] max-md:ml-0">
             <div >
                 <h1 class="text-xl font-semibold">Halaman Utama</h1>
                 <h2 class="text-md text-gray-500">Halaman Utama - <span class="text-sky-400">Papan Pemuka</span></h2>
             </div>
             
-            <div class="flex justify-around mt-[2%] ">
+            <div class="flex justify-around max-md:justify-center mt-[2%] ">
 
-                <div  class="w-full h-60 bg-[#cbf0f4] rounded-lg shadow-lg flex justify-center">
-                    <img :src="workerData.GambarPekerja" class="h-[80%] rounded-xl shadow-md shadow-sky-500 ml-[3%] mt-[1.5%] mr-[4%] max-lg:mt-[3%]"/>
+                <div  class="w-full h-auto bg-[#cbf0f4] rounded-lg shadow-lg flex max-md:flex-col justify-center">
+                    <img :src="workerData.GambarPekerja" class="h-52 mb-5 rounded-xl max-md:scale-50 max-md:mt-[-20%] max-md:h-auto shadow-md shadow-sky-500 ml-[3%] mt-[1.5%] mr-[4%] max-lg:mt-[3%]"/>
                     <div>
-                        <table class="mt-[16%] max-lg:mt-[20%]">
+                        <table class="mt-[16%] max-md:mt-[-20%] max-md:text-center max-md:w-full">
                             <tr class="font-bold text-xl ">
                                 <td>
                                     {{ workerData.Nama_Pekerja }}
@@ -45,9 +45,9 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="h-52 w-1 bg-sky-300 my-auto ml-[2%] max-lg:ml-[0%]"></div>
-                    <div>
-                        <table class="ml-[5%] mt-[8%] max-lg:mt-[15%]">
+                    <div class="h-52 w-1 bg-sky-300 my-auto ml-[2%] max-lg:ml-[0%] max-md:hidden"></div>
+                    <div class="max-md:ml-[-6%] max-md:pt-5">
+                        <table class="ml-[5%] mt-[8%] max-md:mt-0 max-md:mb-3 max-lg:mt-[15%] max-md:text-center ">
                             <tr>
                                 <td class="font-semibold text-md">
                                     Alamat:
@@ -79,27 +79,27 @@
                     Promosi Produk
                     <p class="mt-1 font-normal text-sm text-gray-400">Sila fahamkan dan hafal promosi-promosi yang ada bagi tujuan jualan.</p>
                 </div>
-                <div class="relative overflow-y-auto shadow-xl h-[320px] m-auto max-lg:h-[650px] max-lg:px-[1%] ">
+                <div class="relative overflow-y-auto shadow-xl h-[320px] m-auto max-lg:h-[650px] max-lg:px-[1%] max-md:h-[420px]">
             <table class="w-full text-[13px] text-left">
         
             <thead class="uppercase bg-sky-400 text-white text-center sticky top-0 z-10">
                 <tr>
-                <th scope="col" class="py-3 w-[10%]">
+                <th scope="col" class="py-3 w-[10%] max-md:px-6">
                     ID Promosi
                 </th>
-                <th scope="col" class="py-3">
+                <th scope="col" class="py-3 max-md:px-5">
                     Nama Promosi
                 </th>
-                <th scope="col" class="py-3">
+                <th scope="col" class="py-3 max-md:px-12">
                     Deskripsi promosi
                 </th>
-                <th scope="col" class="py-3">
+                <th scope="col" class="py-3 max-md:px-5">
                     Harga Promosi (RM)
                 </th>
-                <th scope="col" class="py-3">
+                <th scope="col" class="py-3 max-md:px-5">
                     Status Promosi
                 </th>
-                <th scope="col" class="py-3">
+                <th scope="col" class="py-3 max-md:px-12">
                     Kategori Terlibat
                 </th>
                 </tr>
