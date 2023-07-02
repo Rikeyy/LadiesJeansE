@@ -136,7 +136,7 @@
                                     </td>
                                    <td class="px-6 py-4 flex justify-around">
                                      <RouterLink :to="'/update-product/' + produk.id">
-                                         <i class="fa-solid fa-pen-to-square text-lg text-black cursor-pointer"></i>
+                                         <i class="fa-solid fa-pen-to-square text-lg text-yellow-500 cursor-pointer"></i>
                                      </RouterLink>
                                        <i class="fa-sharp fa-solid fa-trash text-lg text-red-600 cursor-pointer" @click="deleteProduct(produk.Produk_ID)"></i>
                                    </td>
