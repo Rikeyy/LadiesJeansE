@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="bg-[#f0f0f0] h-screen w-full flex pb-[3%]">
+    <div class="bg-[#f0f0f0] min-h-screen w-full flex pb-[3%]">
         <SidebarManager/>
         <div class="ml-[22%] mt-[2.7%] w-full h-[90%]">
             <h1 class="text-xl font-semibold">Paparan Stok</h1>
