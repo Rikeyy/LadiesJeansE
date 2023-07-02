@@ -28,7 +28,7 @@
                         </select>
                     </div>
                 </div >
-                <div class="w-[92%] relative overflow-y-auto shadow-xl min-h-[550px] mx-auto">
+                <div class="w-[92%] relative overflow-y-auto shadow-xl h-[600px] mx-auto">
                     <table class=" m-auto text-[13px] w-full">
                         <thead class=" text-gray-700 uppercase bg-sky-400 dark:text-white text-center">
                             <tr>
