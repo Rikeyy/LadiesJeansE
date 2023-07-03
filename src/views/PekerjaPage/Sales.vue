@@ -32,11 +32,11 @@
               
             </div>
             <tr>
-              <td rowspan="6" class="max-md:hidden">
+              <td rowspan="6" class="max-md:hidden ">
                 <img v-if="!isSearchEmpty && productData" :src="productData.Gambar" class="w-[160px] h-[200px]"/>
                 <p v-else class="w-[160px] h-[200px] border-black border-2 text-center">Gambar</p>
               </td>
-              <td class="max-md:show xl:hidden ">
+              <td class="max-md:show xl:hidden lg:hidden">
                 <img v-if="!isSearchEmpty && productData" :src="productData.Gambar" class="w-[160px] h-[200px] "/>
                 <p v-else class="w-[160px] h-[200px] max-md:w-[120px] max-md:h-[150px] border-black border-2  text-center">Gambar</p>
               </td>
